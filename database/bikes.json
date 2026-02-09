@@ -1,0 +1,527 @@
+[
+    {
+        "name": "368G",
+        "slug": "368g",
+        "brand": "ZONTES",
+        "originalBrand": "HONDA",
+        "weight": "200",
+        "category": "대형",
+        "engine": "단가통",
+        "displacement": "368",
+        "cooling": "수냉",
+        "maxPower": "38.8ps/7,500rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770627413734-472197412.jpg",
+                "colorHex": "rgb(2, 2, 2)",
+                "colorName": "Black"
+            },
+            {
+                "image": "/uploads/1770627413758-200942401.jpg",
+                "colorHex": "rgba(211, 218, 230, 1)",
+                "colorName": "Cement gray"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770627413762,
+        "created_at": "2026-02-09T08:56:53.762Z",
+        "updated_at": "2026-02-09T08:56:53.762Z"
+    },
+    {
+        "name": "350D",
+        "slug": "350d",
+        "brand": "ZONTES",
+        "originalBrand": "HONDA",
+        "weight": "190",
+        "category": "중형",
+        "engine": "단기통",
+        "displacement": "350",
+        "cooling": "수냉",
+        "maxPower": "36.7ps/7,500rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770627336787-300044940.jpg",
+                "colorHex": "rgb(6, 6, 6)",
+                "colorName": "Black"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770627336802,
+        "created_at": "2026-02-09T08:55:36.802Z",
+        "updated_at": "2026-02-09T08:55:36.802Z"
+    },
+    {
+        "name": "XMAX300",
+        "slug": "xmax300",
+        "brand": "YAMAHA",
+        "originalBrand": "HONDA",
+        "weight": "183",
+        "category": "중형",
+        "engine": "단기통",
+        "displacement": "292",
+        "cooling": "수냉",
+        "maxPower": "20.6kw/7,250rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770627131104-545707870.jpg",
+                "colorHex": "rgb(15, 15, 15)",
+                "colorName": "Icon black"
+            },
+            {
+                "image": "/uploads/1770627131125-922980105.jpg",
+                "colorHex": "rgb(9, 9, 9)",
+                "colorName": "Matt black"
+            },
+            {
+                "image": "/uploads/1770627131130-880305711.jpg",
+                "colorHex": "rgba(204, 59, 54, 1)",
+                "colorName": "Ruby red"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770627131133,
+        "created_at": "2026-02-09T08:52:11.133Z",
+        "updated_at": "2026-02-09T08:52:11.133Z"
+    },
+    {
+        "name": "TMAX560",
+        "slug": "tmax560",
+        "brand": "YAMAHA",
+        "originalBrand": "HONDA",
+        "weight": "221",
+        "category": "대형",
+        "engine": "2기통",
+        "displacement": "562",
+        "cooling": "수냉식",
+        "maxPower": "35.0kw/7,000rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770626992270-803459757.jpg",
+                "colorHex": "rgba(144, 155, 159, 1)",
+                "colorName": "Ceramic gray"
+            },
+            {
+                "image": "/uploads/1770626992300-179796441.jpg",
+                "colorHex": "rgba(69, 60, 60, 1)",
+                "colorName": "Dark magma"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770626992304,
+        "created_at": "2026-02-09T08:49:52.304Z",
+        "updated_at": "2026-02-09T08:50:08.199Z"
+    },
+    {
+        "name": "NMAX125",
+        "slug": "nmax125",
+        "brand": "YAMAHA",
+        "originalBrand": "HONDA",
+        "weight": "132",
+        "category": "소형",
+        "engine": "단기통",
+        "displacement": "125",
+        "cooling": "수냉",
+        "maxPower": "9.0kw/8,000rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770626818967-860583959.jpg",
+                "colorHex": "rgb(12, 12, 12)",
+                "colorName": "Icon black"
+            },
+            {
+                "image": "/uploads/1770626818982-608873243.jpg",
+                "colorHex": "#FFFFFF",
+                "colorName": "Milky white"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770626818986,
+        "created_at": "2026-02-09T08:46:58.986Z",
+        "updated_at": "2026-02-09T08:46:58.986Z"
+    },
+    {
+        "name": "SUPER CUB 110",
+        "slug": "supercub110",
+        "brand": "HONDA",
+        "originalBrand": "HONDA",
+        "weight": "100",
+        "category": "소형",
+        "engine": "단기통",
+        "displacement": "109",
+        "cooling": "공냉식",
+        "maxPower": "9.1ps/8,000rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770626641371-14538694.jpg",
+                "colorHex": "rgba(16, 16, 16, 1)",
+                "colorName": "Asteroid black metallic"
+            },
+            {
+                "image": "/uploads/1770626641395-215892399.jpg",
+                "colorHex": "rgba(102, 138, 149, 1)",
+                "colorName": "Pearl cadet gray"
+            },
+            {
+                "image": "/uploads/1770626641401-73707241.jpg",
+                "colorHex": "rgb(232, 232, 232)",
+                "colorName": "Pearl horizon white"
+            },
+            {
+                "image": "/uploads/1770626641425-697850417.jpg",
+                "colorHex": "rgba(108, 138, 109, 1)",
+                "colorName": "Pearl organic green"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770626641429,
+        "created_at": "2026-02-09T08:44:01.428Z",
+        "updated_at": "2026-02-09T08:57:38.370Z"
+    },
+    {
+        "name": "FORZA350",
+        "slug": "forza350",
+        "brand": "HONDA",
+        "originalBrand": "HONDA",
+        "weight": "185",
+        "category": "중형",
+        "engine": "단기통",
+        "displacement": "330",
+        "cooling": "수냉식",
+        "maxPower": "29.4ps/7,500rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770626503701-540285640.jpg",
+                "colorHex": "rgba(209, 52, 55, 1)",
+                "colorName": "Candy rosy red"
+            },
+            {
+                "image": "/uploads/1770626503726-821757168.jpg",
+                "colorHex": "rgba(255, 255, 255, 1)",
+                "colorName": "Pearl jubilee white"
+            },
+            {
+                "image": "/uploads/1770626503753-915889704.jpg",
+                "colorHex": "rgba(25, 26, 27, 1)",
+                "colorName": "Pearl shining black"
+            },
+            {
+                "image": "/uploads/1770626503769-505547967.jpg",
+                "colorHex": "rgba(134, 136, 133, 1)",
+                "colorName": "Pearl smoky gray"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770626503782,
+        "created_at": "2026-02-09T08:41:43.782Z",
+        "updated_at": "2026-02-09T08:41:43.782Z"
+    },
+    {
+        "name": "X-ADV750",
+        "slug": "xadv750",
+        "brand": "HONDA",
+        "originalBrand": "HONDA",
+        "weight": "235",
+        "category": "대형",
+        "engine": "직렬 2기통",
+        "displacement": "745",
+        "cooling": "수냉식",
+        "maxPower": "58.6ps/6,750rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770626284870-258383193.jpg",
+                "colorHex": "rgba(41, 41, 41, 1)",
+                "colorName": "Graphite black"
+            },
+            {
+                "image": "/uploads/1770626284893-720211963.jpg",
+                "colorHex": "rgba(132, 132, 130, 1)",
+                "colorName": "Matte deep mud gray"
+            },
+            {
+                "image": "/uploads/1770626284898-627395434.jpg",
+                "colorHex": "rgba(217, 192, 53, 1)",
+                "colorName": "Matte gold finch yellow"
+            },
+            {
+                "image": "/uploads/1770626284903-384869513.jpg",
+                "colorHex": "rgb(250, 250, 250)",
+                "colorName": "Pearl glare white"
+            },
+            {
+                "image": "/uploads/1770626284909-595718784.jpg",
+                "colorHex": "rgb(255, 255, 255)",
+                "colorName": "Pearl white SE"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770626284912,
+        "created_at": "2026-02-09T08:38:04.912Z",
+        "updated_at": "2026-02-09T08:57:47.452Z"
+    },
+    {
+        "name": "FORZA750",
+        "slug": "forza750",
+        "brand": "HONDA",
+        "originalBrand": "HONDA",
+        "weight": "235",
+        "category": "대형",
+        "engine": "직렬 2기통",
+        "displacement": "745",
+        "cooling": "수냉식",
+        "maxPower": "58.6ps/6,750rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770626048494-294010783.jpg",
+                "colorHex": "rgba(69, 69, 69, 1)",
+                "colorName": "Irdium gray"
+            },
+            {
+                "image": "/uploads/1770626048512-236002388.jpg",
+                "colorHex": "rgba(49, 49, 49, 1)",
+                "colorName": "Mat black"
+            },
+            {
+                "image": "/uploads/1770626048517-184231561.jpg",
+                "colorHex": "rgba(116, 108, 101, 1)",
+                "colorName": "Mat warm ash"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770626048520,
+        "created_at": "2026-02-09T08:34:08.520Z",
+        "updated_at": "2026-02-09T08:57:54.420Z"
+    },
+    {
+        "name": "ADV350",
+        "slug": "adv350",
+        "brand": "HONDA",
+        "originalBrand": "HONDA",
+        "weight": "190",
+        "category": "중형",
+        "engine": "단기통",
+        "displacement": "330",
+        "cooling": "수냉식",
+        "maxPower": "29.4ps/7,500rpm",
+        "isPopular": false,
+        "items": [
+            {
+                "image": "/uploads/1770625791081-143878045.jpg",
+                "colorHex": "rgb(6, 6, 6)",
+                "colorName": "Mat Gunpowder Black metallic"
+            },
+            {
+                "image": "/uploads/1770625791100-554457905.jpg",
+                "colorHex": "rgb(1, 45, 199)",
+                "colorName": "Mat Pearl Agile Blue"
+            },
+            {
+                "image": "/uploads/1770625791120-949433488.jpg",
+                "colorHex": "rgb(195, 1, 1)",
+                "colorName": "Moscato Red Metallic"
+            }
+        ],
+        "isCompleted": false,
+        "maintenanceStatus": "양호",
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColor": "",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "id": 1770625791125,
+        "created_at": "2026-02-09T08:29:51.125Z",
+        "updated_at": "2026-02-09T08:31:44.537Z"
+    },
+    {
+        "id": 1,
+        "name": "PCX125",
+        "slug": "pcx125",
+        "brand": "HONDA",
+        "originalBrand": "HONDA",
+        "category": "소형",
+        "isPopular": true,
+        "weight": "140",
+        "engine": "단기통",
+        "displacement": "125",
+        "cooling": "수냉식",
+        "maxPower": "12.5ps / 8,750rpm",
+        "maintenanceStatus": "신차급",
+        "items": [
+            {
+                "image": "/uploads/1770625261979-381552923.jpg",
+                "colorHex": "rgb(12, 12, 12)",
+                "colorName": "Mat Galaxy Black Metallic"
+            },
+            {
+                "image": "/uploads/1770625262006-763533812.jpg",
+                "colorHex": "rgb(160, 160, 160)",
+                "colorName": "Pearl Jupiter Gray"
+            },
+            {
+                "image": "/uploads/1770625262016-39212305.jpg",
+                "colorHex": "rgb(12, 12, 12)",
+                "colorName": "Pearl Magellanic Black"
+            },
+            {
+                "image": "/uploads/1770625262021-666693496.jpg",
+                "colorHex": "rgb(255, 255, 255)",
+                "colorName": "Pearl Snowflake White"
+            }
+        ],
+        "isCompleted": false,
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "updated_at": "2026-02-09T08:26:28.355Z"
+    },
+    {
+        "id": 2,
+        "name": "NMAX155",
+        "slug": "nmax155",
+        "brand": "YAMAHA",
+        "originalBrand": "YAMAHA",
+        "category": "소형",
+        "isPopular": true,
+        "weight": "135",
+        "engine": "단기통",
+        "displacement": "155",
+        "cooling": "수냉식",
+        "maxPower": "15.3kw/8,000rpm",
+        "maintenanceStatus": "우수",
+        "items": [
+            {
+                "image": "/uploads/1770626904404-12612852.jpg",
+                "colorHex": "rgb(74, 65, 65)",
+                "colorName": "Dark magma"
+            },
+            {
+                "image": "/uploads/1770626904424-248928148.jpg",
+                "colorHex": "rgba(30, 30, 30, 1)",
+                "colorName": "Icon black"
+            }
+        ],
+        "isCompleted": false,
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "updated_at": "2026-02-09T08:48:24.427Z"
+    },
+    {
+        "id": 3,
+        "name": "125D",
+        "slug": "125d",
+        "brand": "ZONTES",
+        "originalBrand": "ZONTES",
+        "category": "소형",
+        "isPopular": false,
+        "weight": "138",
+        "engine": "단기통",
+        "displacement": "125",
+        "cooling": "수냉식",
+        "maxPower": "14.5ps/8,250rpm",
+        "maintenanceStatus": "최상",
+        "items": [
+            {
+                "image": "/uploads/1770627276517-812264772.jpg",
+                "colorHex": "rgb(7, 7, 7)",
+                "colorName": "Black"
+            }
+        ],
+        "isCompleted": false,
+        "rentalFee": "상담 시 안내",
+        "successionFee": "0",
+        "location": "전국",
+        "transferMethod": "전국 탁송",
+        "successionColorHex": "#000000",
+        "successionImages": [],
+        "updated_at": "2026-02-09T08:54:36.532Z"
+    }
+]

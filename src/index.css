@@ -1,0 +1,155 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import "tailwindcss";
+
+@theme {
+  /* Ridy New Design Tokens */
+  --color-primary: #4A61ED;
+  --color-primary-dark: #3A4CC0;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-background: #F7F8FA;
+  --color-foreground: #1A1A1A;
+
+  --color-muted: #F1F2F4;
+  --color-muted-foreground: #767676;
+
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A1A;
+
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Custom Spacing - Matching previous system */
+  --spacing-space-xs: 0.5rem;
+  --spacing-space-s: 1rem;
+  --spacing-space-m: 2rem;
+  --spacing-space-l: 4rem;
+  --spacing-space-xl: 8rem;
+  --spacing-space-2xl: 12rem;
+}
+
+/* Global Styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans leading-relaxed;
+  }
+
+  /* Force Pretendard on all form elements and placeholders */
+  input,
+  button,
+  select,
+  textarea,
+  optgroup,
+  option {
+    font-family: inherit;
+    font-weight: inherit;
+  }
+
+  ::placeholder {
+    font-family: var(--font-sans);
+    @apply text-slate-300 opacity-60;
+  }
+
+  a {
+    @apply no-underline transition-all duration-300;
+    color: inherit;
+  }
+}
+
+/* Components */
+@layer components {
+  .container {
+    @apply w-full max-w-[1280px] mx-auto px-8;
+  }
+
+  /* Shadcn/Halo Card */
+  .card-halo {
+    @apply bg-card border border-black/5 rounded-lg p-12 flex flex-col gap-4 transition-all duration-500;
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.05);
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-halo:hover {
+    @apply -translate-y-2 border-primary/10;
+    box-shadow: 0 30px 60px -20px rgba(74, 97, 237, 0.12);
+  }
+
+  /* Updated Buttons from Brief */
+  .btn-halo {
+    @apply inline-flex items-center justify-center rounded-pill text-base font-semibold px-6 py-3 transition-all duration-200 cursor-pointer border-none font-sans;
+  }
+
+  .btn-halo-primary {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .btn-halo-primary:hover {
+    @apply bg-primary-dark;
+    box-shadow: 0 8px 16px rgba(74, 97, 237, 0.25);
+  }
+
+  .btn-halo-outline {
+    @apply bg-transparent border border-muted text-foreground hover:bg-muted font-bold;
+  }
+
+  /* Badge (Halo Label) */
+  .badge-halo {
+    @apply inline-flex items-center justify-center rounded-pill px-4 py-2 text-sm font-bold bg-primary/10 text-primary;
+  }
+
+  /* Typography */
+  .text-h1 {
+    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1];
+  }
+
+  .text-h2 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2];
+  }
+
+  .text-p {
+    @apply text-xl text-muted-foreground font-medium leading-relaxed;
+  }
+
+  /* Floating Navbar Extension */
+  header.fixed {
+    @apply top-[10px] mx-5 rounded-[20px] bg-white/85 backdrop-blur-2xl border border-black/5 pt-2.5 pb-2.5;
+    width: calc(100% - 40px);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Admin CMS Styles */
+  .cms-input {
+    @apply w-full px-5 py-4 bg-white border border-slate-200 outline-none rounded-xl text-sm font-bold transition-all focus:ring-4 focus:ring-primary/5 focus:border-primary/40 placeholder:text-slate-300;
+  }
+
+  .cms-label {
+    @apply text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-2 block;
+  }
+
+  .su-input {
+    @apply w-full bg-white/5 border border-white/5 rounded-xl p-4 text-sm font-bold outline-none focus:bg-white/10 focus:ring-2 focus:ring-primary/40 focus:border-white/20 transition-all text-white placeholder:text-slate-600;
+  }
+
+  .su-label {
+    @apply text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] pl-1 mb-2 block;
+  }
+}
+
+/* Custom Utilities if needed */
+@layer utilities {
+  .text-cta-halo {
+    @apply inline-flex items-center font-semibold text-muted-foreground cursor-pointer transition-all duration-300 hover:text-primary hover:font-black;
+  }
+}

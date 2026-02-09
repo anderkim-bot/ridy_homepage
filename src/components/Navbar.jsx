@@ -1,0 +1,235 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X, ChevronRight, MessageSquare, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
+import Logo from './svg/2-1.Ridy(가로형) 1.svg';
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSubMenu, setActiveSubMenu] = useState(null); // For Mobile
+  const [isHovered, setIsHovered] = useState(null); // For Desktop
+  const location = useLocation();
+
+  const navItems = [
+    { name: '회사 소개', href: '/brand/intro' },
+    {
+      name: '서비스 안내',
+      href: '/service/info',
+      subItems: [
+        { name: 'RIDY Rental', href: '/service/rental', desc: '합리적인 바이크 렌탈 시스템' },
+        { name: 'RIDY Payout', href: '/service/payout', desc: '라이더를 위한 스마트 정산 앱' },
+        { name: 'RIDY Service Center', href: '/service/center', desc: '전국 최대 규모 정비 네트워크' },
+      ]
+    },
+    {
+      name: '렌탈 기종',
+      href: '/product/rental',
+      subItems: [
+        { name: '혼다 (Honda)', href: '/product/honda', desc: '신뢰의 브랜드, 혼다 인기 모델' },
+        { name: '야마하 (Yamaha)', href: '/product/yamaha', desc: '퍼포먼스의 대명사, 야마하 라인업' },
+        { name: '존테스 (Zontes)', href: '/product/zontes', desc: '가성비와 첨단 사양의 존테스' },
+        { name: '리스 승계', href: '/product/succession', desc: '합리적인 조건의 리스 승계 매물' },
+      ]
+    },
+    { name: '렌탈 문의', href: '/rental/inquiry' },
+    { name: '고객 지원', href: '/board/notice' },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+    setActiveSubMenu(null);
+  }, [location]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'unset';
+  }, [isOpen]);
+
+  return (
+    <>
+      <header
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-2.5 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-sm' : 'bg-transparent'
+          }`}
+      >
+        <div className="container flex justify-between items-center h-full">
+          {/* Logo */}
+          <Link to="/" className="flex items-center hover:scale-[1.02] transition-transform">
+            <img src={Logo} alt="RIDY Logo" className="h-7 md:h-8.5 w-auto" />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-10">
+            {navItems.map((item) => (
+              <div
+                key={item.name}
+                className="relative py-4"
+                onMouseEnter={() => setIsHovered(item.name)}
+                onMouseLeave={() => setIsHovered(null)}
+              >
+                <Link
+                  to={item.href}
+                  className={`flex items-center gap-1 text-[15px] transition-all duration-300 ${location.pathname.startsWith(item.href)
+                    ? 'text-primary font-black'
+                    : 'text-slate-500 font-bold hover:text-primary'
+                    }`}
+                >
+                  {item.name}
+                  {item.subItems && (
+                    <ChevronDown size={14} className={`transition-transform duration-300 ${isHovered === item.name ? 'rotate-180' : ''}`} />
+                  )}
+                </Link>
+
+                {/* Submenu Dropdown */}
+                <AnimatePresence>
+                  {item.subItems && isHovered === item.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 5 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-white rounded-2xl shadow-xl border border-slate-50 p-3 mt-1"
+                    >
+                      <div className="flex flex-col gap-1">
+                        {item.subItems.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            to={sub.href}
+                            className="p-3 rounded-xl hover:bg-slate-50 group transition-all"
+                          >
+                            <span className="block text-sm font-black text-foreground group-hover:text-primary transition-colors">
+                              {sub.name}
+                            </span>
+                            <span className="block text-[11px] text-slate-400 font-medium">
+                              {sub.desc}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </nav>
+
+          {/* CTA & Mobile Toggle */}
+          <div className="flex items-center gap-3 md:gap-4">
+            <Link
+              to="/rental/inquiry"
+              className="btn-halo btn-halo-primary !px-5 md:!px-8 !py-3 !text-[13px] md:!text-[15px] flex items-center gap-2"
+            >
+              <MessageSquare size={16} className="hidden sm:block" />
+              <span>문의하기</span>
+            </Link>
+
+            <button
+              className="md:hidden p-2 rounded-xl bg-slate-50 text-slate-900 border border-slate-200"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[90] bg-white pt-28 overflow-y-auto"
+          >
+            <div className="container flex flex-col gap-8 pb-10">
+              <div className="flex flex-col gap-2">
+                <p className="text-xs font-bold text-primary uppercase tracking-widest pl-4">Menu</p>
+                <div className="flex flex-col">
+                  {navItems.map((item, idx) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                    >
+                      {item.subItems ? (
+                        <div className="border-b border-slate-50">
+                          <button
+                            onClick={() => setActiveSubMenu(activeSubMenu === item.name ? null : item.name)}
+                            className={`w-full flex justify-between items-center px-4 py-5 text-xl font-bold transition-colors ${activeSubMenu === item.name ? 'text-primary' : 'text-foreground'
+                              }`}
+                          >
+                            <span>{item.name}</span>
+                            <ChevronDown
+                              size={20}
+                              className={`transition-transform duration-300 ${activeSubMenu === item.name ? 'rotate-180 text-primary' : 'text-slate-300'}`}
+                            />
+                          </button>
+
+                          <AnimatePresence initial={false}>
+                            {activeSubMenu === item.name && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="overflow-hidden bg-slate-50/50"
+                              >
+                                {item.subItems.map((sub) => (
+                                  <Link
+                                    key={sub.name}
+                                    to={sub.href}
+                                    className="flex items-center justify-between px-6 py-4 border-b border-white/50"
+                                  >
+                                    <div className="flex flex-col">
+                                      <span className="text-[16px] font-black">{sub.name}</span>
+                                      <span className="text-[11px] text-slate-400">{sub.desc}</span>
+                                    </div>
+                                    <ChevronRight size={16} className="text-slate-300" />
+                                  </Link>
+                                ))}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          className="flex justify-between items-center px-4 py-5 text-xl font-bold border-b border-slate-50 transition-colors"
+                        >
+                          <span>{item.name}</span>
+                          <ChevronRight size={20} className="text-slate-300" />
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-6 bg-slate-50 rounded-[32px] flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <h4 className="text-lg font-black text-foreground">라이더를 위한 토탈 솔루션</h4>
+                  <p className="text-sm text-slate-500 font-medium">지금 라이디 앱을 다운로드하고 <br />스마트한 주행을 시작하세요.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button className="h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-sm font-bold shadow-sm">
+                    App Store
+                  </button>
+                  <button className="h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-sm font-bold shadow-sm">
+                    Google Play
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default Navbar;
