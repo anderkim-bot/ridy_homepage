@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { bikeService } from '../../services/bikeService';
+import AdminTabs from '../../components/admin/AdminTabs';
 
 // Schema for Validation
 const modelSchema = z.object({
@@ -117,6 +118,8 @@ const AdminModels = () => {
     const [models, setModels] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
 
     const loadModels = async () => {
         setIsLoading(true);
@@ -269,15 +272,22 @@ const AdminModels = () => {
         setIsModalOpen(true);
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm('기종을 삭제하시겠습니까?')) {
-            try {
-                await bikeService.deleteBike(id);
-                loadModels();
-            } catch (error) {
-                console.error('Error deleting bike:', error);
-                alert('삭제 중 오류가 발생했습니다.');
-            }
+    const handleDeleteClick = (model) => {
+        setItemToDelete(model);
+        setIsDeleteModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (!itemToDelete) return;
+
+        try {
+            await bikeService.deleteBike(itemToDelete.id);
+            loadModels();
+            setIsDeleteModalOpen(false);
+            setItemToDelete(null);
+        } catch (error) {
+            console.error('Error deleting bike:', error);
+            alert('삭제 중 오류가 발생했습니다.');
         }
     };
 
@@ -415,14 +425,19 @@ const AdminModels = () => {
     return (
         <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12 font-sans text-slate-900">
             <div className="max-w-[1500px] mx-auto">
-                <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-8 mb-10 md:mb-16">
+                <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-10 lg:mb-16">
                     <div className="space-y-3">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 md:w-14 md:h-14 bg-primary rounded-[14px] flex items-center justify-center shadow-lg shadow-primary/20"><PackagePlus className="text-white w-6 h-6 md:w-8 md:h-8" /></div>
-                            <div>
-                                <h1 className="text-2xl md:text-3xl font-black tracking-tight text-slate-900 leading-none">Ridy Console</h1>
-                                <p className="text-[10px] md:text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Model & Succession Manager</p>
+                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-indigo-600 rounded-[20px] flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                <PackagePlus className="text-white w-6 h-6 lg:w-8 lg:h-8" />
                             </div>
+                            <div className="shrink-0 flex flex-col whitespace-nowrap">
+                                <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900 leading-none">기종 관리</h1>
+                                <p className="text-[10px] lg:text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Model & Succession Manager</p>
+                            </div>
+                        </div>
+                        <div className="mt-8">
+                            <AdminTabs />
                         </div>
                     </div>
                     <button
@@ -452,7 +467,7 @@ const AdminModels = () => {
                             setEditingId(null);
                             setIsModalOpen(true);
                         }}
-                        className="w-full md:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 md:py-4.5 rounded-[12px] md:rounded-[16px] font-black text-sm md:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10"
+                        className="w-full lg:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 lg:py-4.5 rounded-[16px] lg:rounded-[20px] font-black text-sm lg:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10 whitespace-nowrap shrink-0"
                     >
                         <Plus size={20} />
                         <span>신규 기종 추가</span>
@@ -477,7 +492,7 @@ const AdminModels = () => {
                 ) : (
                     <>
                         {/* Desktop Table */}
-                        <div className="hidden md:block bg-white rounded-[20px] md:rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
+                        <div className="hidden lg:block bg-white rounded-[20px] md:rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
                             <table className="w-full text-left">
                                 <thead className="bg-slate-50/50 border-b border-slate-100"><tr className="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em]"><th className="px-8 py-6">Model & Identity</th><th className="px-8 py-6">Classification</th><th className="px-8 py-6 text-right">Settings</th></tr></thead>
                                 <tbody className="divide-y divide-slate-100">
@@ -499,7 +514,7 @@ const AdminModels = () => {
                                                     )}
                                                 </div>
                                             </td>
-                                            <td className="px-8 py-6"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => handleEdit(model)} className="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-primary hover:border-primary transition-all flex items-center justify-center"><Edit3 size={16} /></button><button onClick={() => handleDelete(model.id)} className="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"><Trash2 size={16} /></button></div></td>
+                                            <td className="px-8 py-6"><div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => handleEdit(model)} className="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-primary hover:border-primary transition-all flex items-center justify-center"><Edit3 size={16} /></button><button onClick={() => handleDeleteClick(model)} className="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-red-500 hover:border-red-500 transition-all flex items-center justify-center"><Trash2 size={16} /></button></div></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -507,12 +522,12 @@ const AdminModels = () => {
                         </div>
 
                         {/* Mobile Cards */}
-                        <div className="md:hidden space-y-3">
+                        <div className="lg:hidden space-y-3">
                             {models.filter(m => activeTab === 'ALL' || m.brand === activeTab).map(model => (
                                 <div key={model.id} className="bg-white p-4 rounded-[20px] border border-slate-200 shadow-sm flex items-center gap-4">
                                     <div className="w-14 h-14 rounded-[12px] bg-slate-100 overflow-hidden border border-slate-100 shrink-0"><img src={model.brand === 'SUCCESSION' ? (model.succession_images?.[0] || model.successionImages?.[0]) : model.items?.[0]?.image} className="w-full h-full object-cover" alt="" /></div>
                                     <div className="flex-1 min-w-0"><div className="flex flex-col"><span className="text-base font-black text-slate-900 truncate">{model.name}</span><div className="flex items-center gap-2 mt-1"><span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[8px] font-black tracking-widest uppercase ${model.brand === 'SUCCESSION' ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-600'}`}>{model.brand}</span><span className="text-[9px] font-bold text-slate-400 truncate">/{model.slug}</span></div></div></div>
-                                    <div className="flex gap-2"><button onClick={() => handleEdit(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-primary/10 active:text-primary transition-colors"><Edit3 size={16} /></button><button onClick={() => handleDelete(model.id)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-red-50 active:text-red-500 transition-colors"><Trash2 size={16} /></button></div>
+                                    <div className="flex gap-2"><button onClick={() => handleEdit(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-primary/10 active:text-primary transition-colors"><Edit3 size={16} /></button><button onClick={() => handleDeleteClick(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-red-50 active:text-red-500 transition-colors"><Trash2 size={16} /></button></div>
                                 </div>
                             ))}
                         </div>
@@ -650,6 +665,50 @@ const AdminModels = () => {
                 .no-scrollbar::-webkit-scrollbar { display: none; }
                 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
             `}</style>
+
+            {/* Delete Confirmation Modal */}
+            <AnimatePresence>
+                {isDeleteModalOpen && (
+                    <div className="fixed inset-0 z-[500] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsDeleteModalOpen(false)}
+                            className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className="relative bg-white w-full max-w-sm rounded-[32px] overflow-hidden shadow-2xl p-8 text-center"
+                        >
+                            <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <AlertCircle size={40} className="text-red-500" />
+                            </div>
+                            <h2 className="text-2xl font-black text-slate-900 mb-2">정말 삭제할까요?</h2>
+                            <p className="text-slate-500 font-bold text-sm mb-8 leading-relaxed">
+                                선택하신 항목이 영구히 삭제되며,<br />
+                                이 작업은 되돌릴 수 없습니다.
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => setIsDeleteModalOpen(false)}
+                                    className="flex-1 bg-slate-50 text-slate-500 py-4 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all"
+                                >
+                                    취소
+                                </button>
+                                <button
+                                    onClick={confirmDelete}
+                                    className="flex-1 bg-red-500 text-white py-4 rounded-2xl font-black text-sm hover:bg-red-600 transition-all shadow-lg shadow-red-500/20"
+                                >
+                                    삭제하기
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };

@@ -26,6 +26,7 @@ import Faq from './pages/support/Faq';
 import Archive from './pages/support/Archive';
 import Partnership from './pages/partnership/Center';
 import AdminModels from './pages/admin/AdminModels';
+import AdminNotices from './pages/admin/AdminNotices';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin/models" element={<AdminModels />} />
+            <Route path="/admin/notices" element={<AdminNotices />} />
             <Route path="/product/detail/:slug" element={<ModelDetail />} />
 
             {/* Brand */}

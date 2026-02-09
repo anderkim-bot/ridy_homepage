@@ -60,11 +60,11 @@ const Navbar = () => {
         <div className="container flex justify-between items-center h-full">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:scale-[1.02] transition-transform">
-            <img src={Logo} alt="RIDY Logo" className="h-7 md:h-8.5 w-auto" />
+            <img src={Logo} alt="RIDY Logo" className="h-7 lg:h-8.5 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-10">
             {navItems.map((item) => (
               <div
                 key={item.name}
@@ -74,14 +74,14 @@ const Navbar = () => {
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-1 text-[15px] transition-all duration-300 ${location.pathname.startsWith(item.href)
+                  className={`flex items-center gap-1 text-[15px] whitespace-nowrap shrink-0 transition-all duration-300 ${location.pathname.startsWith(item.href)
                     ? 'text-primary font-black'
                     : 'text-slate-500 font-bold hover:text-primary'
                     }`}
                 >
                   {item.name}
                   {item.subItems && (
-                    <ChevronDown size={14} className={`transition-transform duration-300 ${isHovered === item.name ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={14} className={`shrink-0 transition-transform duration-300 ${isHovered === item.name ? 'rotate-180' : ''}`} />
                   )}
                 </Link>
 
@@ -121,14 +121,14 @@ const Navbar = () => {
           <div className="flex items-center gap-3 md:gap-4">
             <Link
               to="/rental/inquiry"
-              className="btn-halo btn-halo-primary !px-5 md:!px-8 !py-3 !text-[13px] md:!text-[15px] flex items-center gap-2"
+              className="btn-halo btn-halo-primary !px-5 md:!px-8 !py-3 !text-[13px] md:!text-[15px] flex items-center gap-2 whitespace-nowrap shrink-0"
             >
-              <MessageSquare size={16} className="hidden sm:block" />
+              <MessageSquare size={16} className="hidden sm:block shrink-0" />
               <span>문의하기</span>
             </Link>
 
             <button
-              className="md:hidden p-2 rounded-xl bg-slate-50 text-slate-900 border border-slate-200"
+              className="lg:hidden p-2 rounded-xl bg-slate-50 text-slate-900 border border-slate-200"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}

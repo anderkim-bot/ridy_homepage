@@ -13,6 +13,7 @@ const app = express();
 const PORT = 5000;
 const BIKES_PATH = path.join(__dirname, 'database', 'bikes.json');
 const SUCCESSIONS_PATH = path.join(__dirname, 'database', 'successions.json');
+const NOTICES_PATH = path.join(__dirname, 'database', 'notices.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 
 // Ensure uploads directory exists
@@ -58,6 +59,16 @@ const readSuccessions = () => {
     }
 };
 
+const readNotices = () => {
+    try {
+        if (!fs.existsSync(NOTICES_PATH)) return [];
+        return JSON.parse(fs.readFileSync(NOTICES_PATH, 'utf8'));
+    } catch (err) {
+        console.error('Error reading Notices:', err);
+        return [];
+    }
+};
+
 const readAll = () => {
     return [...readBikes(), ...readSuccessions()];
 };
@@ -79,6 +90,16 @@ const writeSuccessions = (data) => {
         return true;
     } catch (err) {
         console.error('Error writing Successions:', err);
+        return false;
+    }
+};
+
+const writeNotices = (data) => {
+    try {
+        fs.writeFileSync(NOTICES_PATH, JSON.stringify(data, null, 4), 'utf8');
+        return true;
+    } catch (err) {
+        console.error('Error writing Notices:', err);
         return false;
     }
 };
@@ -141,6 +162,50 @@ app.delete('/api/bikes/:id', (req, res) => {
     } else {
         writeSuccessions(successionsFiltered);
     }
+    res.status(204).send();
+});
+
+// --- Notice Endpoints ---
+
+// Get all notices
+app.get('/api/notices', (req, res) => {
+    // Sort by date/id descending
+    const notices = readNotices();
+    notices.sort((a, b) => b.id - a.id);
+    res.json(notices);
+});
+
+// Save notice (Create or Update)
+app.post('/api/notices', (req, res) => {
+    const newNotice = req.body;
+    const notices = readNotices();
+    const now = new Date().toISOString();
+
+    if (newNotice.id && notices.find(n => String(n.id) === String(newNotice.id))) {
+        // Update
+        const index = notices.findIndex(n => String(n.id) === String(newNotice.id));
+        notices[index] = { ...notices[index], ...newNotice, updated_at: now };
+        writeNotices(notices);
+        res.json(notices[index]);
+    } else {
+        // Create
+        const noticeToAdd = {
+            ...newNotice,
+            id: Date.now(),
+            created_at: now,
+            updated_at: now
+        };
+        notices.unshift(noticeToAdd);
+        writeNotices(notices);
+        res.status(201).json(noticeToAdd);
+    }
+});
+
+// Delete notice
+app.delete('/api/notices/:id', (req, res) => {
+    const notices = readNotices();
+    const filtered = notices.filter(n => String(n.id) !== String(req.params.id));
+    writeNotices(filtered);
     res.status(204).send();
 });
 

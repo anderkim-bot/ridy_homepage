@@ -44,6 +44,40 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
 
     const inquiryType = watch('inquiryType');
     const deliveryMethod = watch('deliveryMethod');
+    const selectedModel = watch('model');
+
+    // Available models for Rental vs Lease
+    const RENTAL_MODELS = [
+        { name: 'PCX125', val: 'PCX125' }
+    ];
+
+    const LEASE_MODELS = [
+        { name: 'PCX125', val: 'PCX125' },
+        { name: 'NMAX125', val: 'NMAX125' },
+        { name: 'NMAX155', val: 'NMAX155' },
+        { name: 'FORZA350', val: 'FORZA350' },
+        { name: 'XMAX300', val: 'XMAX300' },
+        { name: 'TMAX560', val: 'TMAX560' },
+        { name: 'FORZA750', val: 'FORZA750' },
+        { name: 'SUPER CUB 110', val: 'SUPERCUB110' },
+        { name: 'ADV125(한솜)', val: 'ADV125' },
+        { name: 'ADV350', val: 'ADV350' },
+        { name: 'X-ADV750', val: 'X-ADV750' },
+        { name: 'ZONTES 125D', val: 'ZONTES 125D' },
+        { name: 'ZONTES 350D', val: 'ZONTES 350D' },
+        { name: 'ZONTES 368G', val: 'ZONTES 368G' },
+        { name: 'BMW C400GT', val: 'BMW C400GT' },
+        { name: 'BMW C400X', val: 'BMW C400X' }
+    ];
+
+    const currentAvailableModels = inquiryType.includes('반납형') ? RENTAL_MODELS : LEASE_MODELS;
+
+    // Reset model if current selection is invalid for the new inquiry type
+    React.useEffect(() => {
+        if (selectedModel && !currentAvailableModels.some(m => m.val === selectedModel)) {
+            setValue('model', currentAvailableModels[0]?.val || '');
+        }
+    }, [inquiryType, currentAvailableModels, selectedModel, setValue]);
 
     const onSubmit = async (data) => {
         setIsSubmitting(true);
@@ -73,7 +107,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
 
     const nextStep = async () => {
         const fieldsToValidate = step === 1
-            ? ['name', 'birthdate', 'phone', 'address', 'inquiryType']
+            ? ['name', 'birthdate', 'phone', 'address', 'inquiryType', 'model']
             : [];
 
         const isValid = await trigger(fieldsToValidate);
@@ -176,55 +210,29 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                                         {[
                                             { label: '반납형 렌탈 (1개월~)', val: '반납형 렌탈 (1개월~)' },
                                             { label: '인수형 리스 (12개월)', val: '인수형 리스 (12개월)' }
-                                        ]
-                                            .filter(item => {
-                                                // Only PCX125 allows both. All others are Acquisition Lease only.
-                                                if (preselectedModel === 'PCX125') return true;
-                                                return item.val === '인수형 리스 (12개월)';
-                                            })
-                                            .map(item => (
-                                                <label key={item.val} className="relative group cursor-pointer">
-                                                    <input type="radio" value={item.val} {...register('inquiryType', { required: true })} className="peer sr-only" />
-                                                    <div className="px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent peer-checked:border-indigo-600 peer-checked:bg-white font-black transition-all group-hover:bg-slate-100 flex items-center justify-center">
-                                                        <span>{item.label}</span>
-                                                    </div>
-                                                </label>
-                                            ))}
+                                        ].map(item => (
+                                            <label key={item.val} className="relative group cursor-pointer">
+                                                <input type="radio" value={item.val} {...register('inquiryType', { required: true })} className="peer sr-only" />
+                                                <div className="px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent peer-checked:border-indigo-600 peer-checked:bg-white font-black transition-all group-hover:bg-slate-100 flex items-center justify-center">
+                                                    <span>{item.label}</span>
+                                                </div>
+                                            </label>
+                                        ))}
                                     </div>
                                 </div>
 
-                                {/* 차종 선택 - Hide if pre-selected via prop/URL */}
-                                {!preselectedModel && !searchParams.get('model') && (
-                                    <div className="space-y-3 animate-in fade-in slide-in-from-top-4 duration-500">
-                                        <label className="flex items-center gap-2 text-sm font-black text-slate-900 uppercase tracking-widest">차종 선택 <span className="text-indigo-600">*</span></label>
-                                        <select
-                                            {...register('model')}
-                                            className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-600 transition-all appearance-none"
-                                        >
-                                            {inquiryType === '반납형 렌탈 (1개월~)' ? (
-                                                <option value="PCX125">PCX125</option>
-                                            ) : (
-                                                <>
-                                                    <option value="PCX125">PCX125</option>
-                                                    <option value="NMAX125">NMAX125</option>
-                                                    <option value="FORZA350">FORZA350</option>
-                                                    <option value="XMAX300">XMAX300</option>
-                                                    <option value="TMAX560">TMAX560</option>
-                                                    <option value="FORZA750">FORZA750</option>
-                                                    <option value="SUPERCUB110">SUPERCUB110</option>
-                                                    <option value="ADV125">ADV125(한솜)</option>
-                                                    <option value="ADV350">ADV350</option>
-                                                    <option value="X-ADV750">X-ADV750</option>
-                                                    <option value="ZONTES 125D">ZONTES 125D</option>
-                                                    <option value="ZONTES 350D">ZONTES 350D</option>
-                                                    <option value="ZONTES 368G">ZONTES 368G</option>
-                                                    <option value="BMW C400GT">BMW C400GT</option>
-                                                    <option value="BMW C400X">BMW C400X</option>
-                                                </>
-                                            )}
-                                        </select>
-                                    </div>
-                                )}
+                                {/* 차종 선택 */}
+                                <div className="space-y-3 animate-in fade-in slide-in-from-top-4 duration-500">
+                                    <label className="flex items-center gap-2 text-sm font-black text-slate-900 uppercase tracking-widest">차종 선택 <span className="text-indigo-600">*</span></label>
+                                    <select
+                                        {...register('model')}
+                                        className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-600 transition-all appearance-none"
+                                    >
+                                        {currentAvailableModels.map(model => (
+                                            <option key={model.val} value={model.val}>{model.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
 
                                 {/* 보험 */}
                                 <div className="space-y-3">
