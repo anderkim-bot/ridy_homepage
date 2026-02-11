@@ -1,5 +1,24 @@
 [
     {
+        "name": "영등포점",
+        "address": "영등포",
+        "detailAddress": "3층",
+        "phone": "01088888888",
+        "hours": "09:00 - 18:00",
+        "services": [
+            "화장실",
+            "와이파이"
+        ],
+        "image": "",
+        "location": {
+            "x": 1437,
+            "y": 1168
+        },
+        "id": "center-1770802494322",
+        "created_at": "2026-02-11T09:34:54.322Z",
+        "updated_at": "2026-02-11T09:34:54.322Z"
+    },
+    {
         "name": "강북점",
         "address": "서울 강북",
         "detailAddress": "5층",
