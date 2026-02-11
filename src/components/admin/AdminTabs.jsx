@@ -36,7 +36,7 @@ const AdminTabs = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex lg:inline-flex bg-slate-200/50 p-1 rounded-2xl w-full">
+        <div className="flex bg-slate-200/50 p-1 rounded-2xl w-full">
             {TABS.map((tab) => {
                 const isActive = location.pathname === tab.path;
                 const Icon = tab.icon;
@@ -45,10 +45,10 @@ const AdminTabs = () => {
                     <button
                         key={tab.id}
                         onClick={() => navigate(tab.path)}
-                        className={`relative flex-1 min-w-0 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-1 md:px-8 py-3 md:py-2.5 rounded-xl text-[11px] md:text-sm font-black transition-all z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
+                        className={`relative flex-1 min-w-0 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 py-3 md:py-2.5 rounded-xl text-[11px] md:text-sm font-black transition-all z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
                             }`}
                     >
-                        <Icon size={20} className="md:w-4 md:h-4 w-5 h-5 mb-1 md:mb-0" />
+                        <Icon size={20} className="md:w-4 md:h-4 w-5 h-5" />
                         <span className="leading-tight text-center">
                             {tab.id === 'centers' ? (
                                 <>서비스센터<br className="md:hidden" />관리</>
