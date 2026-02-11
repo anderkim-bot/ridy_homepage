@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Bike, Wallet, Wrench, ChevronRight, Star, Loader2 } from 'lucide-react';
+import { Bike, CheckCircle2, ChevronRight, ExternalLink, Loader2 } from 'lucide-react';
 import { bikeService } from '../services/bikeService';
+import { caseService } from '../services/caseService';
 
 // Import Custom Brand Logos
 import RidyRentalLogo from './svg/Ridy_Rental_logo.svg';
@@ -49,9 +50,9 @@ const ModelCard = ({ name, brand, slug, image, index }) => (
         className="group h-full"
     >
         <Link to={`/product/detail/${slug}`} className="flex flex-col h-full bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
-            <div className="aspect-[4/3] bg-slate-50 relative overflow-hidden flex items-center justify-center p-8">
+            <div className="aspect-[4/3] bg-slate-50 relative overflow-hidden flex items-center justify-center">
                 {image ? (
-                    <img src={image} alt={name} className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-700" />
+                    <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-200">
                         <Bike size={48} strokeWidth={1} />
@@ -71,30 +72,47 @@ const ModelCard = ({ name, brand, slug, image, index }) => (
     </motion.div>
 );
 
-const ReviewCard = ({ name, content, rating, index }) => (
+const CaseCard = ({ region, description, image, link, created_at, index }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-[#FBFBFC] p-10 rounded-[32px] border border-slate-100 flex flex-col h-full"
+        className="group h-full"
     >
-        <div className="flex gap-1 text-primary mb-6">
-            {[...Array(rating)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
-        </div>
-        <p className="text-[17px] font-semibold text-slate-600 leading-[1.8] mb-10 italic">"{content}"</p>
-        <div className="flex items-center gap-4 mt-auto">
-            <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary font-black text-sm border border-slate-50">{name[0]}</div>
-            <div className="flex flex-col">
-                <span className="text-slate-900 font-black text-sm">{name} 라이더님</span>
-                <span className="text-slate-400 font-bold text-[12px]">실사용 인증 고객</span>
+        <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col h-full bg-white rounded-3xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
+            <div className="aspect-[16/9] bg-slate-50 relative overflow-hidden">
+                {image ? (
+                    <img src={image} alt={description} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center text-slate-200">
+                        <CheckCircle2 size={48} strokeWidth={1} />
+                    </div>
+                )}
+                <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-white/90 backdrop-blur-sm border border-slate-100 rounded-lg text-[11px] font-black text-slate-500 uppercase tracking-wider">{region}</span>
+                </div>
             </div>
-        </div>
+            <div className="p-8 flex flex-col flex-1">
+                <div className="flex items-center gap-2 mb-4 text-[12px] font-bold text-slate-400">
+                    <span>{new Date(created_at).toLocaleDateString()} 출고</span>
+                </div>
+                <h4 className="text-[18px] font-black text-slate-900 leading-snug mb-6 group-hover:text-primary transition-colors line-clamp-2">{description}</h4>
+                <div className="mt-auto flex items-center text-[14px] font-black text-slate-400 group-hover:text-primary transition-colors">
+                    <span className="relative">
+                        출고 리포트 보기
+                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                    </span>
+                    <ExternalLink size={16} className="ml-1.5" />
+                </div>
+            </div>
+        </a>
     </motion.div>
 );
 
 const HomeContent = () => {
     const [displayModels, setDisplayModels] = useState([]);
+    const [recentCases, setRecentCases] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     const services = [
@@ -104,27 +122,30 @@ const HomeContent = () => {
     ];
 
     useEffect(() => {
-        const loadModels = async () => {
+        const loadData = async () => {
             try {
-                const data = await bikeService.getBikes();
+                const [bikesData, casesData] = await Promise.all([
+                    bikeService.getBikes(),
+                    caseService.getAllCases()
+                ]);
+
                 // Filter out SUCCESSION bikes and ensure they have images
-                const allRentalBikes = data.filter(b => b.brand !== 'SUCCESSION' && b.items?.some(item => item.image));
+                const allRentalBikes = bikesData.filter(b => b.brand !== 'SUCCESSION' && b.items?.some(item => item.image));
                 // Use all rental bikes for marquee
                 setDisplayModels(allRentalBikes);
+
+                // Sort cases by date and take top 3
+                const sortedCases = casesData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                setRecentCases(sortedCases.slice(0, 3));
             } catch (error) {
-                console.error('Error loading home models:', error);
+                console.error('Error loading home data:', error);
             } finally {
                 setIsLoading(false);
             }
         };
-        loadModels();
+        loadData();
     }, []);
 
-    const reviews = [
-        { name: "김*한", content: "렌탈부터 정비까지 라이디 하나로 해결되니 배달에만 집중할 수 있어 너무 편합니다.", rating: 5 },
-        { name: "이*민", content: "급하게 당일 출고가 필요했는데 상담부터 배송까지 하루 만에 끝내주셨어요. 최고입니다.", rating: 5 },
-        { name: "박*우", content: "페이아웃 앱 덕분에 정산 관리가 정말 쉬워졌어요. 실시간으로 수익 보는 재미가 있네요.", rating: 5 }
-    ];
 
     return (
         <div className="flex flex-col">
@@ -192,18 +213,30 @@ const HomeContent = () => {
                 </div>
             </section>
 
-            {/* Reviews Section */}
+            {/* Latest Cases Section */}
             <section className="bg-white py-32 md:py-48">
                 <div className="container">
                     <div className="max-w-3xl mx-auto text-center mb-20 flex flex-col gap-6">
-                        <div className="text-primary font-black text-[14px] tracking-[0.2em] uppercase">Testimonials</div>
-                        <h2 className="text-[36px] md:text-[52px] font-black tracking-tight text-slate-900 leading-tight">라이더 생생 후기</h2>
-                        <p className="text-[18px] text-slate-500 font-bold leading-relaxed">라이디와 함께 성공적인 라이딩 파트너십을 이어가는 <br className="hidden md:block" /> 많은 전문가들의 이야기입니다.</p>
+                        <div className="text-primary font-black text-[14px] tracking-[0.2em] uppercase">Release Cases</div>
+                        <h2 className="text-[36px] md:text-[52px] font-black tracking-tight text-slate-900 leading-tight">최신 출고 사례</h2>
+                        <p className="text-[18px] text-slate-500 font-bold leading-relaxed">전국 각지에서 라이디와 함께 새로운 시작을 알린 <br className="hidden md:block" /> 라이더님들의 생생한 출고 현장입니다.</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {reviews.map((review, index) => (
-                            <ReviewCard key={index} {...review} index={index} />
-                        ))}
+                    {isLoading ? (
+                        <div className="py-20 flex flex-col items-center justify-center gap-4">
+                            <Loader2 size={40} className="text-primary animate-spin" />
+                            <p className="text-slate-400 font-bold">출고 사례를 불러오는 중...</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {recentCases.map((item, index) => (
+                                <CaseCard key={item.id} {...item} index={index} />
+                            ))}
+                        </div>
+                    )}
+                    <div className="mt-16 text-center">
+                        <a href="https://cafe.naver.com/ridyservice" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-slate-50 text-slate-600 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all">
+                            더 많은 출고 사례 보기 <ChevronRight size={16} className="ml-2" />
+                        </a>
                     </div>
                 </div>
             </section>

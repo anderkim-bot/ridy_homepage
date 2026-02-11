@@ -12,16 +12,11 @@ const Footer = () => {
                         <h2 className="text-[20px] md:text-[24px] font-extrabold text-white leading-[1.4]">
                             고민하는 사이에도 <br /> 누군가는 달리고 있습니다.
                         </h2>
-                        {/* RIDY White Logo Placeholder */}
-                        <div className="text-white text-[20px] font-extrabold tracking-widest mt-4">RIDY</div>
                     </div>
 
                     <div className="flex flex-col gap-4 w-full md:w-auto">
                         <Link to="/rental/inquiry" className="btn-ridy btn-ridy-dark">
-                            리스 문의하기
-                        </Link>
-                        <Link to="/rental/inquiry" className="btn-ridy btn-ridy-dark">
-                            렌탈 문의하기
+                            리스/렌탈 문의하기
                         </Link>
                     </div>
                 </div>
