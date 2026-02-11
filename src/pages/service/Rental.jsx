@@ -15,10 +15,12 @@ import {
     Smartphone,
     CreditCard,
     UserCheck,
-    MapPin
+    MapPin,
+    MessageCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { caseService } from '../../services/caseService';
+import RentalLogo from '../../components/svg/Ridy_Rental_logo.svg';
 
 const BenefitCard = ({ icon: Icon, title, content, subItems, index }) => (
     <motion.div
@@ -201,49 +203,61 @@ const Rental = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="max-w-4xl mx-auto"
+                        className="max-w-4xl mx-auto mb-20"
                     >
-                        <span className="text-primary font-black tracking-[0.25em] text-[13px] md:text-[15px] uppercase block mb-6">Premium Delivery Solution</span>
+                        <div className="mb-10 flex justify-center">
+                            <img
+                                src={RentalLogo}
+                                alt="RIDY RENTAL"
+                                className="h-10 md:h-12 w-auto brightness-0 invert opacity-80"
+                            />
+                        </div>
                         <h1 className="text-white text-[42px] md:text-[80px] font-black leading-[1.1] tracking-tight mb-8">
                             무심사·비대면 <br className="md:hidden" />
                             <span className="text-white/40">라이디 렌탈</span>
                         </h1>
                         <p className="text-white/60 text-[18px] md:text-[22px] font-bold leading-relaxed max-w-2xl mx-auto">
-                            까다로운 심사 없이, 보증금만 있으면 <br className="hidden md:block" />
+                            까다로운 심사 없이, <br className="hidden md:block" />
                             계약 다음 날 당신의 집 앞으로 배달됩니다.
                         </p>
                     </motion.div>
-                </div>
-            </section>
 
-            {/* Marquee Delivery Cases */}
-            <section className="py-20 bg-white overflow-hidden border-y border-slate-100">
-                <div className="mb-10 text-center">
-                    <span className="text-primary font-black uppercase text-xs tracking-widest mb-2 block">Real-time Delivery</span>
-                    <h2 className="text-[20px] font-black text-slate-900">실시간 출고 현황</h2>
-                </div>
-
-                <div className="flex relative items-center">
+                    {/* Integrated Marquee in Hero - Full Width with reduced roundness */}
                     <motion.div
-                        className="flex whitespace-nowrap"
-                        animate={{ x: [0, -2000] }}
-                        transition={{
-                            x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" }
-                        }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="relative w-screen left-1/2 right-1/2 -ml-[50vw] +mr-[50vw]"
                     >
-                        {[...cases, ...cases, ...cases].map((item, idx) => (
-                            <div key={idx} className="inline-block mx-4 min-w-[320px] p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-16 h-12 bg-slate-200 rounded-lg overflow-hidden shrink-0">
-                                        {item.image && <img src={item.image} alt="" className="w-full h-full object-cover" />}
+                        <div className="mb-6 flex items-center justify-center gap-4">
+                            <div className="h-px w-12 bg-white/10" />
+                            <span className="text-primary font-black uppercase text-[12px] tracking-widest">Real-time Delivery</span>
+                            <div className="h-px w-12 bg-white/10" />
+                        </div>
+
+                        <div className="bg-white/5 backdrop-blur-xl py-6 border-y border-white/10 overflow-hidden">
+                            <motion.div
+                                className="flex whitespace-nowrap"
+                                animate={{ x: [0, -2000] }}
+                                transition={{
+                                    x: { repeat: Infinity, repeatType: "loop", duration: 40, ease: "linear" }
+                                }}
+                            >
+                                {[...cases, ...cases, ...cases].map((item, idx) => (
+                                    <div key={idx} className="inline-block mx-4 min-w-[300px] p-4 bg-white/5 rounded-xl border border-white/5">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-10 bg-white/10 rounded-lg overflow-hidden shrink-0">
+                                                {item.image && <img src={item.image} alt="" className="w-full h-full object-cover" />}
+                                            </div>
+                                            <div className="text-left">
+                                                <p className="text-[13px] font-black text-white line-clamp-1">{item.region} 출고 완료</p>
+                                                <p className="text-[11px] text-white/40 font-bold">{item.description.substring(0, 20)}...</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-[14px] font-black text-slate-800 line-clamp-1">{item.region} 출고 완료</p>
-                                        <p className="text-[12px] text-slate-500 font-bold">{item.description.substring(0, 20)}...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                                ))}
+                            </motion.div>
+                        </div>
                     </motion.div>
                 </div>
             </section>
@@ -308,22 +322,54 @@ const Rental = () => {
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="py-24 bg-primary relative overflow-hidden">
-                <div className="container relative z-10 px-6 text-center">
-                    <h2 className="text-white text-[32px] md:text-[48px] font-black mb-10">
-                        기다림 없는 빠른 시작, <br />
-                        지금 바로 상담해 보세요.
-                    </h2>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/rental/inquiry" className="h-[72px] px-12 bg-white text-primary rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 transition-transform shadow-2xl">
-                            렌탈 신청하기
-                            <ArrowRight className="ml-2 w-6 h-6" />
-                        </Link>
-                        <a href="tel:1588-0000" className="h-[72px] px-12 bg-slate-900 text-white rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 transition-transform">
-                            전화 상담 연결
-                        </a>
+            {/* Final CTA Section */}
+            <section className="py-32 relative overflow-hidden bg-slate-900">
+                {/* Visual Interest Background */}
+                <div className="absolute inset-0">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/20 blur-[120px] rounded-full" />
+                    <div className="absolute top-0 right-0 w-1/4 h-full bg-primary/5 -skew-x-12 translate-x-1/2" />
+
+                    {/* Abstract Speed Lines */}
+                    <div className="absolute inset-0 opacity-10">
+                        <div className="absolute top-1/4 left-0 w-full h-px bg-linear-to-r from-transparent via-primary to-transparent" />
+                        <div className="absolute top-2/4 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent translate-x-1/4" />
+                        <div className="absolute top-3/4 left-0 w-full h-px bg-linear-to-r from-transparent via-primary to-transparent -translate-x-1/4" />
                     </div>
+                </div>
+
+                <div className="container relative z-10 px-6 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="max-w-4xl mx-auto"
+                    >
+                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-black text-xs tracking-widest uppercase mb-8">
+                            Join the Network
+                        </span>
+
+                        <h2 className="text-white text-[36px] md:text-[56px] font-black leading-[1.1] tracking-tight mb-8">
+                            고민하는 사이에도 <br />
+                            <span className="text-primary italic">누군가는 달리고 있습니다.</span>
+                        </h2>
+
+                        <p className="text-white/50 text-[18px] md:text-[22px] font-bold mb-12 max-w-2xl mx-auto">
+                            기다림 없는 빠른 시작, <br className="md:hidden" />
+                            지금 바로 라이디와 함께 성공의 길로 달리세요.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                            <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-2xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
+                                렌탈 신청하기
+                                <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[72px] px-12 bg-[#FEE500] text-slate-900 rounded-2xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                                <MessageCircle className="mr-2 w-6 h-6 fill-current" />
+                                카톡 상담 연결
+                            </a>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
         </div>

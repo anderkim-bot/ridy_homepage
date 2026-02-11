@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import {
     Wrench,
     MapPin,
@@ -13,10 +13,16 @@ import {
     Settings,
     Tag,
     Info,
-    X
+    X,
+    ArrowRight,
+    CheckCircle2,
+    Zap,
+    AlertCircle,
+    Toolbox
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { centerService } from '../../services/centerService';
+import CenterLogo from '../../components/svg/Ridy_Service_center_logo.svg';
 
 const SouthKoreaMap = ({ centers }) => {
     const [hoveredCenter, setHoveredCenter] = useState(null);
@@ -28,8 +34,7 @@ const SouthKoreaMap = ({ centers }) => {
     };
 
     return (
-        <div className="relative w-full aspect-3409/3635 bg-bg-light rounded-3xl overflow-hidden border border-border-subtle/20 shadow-inner group">
-
+        <div className="relative w-full aspect-3409/3635 bg-white rounded-[40px] overflow-hidden border border-slate-100 shadow-2xl group">
             <svg
                 ref={svgRef}
                 viewBox="0 0 3409.59 3635.76"
@@ -56,19 +61,17 @@ const SouthKoreaMap = ({ centers }) => {
                                 handlePinClick(center);
                             }}
                         >
-                            <circle r="55" fill="rgba(79, 70, 229, 0.2)" className="animate-ping" />
-                            <circle r="40" fill="#4f46e5" className="transition-transform group-hover/pin:scale-125" />
-                            <circle r="16" fill="white" />
+                            <circle r="60" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
+                            <circle r="45" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
+                            <circle r="18" fill="white" />
 
-                            {/* Center Name Label */}
-                            <foreignObject x="-400" y="-200" width="800" height="160" className="pointer-events-none overflow-visible">
+                            <foreignObject x="-400" y="-220" width="800" height="180" className="pointer-events-none overflow-visible">
                                 <div className="flex justify-center">
-                                    <span className="px-12 py-6 md:px-10 md:py-5 bg-white/95 backdrop-blur-md border-[3px] border-slate-200 rounded-full text-[66px] md:text-[56px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight transition-all">
+                                    <span className="px-12 py-5 bg-white/95 backdrop-blur-md border-[3px] border-slate-100 rounded-full text-[64px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight">
                                         {center.name}
                                     </span>
                                 </div>
                             </foreignObject>
-
                         </g>
                     )
                 ))}
@@ -80,160 +83,128 @@ const SouthKoreaMap = ({ centers }) => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="absolute bottom-4 md:bottom-6 right-4 md:right-6 left-4 md:left-auto md:w-[380px] bg-white p-3 md:p-6 rounded-[24px] md:rounded-[32px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 z-20 max-h-[90vh] overflow-y-auto custom-scrollbar"
+                        className="absolute bottom-6 left-6 right-6 md:left-auto md:right-8 md:bottom-8 md:w-[420px] bg-white/90 backdrop-blur-2xl p-8 rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 z-30 overflow-hidden"
                     >
                         <button
                             onClick={() => setSelectedCenter(null)}
-                            className="absolute top-2 md:top-4 right-2 md:right-4 w-7 h-7 md:w-10 md:h-10 bg-slate-50/90 backdrop-blur-sm flex items-center justify-center text-slate-400 rounded-full hover:text-slate-900 transition-colors z-30 shadow-sm"
+                            className="absolute top-6 right-6 w-10 h-10 bg-slate-100/50 backdrop-blur-sm flex items-center justify-center text-slate-400 rounded-full hover:text-slate-900 transition-colors shadow-sm"
                         >
-                            <X size={16} />
+                            <X size={20} />
                         </button>
 
-                        <div className="flex flex-col gap-2 md:gap-6">
-                            {/* Image Section */}
-                            <div className="aspect-[3/1] md:aspect-16/10 rounded-xl md:rounded-3xl overflow-hidden bg-slate-50 relative group shrink-0">
+                        <div className="flex flex-col gap-6">
+                            <div className="aspect-16/10 rounded-3xl overflow-hidden bg-slate-100 relative group">
                                 {selectedCenter.image ? (
-                                    <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                                 ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-slate-100">
-                                        <Building2 className="text-slate-200" size={24} />
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <Building2 className="text-slate-200" size={48} />
                                     </div>
                                 )}
-                                <div className="absolute top-2 left-2">
-                                    <span className="px-2 py-0.5 bg-primary text-white text-[8px] md:text-[10px] font-black rounded-md uppercase tracking-tight shadow-lg shadow-primary/20">Service Center</span>
+                                <div className="absolute top-4 left-4">
+                                    <span className="px-4 py-1.5 bg-primary text-white text-[12px] font-black rounded-lg uppercase tracking-wider shadow-lg shadow-primary/20">Official Center</span>
                                 </div>
                             </div>
 
-                            <div className="space-y-2 md:space-y-4 px-0.5">
+                            <div className="space-y-6">
                                 <div>
-                                    <h3 className="text-base md:text-3xl font-black text-slate-900 tracking-tight leading-tight">{selectedCenter.name}</h3>
-                                    <div className="flex items-start gap-1 mt-1 text-slate-500">
-                                        <MapPin size={10} className="shrink-0 mt-0.5" />
-                                        <p className="text-[11px] md:text-sm font-bold leading-tight">{selectedCenter.address} {selectedCenter.detailAddress}</p>
+                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight leading-tight">{selectedCenter.name}</h3>
+                                    <div className="flex items-start gap-2 mt-2 text-slate-500 font-bold">
+                                        <MapPin size={16} className="shrink-0 mt-1" />
+                                        <p className="text-sm leading-relaxed">{selectedCenter.address} {selectedCenter.detailAddress}</p>
                                     </div>
                                 </div>
 
-                                <div className="space-y-1 md:space-y-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-5 h-5 md:w-8 md:h-8 rounded-md bg-indigo-50 flex items-center justify-center text-indigo-600">
-                                            <Phone size={10} />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                        <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
+                                            <Phone size={16} />
                                         </div>
-                                        <p className="text-[11px] md:text-sm font-black text-slate-700">{selectedCenter.phone}</p>
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] text-slate-400 font-black uppercase">Phone</span>
+                                            <p className="text-xs font-black text-slate-900">{selectedCenter.phone}</p>
+                                        </div>
                                     </div>
-
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-5 h-5 md:w-8 md:h-8 rounded-md bg-emerald-50 flex items-center justify-center text-emerald-600">
-                                            <Clock size={10} />
+                                    <div className="flex items-center gap-3 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                        <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm">
+                                            <Clock size={16} />
                                         </div>
-                                        <p className="text-[11px] md:text-sm font-black text-slate-700">{selectedCenter.hours || '09:00 - 18:00'}</p>
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] text-slate-400 font-black uppercase">Hours</span>
+                                            <p className="text-xs font-black text-slate-900">{selectedCenter.hours || '09:00 - 18:00'}</p>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-wrap gap-1">
+                                <div className="flex flex-wrap gap-2">
                                     {selectedCenter.services.map((s, i) => (
-                                        <span key={i} className="px-1.5 py-0.5 bg-slate-50 text-slate-400 rounded-md text-[9px] font-bold border border-slate-50 uppercase">#{s}</span>
+                                        <span key={i} className="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-[11px] font-black border border-slate-100 uppercase tracking-tight">#{s}</span>
                                     ))}
                                 </div>
 
-                                <div className="flex gap-1.5 pt-1 md:pt-4">
+                                <div className="flex gap-3 pt-2">
                                     <a
                                         href={`tel:${selectedCenter.phone}`}
-                                        className="flex-1 h-9 md:h-14 bg-slate-900 text-white rounded-lg md:rounded-2xl text-[12px] md:text-sm font-black flex items-center justify-center gap-2 hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10"
+                                        className="flex-3 h-16 bg-slate-900 text-white rounded-[20px] text-base font-black flex items-center justify-center gap-3 hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10"
                                     >
-                                        <Phone size={12} className="md:size-18" /> 전화하기
+                                        <Phone size={20} /> 예약 전화하기
                                     </a>
                                     <a
                                         href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-9 h-9 md:w-14 md:h-14 bg-slate-100 text-slate-600 rounded-lg md:rounded-2xl flex items-center justify-center hover:bg-slate-200 transition-all"
+                                        className="flex-1 h-16 bg-slate-100 text-slate-600 rounded-[20px] flex items-center justify-center hover:bg-slate-200 transition-all border border-slate-200"
                                     >
-                                        <MapPin size={14} className="md:size-20" />
+                                        <MapPin size={24} />
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </motion.div>
-
                 )}
             </AnimatePresence>
         </div>
     );
 };
 
-
-const ServiceItem = ({ icon: Icon, title, description, index }) => (
+const FeatureCard = ({ icon: Icon, title, description, benefits, color, index }) => (
     <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="card-halo bg-white group hover:border-primary/20"
+        transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="bg-white/80 backdrop-blur-xl rounded-[32px] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
     >
-        <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-            <Icon size={28} />
-        </div>
-        <h4 className="text-xl font-black text-foreground mb-3">{title}</h4>
-        <p className="text-slate-500 font-medium text-sm leading-relaxed">{description}</p>
-    </motion.div>
-);
+        <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/5 transition-colors" />
 
-const LocationCard = ({ name, address, detailAddress, phone, isRecruiting = false, services = [], index }) => (
-    <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className={`card-halo bg-white border border-slate-100 flex flex-col gap-6 ${isRecruiting ? 'border-dashed opacity-80' : ''}`}
-    >
-        <div className="flex justify-between items-start">
-            <div className="flex flex-col gap-1">
-                <span className="text-[12px] font-black text-primary uppercase tracking-wider">서비스 지점</span>
-                <h4 className="text-2xl font-black text-foreground">{name}</h4>
-            </div>
-            {isRecruiting && (
-                <span className="badge-halo bg-amber-500/10! text-amber-600! text-[10px]!">인수자 모집중</span>
-            )}
-        </div>
-
-        {!isRecruiting ? (
-            <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                    <MapPin size={18} className="text-slate-400 mt-0.5 shrink-0" />
-                    <span className="text-sm text-slate-600 font-bold leading-relaxed">{address} {detailAddress}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                    <Phone size={18} className="text-slate-400 shrink-0" />
-                    <span className="text-sm text-slate-600 font-black">{phone}</span>
-                </div>
-                {services.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
-                        {services.slice(0, 3).map((s, i) => (
-                            <span key={i} className="px-2 py-0.5 bg-slate-50 text-slate-400 rounded-md text-[10px] font-black uppercase tracking-tighter">#{s}</span>
-                        ))}
-                    </div>
-                )}
-            </div>
-        ) : (
-            <div className="flex-1 flex items-center justify-center text-slate-400 py-4 italic text-sm font-medium">
-                새로운 파트너를 기다리고 있습니다.
-            </div>
-        )}
-
-        {!isRecruiting && (
-            <a
-                href={`https://map.naver.com/v5/search/${encodeURIComponent(name)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto btn-halo btn-halo-outline py-3! text-sm! flex items-center gap-2 group"
+        <div className="flex flex-col gap-6 relative z-10">
+            <div
+                className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform"
+                style={{ backgroundColor: `${color}10`, color: color }}
             >
-                지도 보기
-                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-        )}
+                <Icon size={32} />
+            </div>
+
+            <div>
+                <h3 className="text-[24px] font-black text-slate-900 mb-4 tracking-tight">{title}</h3>
+                <p className="text-slate-500 font-bold leading-relaxed mb-8">
+                    {description}
+                </p>
+            </div>
+
+            <ul className="flex flex-col gap-4 mt-auto">
+                {benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+                            <CheckCircle2 size={12} className="text-primary" />
+                        </div>
+                        <span className="text-[14px] font-black text-slate-800">{benefit}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
     </motion.div>
 );
-
 
 const Center = () => {
     const [centers, setCenters] = useState([]);
@@ -254,204 +225,329 @@ const Center = () => {
         c.address.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-
     return (
-        <div className="flex flex-col">
-            {/* Hero Section */}
-            <section className="relative pt-[120px] pb-[120px] md:pt-[160px] md:pb-[200px] bg-bg-white overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-bg-light rounded-full blur-[80px] translate-y-1/2 -translate-x-1/4" />
+        <div className="bg-slate-50 min-h-screen">
+            {/* Premium Hero Section */}
+            <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 bg-[#0F172A] overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full animate-pulse" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-500/10 blur-[180px] rounded-full" />
+
+                    <div className="absolute inset-0 opacity-[0.1]"
+                        style={{
+                            backgroundImage: `linear-gradient(to right, #ffffff1a 1px, transparent 1px), linear-gradient(to bottom, #ffffff1a 1px, transparent 1px)`,
+                            backgroundSize: '100px 100px'
+                        }}
+                    />
                 </div>
 
-                <div className="container relative z-10">
-                    <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-8">
+                <div className="container relative z-10 px-6">
+                    <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-[12px] font-bold uppercase tracking-widest"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mb-12"
                         >
-                            RIDY Service Network
+                            <img src={CenterLogo} alt="RIDY Service Center Logo" className="h-12 md:h-16 w-auto brightness-0 invert" />
                         </motion.div>
 
                         <motion.h1
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-section-title"
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            className="text-[42px] md:text-[84px] font-black text-white leading-[1.05] tracking-tight mb-10"
                         >
-                            믿고 맡기는 <br className="md:hidden" />
-                            라이더 전용 <br className="hidden md:block" />
-                            <span className="text-primary italic">정비 솔루션</span>
+                            라이더의 안전을 지키는 <br />
+                            <span className="bg-linear-to-r from-primary to-indigo-400 bg-clip-text text-transparent">최상의 정비 솔루션</span>
                         </motion.h1>
 
                         <motion.p
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-body max-w-2xl"
+                            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            className="text-[18px] md:text-[24px] font-bold text-white/50 max-w-3xl leading-relaxed mb-16"
                         >
-                            정비, 점검, 소모품 교체까지 한 번에! <br className="hidden md:block" />
-                            전문 정비 인프라와 숙련된 메카닉이 라이더님의 시간과 안전을 지켜드립니다.
+                            전국 최대 규모의 서비스 네트워크와 숙련된 전문가들이 <br className="hidden md:block" />
+                            라이더님의 주행 환경을 가장 완벽하게 관리해 드립니다.
                         </motion.p>
 
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col sm:flex-row gap-4 mt-4"
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                            className="flex flex-col sm:flex-row gap-6"
                         >
-                            <Link to="/rental/inquiry" className="btn-ridy btn-ridy-primary h-[56px]! px-12! text-[18px]!">
+                            <Link to="/rental/inquiry" className="h-[76px] px-14 bg-white text-slate-900 rounded-2xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10 group">
                                 정비 예약하기
+                                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="btn-ridy btn-ridy-outline h-[56px]! px-12! text-[18px]! flex items-center bg-white">
-                                <MessageCircle className="mr-2 w-6 h-6 text-[#FAE100]" fill="#FAE100" />
-                                카톡 실시간 문의
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-14 bg-[#FEE500] text-slate-900 rounded-2xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                                <MessageCircle className="mr-2 w-6 h-6 fill-current" />
+                                카톡 상담 연결
                             </a>
                         </motion.div>
-
                     </div>
                 </div>
             </section>
 
-            {/* Service Highlights */}
-            <section className="bg-bg-light py-32">
-                <div className="container">
-                    <div className="text-center mb-20">
-                        <h2 className="text-section-title mb-6">전문적인 정비 서비스</h2>
-                        <p className="text-body max-w-2xl mx-auto font-bold">라이디 서비스 센터는 라이더가 최적의 컨디션으로 <br className="hidden md:block" /> 주행할 수 있도록 표준화된 정식 정비 가이드를 준수합니다.</p>
+            {/* Narrative Section */}
+            <section className="py-40 bg-white relative overflow-hidden">
+                <div className="container px-6 relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                        <div className="space-y-12">
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                            >
+                                <h2 className="text-[32px] md:text-[52px] font-black text-slate-900 leading-[1.2] mb-8">
+                                    주행의 즐거움은 <br />
+                                    <span className="text-slate-300">완벽한 정비로부터 시작됩니다.</span>
+                                </h2>
+                                <div className="w-20 h-2 bg-primary rounded-full mb-12" />
+                            </motion.div>
+
+                            <div className="space-y-8 text-[18px] md:text-[22px] font-bold text-slate-500 leading-relaxed">
+                                <p>
+                                    배달 현장에서 바이크는 단순한 이동 수단 그 이상의 의미를 갖습니다.
+                                    라이더의 <span className="text-slate-900 underline decoration-primary/30 underline-offset-8">'안전한 생계'</span>이자,
+                                    가장 든든한 <span className="text-slate-900 underline decoration-primary/30 underline-offset-8">'성공 파트너'</span>이기 때문입니다.
+                                </p>
+                                <p>
+                                    라이디 서비스 센터는 이 무거운 책임감을 잘 알고 있습니다.
+                                    단순히 고장 난 곳을 고치는 것을 넘어, 라이더가 오직 주행에만 집중할 수 있도록
+                                    가장 정교하고 투명한 관리 시스템을 제안합니다.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full" />
+                            <div className="relative grid grid-cols-2 gap-6">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    className="bg-slate-50 p-8 rounded-[40px] border border-slate-100 shadow-sm"
+                                >
+                                    <AlertCircle className="text-red-500 mb-6" size={48} />
+                                    <h4 className="text-slate-900 text-xl font-black mb-2">Before</h4>
+                                    <p className="text-slate-500 text-sm font-bold">불투명한 정비 비용, <br />오래 걸리는 대기 시간</p>
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: -40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.2 }}
+                                    className="mt-12 bg-primary p-8 rounded-[40px] shadow-2xl shadow-primary/20"
+                                >
+                                    <ShieldCheck className="text-white mb-6" size={48} />
+                                    <h4 className="text-white text-xl font-black mb-2">After</h4>
+                                    <p className="text-white/80 text-sm font-bold">표준 정비 가이드, <br />신속한 부품 공급망</p>
+                                </motion.div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Core Services Section */}
+            <section className="py-40 bg-slate-50">
+                <div className="container px-6">
+                    <div className="text-center max-w-4xl mx-auto mb-24">
+                        <span className="text-primary font-black uppercase tracking-widest text-sm mb-4 block">Our Expertise</span>
+                        <h2 className="text-[36px] md:text-[56px] font-black text-slate-900 leading-tight">
+                            라이디가 제안하는 <br />
+                            프리미엄 정비 가이드
+                        </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <ServiceItem
+                        <FeatureCard
                             icon={Wrench}
-                            title="정기 점검 서비스"
-                            description="주행 거리별 핵심 소모품 및 엔진 상태를 정밀하게 체크합니다."
+                            title="정기 점검"
+                            description="주행 거리별 소모품 상태를 정밀하게 체크하여 사고를 미연에 방지합니다."
+                            benefits={["핵심 12개 항목 점검", "소모품 교체 주기 알림", "디지털 정비 이력 관리"]}
+                            color="#4B5563"
                             index={0}
                         />
-                        <ServiceItem
+                        <FeatureCard
                             icon={Settings}
-                            title="고출력 정비 장비"
-                            description="라이더 전용 리프트와 진단 장비로 신속하고 정확하게 정비합니다."
+                            title="전문 장비"
+                            description="라이더 전용 고성능 리프트와 진단 장비로 명확한 원인을 규명합니다."
+                            benefits={["최신 스캔 장비", "라이더 전용 리프트", "고속 휠 벨런서"]}
+                            color="#4F46E5"
                             index={1}
                         />
-                        <ServiceItem
+                        <FeatureCard
                             icon={ShieldCheck}
-                            title="순정 부품 사용"
-                            description="제조사가 인증한 100% 순정 부품만을 사용하여 내구성을 보장합니다."
+                            title="순정 부품"
+                            description="제조사가 인증한 100% 순정 부품만을 사용하여 보장된 내구성을 제공합니다."
+                            benefits={["혼다/야마하 순정품", "부품 보증제 실시", "거품 없는 정찰제"]}
+                            color="#10B981"
                             index={2}
                         />
-                        <ServiceItem
+                        <FeatureCard
                             icon={Clock}
-                            title="신속한 업무 처리"
-                            description="배달 공백을 최소화할 수 있도록 예약 시 당일 정비를 원칙으로 합니다."
+                            title="신속 대응"
+                            description="배달 공백을 최소화하기 위해 당일 예약, 당일 정비를 원칙으로 합니다."
+                            benefits={["우선 정비 예약제", "주요 부품 상시 보유", "빠른 입출고 서비스"]}
+                            color="#F59E0B"
                             index={3}
                         />
                     </div>
                 </div>
             </section>
 
-            {/* Location Network Map Section */}
-            <section className="bg-bg-white py-32">
-                <div className="container">
-                    <div className="flex flex-col gap-16">
-                        <div className="flex flex-col items-center text-center gap-8">
-                            <div className="flex flex-col gap-4">
-                                <h2 className="text-section-title">전국 서비스 네트워크</h2>
-                                <p className="text-body max-w-xl font-bold">
-                                    전국 주요 거점에 위치한 라이디 서비스 센터에서 <br />
-                                    차별화된 정비 솔루션을 경험하세요.
+            {/* Network Map Section */}
+            <section className="py-40 bg-white overflow-hidden">
+                <div className="container px-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+                        <div className="lg:col-span-5 space-y-10">
+                            <div>
+                                <h2 className="text-[32px] md:text-[48px] font-black text-slate-900 leading-[1.2] mb-6">
+                                    가까운 곳에서 <br />
+                                    <span className="text-primary italic">라이디 네트워크</span>를 찾으세요.
+                                </h2>
+                                <p className="text-slate-500 text-lg font-bold leading-relaxed">
+                                    전국 주요 거점에 위치한 공식 센터가 <br />
+                                    항상 라이더님 곁에 있습니다.
                                 </p>
                             </div>
 
-                            <div className="relative w-full max-w-lg group">
+                            <div className="relative group">
                                 <input
                                     type="text"
                                     placeholder="지점명 또는 지역 검색"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full h-16 bg-bg-light border-none rounded-2xl px-14 text-sm font-bold focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-text-disabled shadow-sm"
+                                    className="w-full h-20 bg-slate-50 border-2 border-slate-100 rounded-[28px] px-16 text-lg font-black focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all placeholder:text-slate-300"
                                 />
-                                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-text-disabled group-focus-within:text-primary transition-colors" size={24} />
+                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary transition-colors" size={28} />
+                            </div>
+
+                            <div className="space-y-4 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar">
+                                {filteredCenters.map((center, i) => (
+                                    <motion.button
+                                        key={center.id}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.05 }}
+                                        className="w-full p-6 text-left rounded-3xl border border-slate-100 hover:border-primary/20 hover:bg-slate-50 transition-all group flex justify-between items-center"
+                                        onClick={() => {
+                                            const event = new CustomEvent('centerSelect', { detail: center });
+                                            window.dispatchEvent(event);
+                                        }}
+                                    >
+                                        <div className="space-y-1">
+                                            <h4 className="text-xl font-black text-slate-900 group-hover:text-primary transition-colors">{center.name}</h4>
+                                            <p className="text-sm text-slate-400 font-bold">{center.address}</p>
+                                        </div>
+                                        <ChevronRight size={20} className="text-slate-200 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                                    </motion.button>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="w-full max-w-5xl mx-auto">
+                        <div className="lg:col-span-12">
                             <SouthKoreaMap centers={centers} />
                         </div>
                     </div>
                 </div>
             </section>
 
-
-
-
             {/* Franchise Section */}
-            <section className="bg-bg-dark py-32 overflow-hidden relative">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
-                    <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
-                    <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2" />
+            <section className="py-40 bg-slate-900 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-primary to-transparent" />
+                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-primary to-transparent" />
                 </div>
 
-                <div className="container relative z-10">
-                    <div className="flex flex-col lg:flex-row items-center gap-20">
-                        <div className="flex-1 space-y-8">
-                            <span className="inline-block px-4 py-2 bg-primary/20 text-primary border border-primary/20 rounded-pill text-[12px] font-bold uppercase tracking-widest">Partnership</span>
-                            <h2 className="text-[40px] md:text-[56px] font-bold text-white leading-tight tracking-tight">
-                                라이디와 함께 성장할 <br />
-                                <span className="text-primary italic">서비스 센터 가맹점</span>을 모십니다.
+                <div className="container px-6 relative z-10">
+                    <div className="flex flex-col lg:flex-row items-center gap-24">
+                        <div className="flex-1 space-y-12">
+                            <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full">
+                                <span className="text-primary font-black uppercase tracking-widest text-[12px]">Partnership</span>
+                            </div>
+                            <h2 className="text-[36px] md:text-[56px] font-black text-white leading-[1.1]">
+                                라이디와 함께할 <br />
+                                <span className="text-primary italic">정비 파트너</span>를 모십니다.
                             </h2>
-                            <p className="text-[18px] text-text-light font-medium leading-relaxed">
-                                안정적인 정비 물량 확보고 전문적인 정비 관리 시스템 지원까지. <br className="hidden md:block" />
-                                국내 No.1 라이더 플랫폼 라이디의 성공 파트너가 되어보세요.
+                            <p className="text-white/40 text-xl font-bold leading-relaxed max-w-xl">
+                                풍부한 정비 물량 확보고 표준화된 관리 시스템 지원까지. <br className="hidden md:block" />
+                                국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <Link to="/rental/inquiry" className="btn-ridy btn-ridy-primary h-[56px]! px-10! text-[16px]!">
-                                    가맹점 창업 문의
+                            <div className="flex flex-col sm:flex-row gap-6">
+                                <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-2xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
+                                    가맹 문의하기
+                                    <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <button className="btn-ridy btn-ridy-outline h-[56px]! px-10! text-[16px]! text-white! border-white/20 hover:bg-white/5">
-                                    사업 제휴 안내서
+                                <button className="h-[72px] px-12 bg-white/5 text-white border border-white/10 rounded-2xl font-black text-lg flex items-center justify-center hover:bg-white/10 transition-all">
+                                    사업 안내서 보기
                                 </button>
                             </div>
-
                         </div>
-                        <div className="flex-1 w-full max-w-md">
-                            <motion.div
-                                initial={{ opacity: 0, rotate: 5 }}
-                                whileInView={{ opacity: 1, rotate: 0 }}
-                                viewport={{ once: true }}
-                                className="bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-xl shadow-2xl space-y-8"
-                            >
-                                <div className="grid grid-cols-2 gap-6">
+
+                        <div className="flex-1 w-full max-w-xl">
+                            <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-12 rounded-[40px] shadow-3xl">
+                                <div className="grid grid-cols-2 gap-10">
                                     {[
-                                        { label: "누적 관리 대수", value: "5,000+", icon: Building2 },
-                                        { label: "전국 지점망", value: "30+", icon: MapPin },
-                                        { label: "정비 만족도", value: "98%", icon: ShieldCheck },
-                                        { label: "평균 정비 시간", value: "-40%", icon: Wrench }
+                                        { label: "누적 정비 대수", value: "24,000+", icon: Toolbox },
+                                        { label: "전국 지점망", value: "48+", icon: MapPin },
+                                        { label: "순정 부품 확보율", value: "100%", icon: ShieldCheck },
+                                        { label: "정비 효율 개선", value: "35%↑", icon: Zap }
                                     ].map((stat, i) => (
-                                        <div key={i} className="space-y-2">
-                                            <div className="flex items-center gap-2 text-text-muted">
-                                                <stat.icon size={14} />
-                                                <span className="text-[10px] font-bold uppercase tracking-widest">{stat.label}</span>
+                                        <div key={i} className="space-y-4">
+                                            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-primary">
+                                                <stat.icon size={20} />
                                             </div>
-                                            <div className="text-[24px] font-bold text-white">{stat.value}</div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[11px] text-white/30 font-black uppercase tracking-widest mb-1">{stat.label}</span>
+                                                <span className="text-3xl font-black text-white">{stat.value}</span>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="h-px bg-white/10 w-full" />
-                                <p className="text-[12px] text-text-muted font-bold leading-relaxed">
-                                    * 2024년 4분기 라이디 서비스 센터 네트워크 통계 기준입니다. <br />
-                                    정비 수치는 기술 지원 조건에 따라 상이할 수 있습니다.
-                                </p>
-                            </motion.div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
+
+            {/* Final CTA Section */}
+            <section className="py-40 bg-white relative overflow-hidden">
+                <div className="container relative z-10 px-6 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        className="max-w-4xl mx-auto"
+                    >
+                        <Toolbox className="mx-auto text-slate-200 mb-8" size={80} />
+                        <h2 className="text-slate-900 text-[36px] md:text-[60px] font-black mb-10 leading-[1.1]">
+                            더 안전한 주행의 시작, <br />
+                            지금 라이디 정비를 예약하세요.
+                        </h2>
+                        <p className="text-slate-500 text-[18px] md:text-[22px] font-bold mb-16 max-w-2xl mx-auto leading-relaxed">
+                            전문가들이 제안하는 정밀한 정비와 투명한 서비스로 <br />
+                            완벽한 주행 컨디션을 만들어 드립니다.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                            <Link to="/rental/inquiry" className="h-[76px] px-16 bg-primary text-white rounded-[24px] font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
+                                예약 페이지 이동
+                                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-16 bg-[#FEE500] text-slate-900 rounded-[24px] font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                                <MessageCircle className="mr-2 w-6 h-6 fill-current" />
+                                카톡 상담 연결
+                            </a>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
         </div>
     );
-
 };
 
 export default Center;
-

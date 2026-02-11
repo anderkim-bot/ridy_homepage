@@ -1,26 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from './svg/Ridy_logo.svg';
 
 const Footer = () => {
+    const location = useLocation();
+
+    // Pages that have their own custom CTA sections
+    const hideCtaPages = ['/service/rental', '/service/payout', '/service/center'];
+    const shouldHideCta = hideCtaPages.includes(location.pathname);
+
     return (
         <footer className="bg-bg-white border-t border-[#E0E0E0]">
             {/* Dark CTA Section per Design System 5-12 */}
-            <div className="bg-bg-dark py-[51px] px-[20px] md:px-[60px]">
-                <div className="container flex flex-col md:flex-row justify-between items-center gap-12">
-                    <div className="flex flex-col gap-4">
-                        <h2 className="text-[20px] md:text-[24px] font-extrabold text-white leading-[1.4]">
-                            고민하는 사이에도 <br /> 누군가는 달리고 있습니다.
-                        </h2>
-                    </div>
+            {!shouldHideCta && (
+                <div className="bg-bg-dark py-[51px] px-[20px] md:px-[60px]">
+                    <div className="container flex flex-col md:flex-row justify-between items-center gap-12">
+                        <div className="flex flex-col gap-4">
+                            <h2 className="text-[20px] md:text-[24px] font-extrabold text-white leading-[1.4]">
+                                고민하는 사이에도 <br /> 누군가는 달리고 있습니다.
+                            </h2>
+                        </div>
 
-                    <div className="flex flex-col gap-4 w-full md:w-auto">
-                        <Link to="/rental/inquiry" className="btn-ridy btn-ridy-dark">
-                            리스/렌탈 문의하기
-                        </Link>
+                        <div className="flex flex-col gap-4 w-full md:w-auto">
+                            <Link to="/rental/inquiry" className="btn-ridy btn-ridy-dark">
+                                리스/렌탈 문의하기
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             {/* Main Footer Info */}
             <div className="py-20 px-[20px] md:px-[60px]">
