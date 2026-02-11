@@ -12,6 +12,7 @@ import {
     ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Logo from '../../components/svg/Ridy_logo.svg';
 
 // Animation variants for consistent usage
 const fadeInUp = {
@@ -33,21 +34,21 @@ const Intro = () => {
     return (
         <div className="w-full overflow-hidden bg-bg-white">
             {/* 1. Hero Section */}
-            <section className="relative w-full h-screen min-h-[700px] flex flex-col items-center justify-center text-center px-[20px] bg-bg-white">
+            <section className="relative w-full h-screen min-h-[700px] flex flex-col items-center justify-center text-center px-space-lg bg-bg-white pb-32 md:pb-40">
                 {/* Background Decoration */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px]" />
                     <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-[100px]" />
                 </div>
 
-                <div className="relative z-10 max-w-[800px] mx-auto space-y-8">
+                <div className="relative z-10 max-w-[800px] mx-auto space-y-8 -mt-10">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6 }}
-                        className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-bold text-sm tracking-wider uppercase mb-4"
+                        className="flex justify-center mb-6"
                     >
-                        About Ridy
+                        <img src={Logo} alt="Ridy Logo" className="h-[32px] md:h-space-2xl w-auto" />
                     </motion.div>
 
                     <motion.h1
@@ -76,7 +77,7 @@ const Intro = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 1 }}
                 >
-                    <div className="w-[1px] h-[60px] bg-gradient-to-b from-transparent via-text-muted/30 to-transparent" />
+                    <div className="w-px h-space-3xl bg-linear-to-b from-transparent via-text-muted/30 to-transparent" />
                 </motion.div>
             </section>
 
@@ -98,15 +99,15 @@ const Intro = () => {
                     </motion.div>
 
                     <motion.div
-                        className="grid grid-cols-1 md:grid-cols-3 gap-[30px]"
+                        className="grid grid-cols-1 md:grid-cols-3 gap-space-xl"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
                         variants={staggerContainer}
                     >
                         {/* Value 1: Pride */}
-                        <motion.div variants={fadeInUp} className="bg-white p-[40px] rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <div className="w-[60px] h-[60px] rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                            <div className="w-space-3xl h-space-3xl rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
                                 <Heart size={32} />
                             </div>
                             <h3 className="text-[24px] font-bold text-text-secondary mb-4">Pride</h3>
@@ -117,8 +118,8 @@ const Intro = () => {
                         </motion.div>
 
                         {/* Value 2: Fairness */}
-                        <motion.div variants={fadeInUp} className="bg-white p-[40px] rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <div className="w-[60px] h-[60px] rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                            <div className="w-space-3xl h-space-3xl rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
                                 <ShieldCheck size={32} />
                             </div>
                             <h3 className="text-[24px] font-bold text-text-secondary mb-4">Fairness</h3>
@@ -129,8 +130,8 @@ const Intro = () => {
                         </motion.div>
 
                         {/* Value 3: Human-centric */}
-                        <motion.div variants={fadeInUp} className="bg-white p-[40px] rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <div className="w-[60px] h-[60px] rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
+                            <div className="w-space-3xl h-space-3xl rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
                                 <Users size={32} />
                             </div>
                             <h3 className="text-[24px] font-bold text-text-secondary mb-4">Human-centric</h3>
@@ -158,7 +159,7 @@ const Intro = () => {
                             라이더가 단순한 '노동자'가 아닌<br />
                             <span className="text-primary">도시의 동력</span>으로 인정받는 세상을 만듭니다."
                         </h2>
-                        <div className="w-[60px] h-[4px] bg-primary mx-auto mb-8 rounded-full opacity-50"></div>
+                        <div className="w-space-3xl h-[4px] bg-primary mx-auto mb-8 rounded-full opacity-50"></div>
                         <p className="text-[20px] font-medium text-text-muted">
                             Ridy는 사람과 사회의 성장을 지향합니다.
                         </p>
@@ -183,19 +184,19 @@ const Intro = () => {
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-[30px]">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
                         {/* Payout */}
                         <motion.div
-                            className="bg-bg-dark-card p-[40px] rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
+                            className="bg-bg-dark-card p-space-2xl rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5 }}
                         >
-                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-primary/10 rounded-full blur-[40px] translate-x-1/2 translate-y-[-50%] group-hover:bg-primary/20 transition-all" />
+                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-primary/10 rounded-full blur-2xl translate-x-1/2 translate-y-[-50%] group-hover:bg-primary/20 transition-all" />
                             <Wallet className="text-primary w-12 h-12 mb-6" />
                             <h3 className="text-sub-title text-white mb-4">Ridy Payout</h3>
-                            <p className="text-body text-white/60 mb-8 min-h-[60px]">
+                            <p className="text-body text-white/60 mb-8 min-h-space-3xl">
                                 배달 플랫폼 정산을 자동화해주는 서비스.<br />
                                 라이더와 지사장의 정산 업무를 간편하게 처리합니다.
                             </p>
@@ -206,16 +207,16 @@ const Intro = () => {
 
                         {/* Rental */}
                         <motion.div
-                            className="bg-bg-dark-card p-[40px] rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
+                            className="bg-bg-dark-card p-space-2xl rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.1 }}
                         >
-                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-emerald-500/10 rounded-full blur-[40px] translate-x-1/2 translate-y-[-50%] group-hover:bg-emerald-500/20 transition-all" />
+                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-emerald-500/10 rounded-full blur-2xl translate-x-1/2 translate-y-[-50%] group-hover:bg-emerald-500/20 transition-all" />
                             <Bike className="text-emerald-400 w-12 h-12 mb-6" />
                             <h3 className="text-sub-title text-white mb-4">Ridy Rental</h3>
-                            <p className="text-body text-white/60 mb-8 min-h-[60px]">
+                            <p className="text-body text-white/60 mb-8 min-h-space-3xl">
                                 배달용 바이크 렌탈 서비스.<br />
                                 신차/중고 선택, 유지관리 포함.
                             </p>
@@ -226,16 +227,16 @@ const Intro = () => {
 
                         {/* Service Center */}
                         <motion.div
-                            className="bg-bg-dark-card p-[40px] rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
+                            className="bg-bg-dark-card p-space-2xl rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-amber-500/10 rounded-full blur-[40px] translate-x-1/2 translate-y-[-50%] group-hover:bg-amber-500/20 transition-all" />
+                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-amber-500/10 rounded-full blur-2xl translate-x-1/2 translate-y-[-50%] group-hover:bg-amber-500/20 transition-all" />
                             <Wrench className="text-amber-400 w-12 h-12 mb-6" />
                             <h3 className="text-sub-title text-white mb-4">Ridy Service Center</h3>
-                            <p className="text-body text-white/60 mb-8 min-h-[60px]">
+                            <p className="text-body text-white/60 mb-8 min-h-space-3xl">
                                 라이더 전용 장비 서비스.<br />
                                 장비, 점검, 소모품 교체를 전문으로 제공합니다.
                             </p>
@@ -257,21 +258,21 @@ const Intro = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h2 className="text-[36px] md:text-[56px] font-bold mb-[20px] leading-tight">
+                        <h2 className="text-[36px] md:text-[56px] font-bold mb-space-lg leading-tight">
                             당신의 첫 라이딩을<br />책임지는 곳
                         </h2>
-                        <p className="text-[18px] text-white/80 mb-[60px]">
+                        <p className="text-[18px] text-white/80 mb-space-3xl">
                             지금 바로 시작하세요. 라이디가 함께합니다.
                         </p>
 
-                        <div className="flex flex-col md:flex-row gap-[16px] justify-center items-center">
+                        <div className="flex flex-col md:flex-row gap-space-md justify-center items-center">
                             <Link to="/inquiry#rental" className="bg-white text-primary px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-opacity-90 transition-all min-w-[200px] shadow-lg hover:translate-y-[-2px]">
                                 리스/렌탈 문의하기
                             </Link>
-                            <Link to="/inquiry#app" className="bg-transparent border-[2px] border-white text-white px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-white hover:text-primary transition-all min-w-[200px] hover:translate-y-[-2px]">
+                            <Link to="/inquiry#app" className="bg-transparent border-2 border-white text-white px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-white hover:text-primary transition-all min-w-[200px] hover:translate-y-[-2px]">
                                 정산앱 문의하기
                             </Link>
-                            <Link to="/inquiry#franchise" className="bg-transparent border-[2px] border-white/30 text-white px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-white hover:text-primary transition-all min-w-[200px] hover:translate-y-[-2px]">
+                            <Link to="/inquiry#franchise" className="bg-transparent border-2 border-white/30 text-white px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-white hover:text-primary transition-all min-w-[200px] hover:translate-y-[-2px]">
                                 가맹점 창업 문의하기
                             </Link>
                         </div>
