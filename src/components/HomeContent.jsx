@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import { Bike, Wallet, Wrench, ChevronRight, Star, Loader2 } from 'lucide-react';
 import { bikeService } from '../services/bikeService';
 
-const ServiceCard = ({ icon: Icon, title, description, href, index }) => (
+// Import Custom Brand Logos
+import RidyRentalLogo from './svg/Ridy_Rental_logo.svg';
+import RidyPayoutLogo from './svg/Ridy_Payout_logo.svg';
+import RidyServiceCenterLogo from './svg/Ridy_Service_center_logo.svg';
+
+const ServiceCard = ({ iconSrc, title, description, href, index }) => (
     <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -13,8 +18,12 @@ const ServiceCard = ({ icon: Icon, title, description, href, index }) => (
         className="h-full"
     >
         <Link to={href} className="flex flex-col h-full bg-white p-10 rounded-[24px] border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group">
-            <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 border border-slate-100 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                <Icon size={32} strokeWidth={1.5} />
+            <div className="h-16 w-fit px-6 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 border border-slate-100 transition-all duration-300 group-hover:bg-primary group-hover:border-primary">
+                <img
+                    src={iconSrc}
+                    alt={title}
+                    className="h-8 w-auto object-contain group-hover:invert group-hover:brightness-[100] transition-all duration-300"
+                />
             </div>
             <h3 className="text-[24px] font-black tracking-tight text-slate-900 mb-4">{title}</h3>
             <p className="text-[16px] leading-[1.6] text-slate-500 font-medium mb-10">
@@ -89,18 +98,19 @@ const HomeContent = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const services = [
-        { icon: Bike, title: "RIDY Rental", description: "배달 입문부터 베테랑까지. 보험과 정비가 포함된 합리적인 오토바이 렌탈 서비스.", href: "/service/rental" },
-        { icon: Wallet, title: "RIDY Payout", description: "복잡한 정산은 이제 그만. 라이디 앱 하나로 실시간 수익 관리와 즉시 출금을 시작하세요.", href: "/service/payout" },
-        { icon: Wrench, title: "RIDY Service Center", description: "전국 최대 네트워크. 라이더 전용 장비와 전문 메카닉이 당신의 안전 주행을 지원합니다.", href: "/service/center" }
+        { iconSrc: RidyRentalLogo, title: "RIDY Rental", description: "배달 입문부터 베테랑까지. 보험과 정비가 포함된 합리적인 오토바이 렌탈 서비스.", href: "/service/rental" },
+        { iconSrc: RidyPayoutLogo, title: "RIDY Payout", description: "복잡한 정산은 이제 그만. 라이디 앱 하나로 실시간 수익 관리와 즉시 출금을 시작하세요.", href: "/service/payout" },
+        { iconSrc: RidyServiceCenterLogo, title: "RIDY Service Center", description: "전국 최대 네트워크. 라이더 전용 장비와 전문 메카닉이 당신의 안전 주행을 지원합니다.", href: "/service/center" }
     ];
 
     useEffect(() => {
         const loadModels = async () => {
             try {
                 const data = await bikeService.getBikes();
-                const allBikes = data.filter(b => b.brand !== 'SUCCESSION' && b.items?.some(item => item.image));
-                const popularModels = allBikes.filter(b => b.isPopular).slice(0, 4);
-                setDisplayModels(popularModels.length > 0 ? popularModels : allBikes.slice(0, 4));
+                // Filter out SUCCESSION bikes and ensure they have images
+                const allRentalBikes = data.filter(b => b.brand !== 'SUCCESSION' && b.items?.some(item => item.image));
+                // Use all rental bikes for marquee
+                setDisplayModels(allRentalBikes);
             } catch (error) {
                 console.error('Error loading home models:', error);
             } finally {
@@ -156,21 +166,27 @@ const HomeContent = () => {
                             <p className="text-slate-400 font-bold">기종 정보를 불러오는 중...</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-                            {displayModels.length > 0 ? (
-                                displayModels.map((bike, index) => (
-                                    <ModelCard
-                                        key={bike.id || index}
-                                        name={bike.name}
-                                        brand={bike.brand}
-                                        slug={bike.slug}
-                                        image={bike.items?.[0]?.image}
-                                        index={index}
-                                    />
-                                ))
-                            ) : (
-                                <div className="col-span-full py-20 text-center font-bold text-slate-400 bg-white rounded-3xl border border-slate-100">등록된 인기 기종이 없습니다.</div>
-                            )}
+                        <div className="relative w-full overflow-hidden">
+                            {/* Gradient Masks for Fade Effect */}
+                            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#F8F9FD] to-transparent z-10 pointer-events-none" />
+                            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#F8F9FD] to-transparent z-10 pointer-events-none" />
+
+                            <div className="w-full inline-flex flex-nowrap overflow-hidden py-10">
+                                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-marquee hover:[animation-play-state:paused]">
+                                    {/* Render the list twice for seamless infinite scroll */}
+                                    {[...displayModels, ...displayModels].map((bike, index) => (
+                                        <li key={`${bike.id}-${index}`} className="w-[300px] flex-shrink-0">
+                                            <ModelCard
+                                                name={bike.name}
+                                                brand={bike.brand}
+                                                slug={bike.slug}
+                                                image={bike.items?.[0]?.image}
+                                                index={index}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     )}
                 </div>

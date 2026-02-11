@@ -33,7 +33,7 @@
 
   /* ── Typography ── */
   --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  
+
   /* ── Spacing ── */
   --spacing-space-xs: 8px;
   --spacing-space-sm: 12px;
@@ -59,7 +59,12 @@
     color: var(--color-text-primary);
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply text-text-secondary font-bold;
     letter-spacing: -0.04em;
   }
@@ -150,5 +155,24 @@
   .bg-frosted-ridy {
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
+  }
+
+  /* Marquee Animation */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
   }
 }

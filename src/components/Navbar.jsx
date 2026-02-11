@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight, MessageSquare, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from './svg/2-1.Ridy(가로형) 1.svg';
+import Logo from './svg/Ridy_logo.svg';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,8 +78,8 @@ const Navbar = () => {
                 <Link
                   to={item.href}
                   className={`text-nav flex items-center gap-1 transition-colors ${location.pathname.startsWith(item.href)
-                      ? 'text-primary'
-                      : 'hover:text-primary'
+                    ? 'text-primary'
+                    : 'hover:text-primary'
                     }`}
                 >
                   {item.name}

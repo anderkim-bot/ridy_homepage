@@ -48,11 +48,11 @@ const Lease = () => {
                                     viewport={{ once: true }}
                                 >
                                     <Link to={`/product/detail/${bike.slug}`} className="group flex flex-col gap-4 p-4 bg-white rounded-xl border border-border-subtle shadow-sm hover:shadow-xl transition-all duration-500">
-                                        <div className="aspect-4/3 rounded-lg overflow-hidden bg-bg-light relative">
+                                        <div className="aspect-4/3 rounded-lg overflow-hidden bg-white relative">
                                             <img
                                                 src={bike.successionImages?.[0] || ''}
                                                 alt={bike.name}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-1000"
                                             />
                                             {/* Status Badge */}
                                             {bike.maintenanceStatus && (

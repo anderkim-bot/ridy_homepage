@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from './svg/2-1.Ridy(가로형) 1.svg';
+import Logo from './svg/Ridy_logo.svg';
 
 const Footer = () => {
     return (
