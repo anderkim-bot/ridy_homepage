@@ -45,15 +45,15 @@ const AdminTabs = () => {
                     <button
                         key={tab.id}
                         onClick={() => navigate(tab.path)}
-                        className={`relative flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-1 md:px-8 py-2 md:py-2.5 rounded-xl text-[10px] md:text-sm font-black transition-all whitespace-nowrap z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
+                        className={`relative flex-1 min-w-0 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-1 md:px-8 py-3 md:py-2.5 rounded-xl text-[11px] md:text-sm font-black transition-all z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
                             }`}
                     >
-                        <Icon size={16} className="md:w-4 md:h-4 w-4 h-4" />
-                        <span className="leading-tight">
+                        <Icon size={20} className="md:w-4 md:h-4 w-5 h-5 mb-1 md:mb-0" />
+                        <span className="leading-tight text-center">
                             {tab.id === 'centers' ? (
-                                <>{tab.label.split(' ')[0]}<br className="md:hidden" />센터 관리</>
+                                <>서비스센터<br className="md:hidden" />관리</>
                             ) : tab.id === 'cases' ? (
-                                <>{tab.label.split(' ')[0]} {tab.label.split(' ')[1]}<br className="md:hidden" />{tab.label.split(' ')[2]}</>
+                                <>출고사례<br className="md:hidden" />관리</>
                             ) : (
                                 <>{tab.label.split(' ')[0]}<br className="md:hidden" />{tab.label.split(' ')[1]}</>
                             )}
