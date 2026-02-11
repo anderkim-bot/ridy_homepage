@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
     Plus, Search, Trash2, Edit3, X, Loader2, Upload,
-    MapPin, Link as LinkIcon, AlignLeft
+    MapPin, Link as LinkIcon, AlignLeft, Briefcase, ExternalLink, Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AdminTabs from '../../components/admin/AdminTabs';
@@ -92,183 +92,329 @@ const AdminCases = () => {
     );
 
     return (
-        <div className="min-h-screen bg-slate-50 pt-[100px] pb-20">
-            <div className="container max-w-7xl">
-                <div className="bg-white rounded-[32px] shadow-sm border border-slate-200 overflow-hidden">
-                    <div className="p-8 border-b border-slate-100">
-                        <AdminTabs activeTab="cases" />
+        <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12 font-sans text-slate-900">
+            <div className="max-w-[1500px] mx-auto">
+                <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-10 lg:mb-16">
+                    <div className="space-y-3">
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                <Briefcase className="text-white w-6 h-6 lg:w-8 lg:h-8" />
+                            </div>
+                            <div className="shrink-0 flex flex-col whitespace-nowrap">
+                                <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900 leading-none">출고 사례 관리</h1>
+                                <p className="text-[10px] lg:text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Delivery Case Manager</p>
+                            </div>
+                        </div>
+                        <div className="mt-8">
+                            <AdminTabs />
+                        </div>
                     </div>
 
-                    <div className="p-8">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-                            <div>
-                                <h1 className="text-3xl font-black text-slate-900 tracking-tight">출고 사례 관리</h1>
-                                <p className="text-slate-500 font-bold mt-1">홈페이지의 출고 사례 섹션을 관리합니다.</p>
-                            </div>
-                            <button
-                                onClick={() => handleOpenModal()}
-                                className="h-14 px-8 bg-slate-900 text-white rounded-2xl font-black flex items-center gap-2 hover:bg-slate-800 transition-all active:scale-95"
-                            >
-                                <Plus size={20} /> 새 출고 사례 등록
-                            </button>
-                        </div>
-
-                        <div className="relative mb-8">
+                    <div className="flex flex-col lg:flex-row w-full lg:w-auto gap-4">
+                        <div className="relative w-full lg:w-80">
                             <input
                                 type="text"
                                 placeholder="출고 지역 또는 설명으로 검색"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full h-14 bg-slate-50 border-none rounded-2xl px-12 text-sm font-bold focus:ring-2 focus:ring-slate-900/10 transition-all"
+                                className="w-full bg-white h-[56px]! pl-12! rounded-lg lg:rounded-xl shadow-sm border border-slate-200 outline-none focus:border-primary transition-all text-sm font-bold placeholder:text-slate-400"
                             />
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                        </div>
+                        <button
+                            onClick={() => handleOpenModal()}
+                            className="w-full lg:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 lg:py-4.5 rounded-lg lg:rounded-xl font-black text-sm lg:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10 whitespace-nowrap shrink-0"
+                        >
+                            <Plus size={20} />
+                            <span>새 출고 사례 등록</span>
+                        </button>
+                    </div>
+                </header>
+
+                {isLoading ? (
+                    <div className="py-20 flex flex-col items-center justify-center gap-4">
+                        <Loader2 size={40} className="text-primary animate-spin" />
+                        <p className="text-slate-400 font-bold">데이터를 불러오는 중...</p>
+                    </div>
+                ) : (
+                    <div className="space-y-6">
+                        {/* Desktop Table View */}
+                        <div className="hidden lg:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table className="w-full text-left">
+                                <thead className="bg-slate-50/50 border-b border-slate-100">
+                                    <tr className="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em]">
+                                        <th className="px-8 py-6">Image & Region</th>
+                                        <th className="px-8 py-6">Description</th>
+                                        <th className="px-8 py-6">Link</th>
+                                        <th className="px-8 py-6 text-right">Settings</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {filteredCases.map((item) => (
+                                        <tr key={item.id} className="group hover:bg-slate-50/50 transition-colors">
+                                            <td className="px-8 py-6">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-16 h-16 rounded-lg bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
+                                                        {item.image ? (
+                                                            <img src={item.image} alt={item.region} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                                <AlignLeft size={24} />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-md text-[10px] font-black uppercase tracking-widest inline-block w-fit mb-1">{item.region}</span>
+                                                        <span className="text-xs font-bold text-slate-400">{new Date(item.created_at).toLocaleDateString()}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <p className="text-sm font-bold text-slate-700 line-clamp-2 max-w-[400px]">
+                                                    {item.description}
+                                                </p>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <a
+                                                    href={item.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1.5 text-xs font-black text-indigo-600 hover:gap-2 transition-all"
+                                                >
+                                                    카페 리포트 <ExternalLink size={12} />
+                                                </a>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <button
+                                                        onClick={() => handleOpenModal(item)}
+                                                        className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm active:scale-95"
+                                                    >
+                                                        <Edit3 size={16} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDelete(item.id)}
+                                                        className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all shadow-sm active:scale-95"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
 
-                        {isLoading ? (
-                            <div className="flex flex-col items-center justify-center py-20 gap-4">
-                                <Loader2 className="animate-spin text-slate-400" size={40} />
-                                <p className="text-slate-400 font-bold">출고 사례를 불러오고 있습니다...</p>
-                            </div>
-                        ) : filteredCases.length > 0 ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {filteredCases.map((item) => (
-                                    <div key={item.id} className="bg-white rounded-3xl border border-slate-200 overflow-hidden group hover:shadow-xl transition-all">
-                                        <div className="aspect-video bg-slate-100 relative overflow-hidden">
-                                            {item.image ? (
-                                                <img src={item.image} alt={item.region} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-slate-300">
-                                                    <AlignLeft size={40} />
-                                                </div>
-                                            )}
+                        {/* Mobile Card View */}
+                        <div className="lg:hidden flex flex-col gap-4">
+                            {filteredCases.map((item) => (
+                                <div key={item.id} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
+                                                {item.image ? (
+                                                    <img src={item.image} alt={item.region} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                        <AlignLeft size={24} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div>
+                                                <span className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-md text-[9px] font-black uppercase tracking-widest inline-block mb-1">{item.region}</span>
+                                                <h3 className="text-sm font-bold text-slate-900 line-clamp-1">{item.description}</h3>
+                                            </div>
                                         </div>
-                                        <div className="p-6">
-                                            <div className="flex justify-between items-start mb-4">
-                                                <div>
-                                                    <span className="px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-black uppercase tracking-widest">{item.region}</span>
-                                                    <p className="text-slate-700 font-bold text-sm mt-3 line-clamp-2">{item.description}</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex gap-2 mt-6">
-                                                <button
-                                                    onClick={() => handleOpenModal(item)}
-                                                    className="flex-1 h-12 bg-slate-100 text-slate-600 rounded-xl font-black text-sm flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
-                                                >
-                                                    <Edit3 size={16} /> 수정
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDelete(item.id)}
-                                                    className="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center hover:bg-red-100 transition-all"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
-                                            </div>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => handleOpenModal(item)}
+                                                className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center active:scale-90 transition-all"
+                                            >
+                                                <Edit3 size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(item.id)}
+                                                className="w-10 h-10 rounded-xl bg-red-50 text-red-500 flex items-center justify-center active:scale-90 transition-all"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="text-center py-20 bg-slate-50 rounded-[32px] border-2 border-dashed border-slate-200">
-                                <p className="text-slate-400 font-bold text-lg">등록된 출고 사례가 없습니다.</p>
-                            </div>
-                        )}
+
+                                    <div className="pt-4 border-t border-slate-50">
+                                        <a
+                                            href={item.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-full h-11 bg-slate-50 text-slate-600 rounded-xl font-black text-xs flex items-center justify-center gap-2"
+                                        >
+                                            카페 리포트 확인 <ExternalLink size={14} />
+                                        </a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             {/* Modal */}
             <AnimatePresence>
                 {isModalOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsModalOpen(false)}
-                            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="bg-white w-full max-w-2xl rounded-[32px] shadow-2xl relative z-10 overflow-hidden"
+                            className="relative bg-white w-full max-w-5xl h-[90vh] rounded-[32px] overflow-hidden shadow-2xl flex flex-col"
                         >
-                            <div className="p-8 border-b border-slate-100 flex items-center justify-between">
-                                <h2 className="text-2xl font-black text-slate-900">{editingCase ? '출고 사례 수정' : '새 출고 사례 등록'}</h2>
-                                <button onClick={() => setIsModalOpen(false)} className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-slate-900">
+                            <div className="px-10 py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-[14px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                        <Briefcase size={24} />
+                                    </div>
+                                    <div>
+                                        <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCase ? '출고 사례 수정' : '신규 사례 등록'}</h2>
+                                        <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Delivery Case Details</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="w-12 h-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
+                                >
                                     <X size={24} />
                                 </button>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="col-span-2">
-                                        <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">출고 지역</label>
-                                        <div className="relative">
-                                            <input
-                                                type="text"
-                                                required
-                                                value={formData.region}
-                                                onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                                                placeholder="예: 서울 강남구"
-                                                className="w-full h-14 bg-slate-50 border-none rounded-2xl px-12 text-sm font-bold focus:ring-2 focus:ring-slate-900/10 transition-all"
-                                            />
-                                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-span-2">
-                                        <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">카페 리포트 링크</label>
-                                        <div className="relative">
-                                            <input
-                                                type="url"
-                                                required
-                                                value={formData.link}
-                                                onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                                                placeholder="https://cafe.naver.com/..."
-                                                className="w-full h-14 bg-slate-50 border-none rounded-2xl px-12 text-sm font-bold focus:ring-2 focus:ring-slate-900/10 transition-all"
-                                            />
-                                            <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                                        </div>
-                                    </div>
-
-                                    <div className="col-span-2">
-                                        <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">썸네일 이미지</label>
-                                        <div className="flex gap-4">
-                                            <div className="flex-1 relative">
-                                                <input
-                                                    type="text"
-                                                    value={formData.image}
-                                                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                                                    placeholder="이미지 URL"
-                                                    className="w-full h-14 bg-slate-50 border-none rounded-2xl px-12 text-sm font-bold focus:ring-2 focus:ring-slate-900/10 transition-all"
-                                                />
-                                                <Upload className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                            <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
+                                <form onSubmit={handleSubmit} className="space-y-10">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                        {/* Left Column: Info */}
+                                        <div className="space-y-8">
+                                            <div className="space-y-4">
+                                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <Info size={16} className="text-indigo-600" />
+                                                    기본 정보
+                                                </h3>
+                                                <div className="space-y-4">
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[11px] font-black text-slate-400 ml-1">출고 지역</label>
+                                                        <div className="relative">
+                                                            <input
+                                                                type="text"
+                                                                required
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                value={formData.region}
+                                                                onChange={(e) => setFormData({ ...formData, region: e.target.value })}
+                                                                placeholder="예: 서울 강남구"
+                                                            />
+                                                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="space-y-1.5">
+                                                        <label className="text-[11px] font-black text-slate-400 ml-1">카페 리포트 링크</label>
+                                                        <div className="relative">
+                                                            <input
+                                                                type="url"
+                                                                required
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                value={formData.link}
+                                                                onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+                                                                placeholder="https://cafe.naver.com/..."
+                                                            />
+                                                            <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <label className="h-14 px-6 bg-slate-100 text-slate-600 rounded-2xl font-black text-sm flex items-center justify-center cursor-pointer hover:bg-slate-200 transition-all">
-                                                파일 선택
-                                                <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
-                                            </label>
+
+                                            <div className="space-y-4">
+                                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <AlignLeft size={16} className="text-indigo-600" />
+                                                    상세 설명
+                                                </h3>
+                                                <textarea
+                                                    required
+                                                    rows={6}
+                                                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                    value={formData.description}
+                                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                                    placeholder="출고 기종, 특징 등 상세 내용을 입력해주세요."
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Right Column: Image */}
+                                        <div className="space-y-8">
+                                            <div className="space-y-4">
+                                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <Upload size={16} className="text-indigo-600" />
+                                                    썸네일 이미지
+                                                </h3>
+                                                <div className="relative group aspect-video bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden cursor-pointer hover:border-indigo-600 transition-all">
+                                                    {formData.image ? (
+                                                        <>
+                                                            <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                                                                <label className="cursor-pointer bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm hover:scale-105 transition-all flex items-center gap-2 shadow-lg">
+                                                                    <Edit3 size={16} /> 변경
+                                                                    <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
+                                                                </label>
+                                                                <button type="button" onClick={() => setFormData({ ...formData, image: '' })} className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-sm hover:scale-105 transition-all flex items-center gap-2 shadow-lg">
+                                                                    <Trash2 size={16} /> 삭제
+                                                                </button>
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                        <label className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center cursor-pointer">
+                                                            <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 mb-4 group-hover:scale-110 transition-transform duration-500">
+                                                                <Plus size={24} />
+                                                            </div>
+                                                            <p className="text-sm font-black text-slate-900">클릭하여 이미지 업로드</p>
+                                                            <p className="text-[11px] font-bold text-slate-400 mt-1">추천 사이즈: 16:9 비율</p>
+                                                            <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} />
+                                                        </label>
+                                                    )}
+                                                </div>
+                                                <div className="space-y-1.5 mt-4">
+                                                    <label className="text-[11px] font-black text-slate-400 ml-1">직접 URL 입력 (선택)</label>
+                                                    <input
+                                                        type="text"
+                                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                        value={formData.image}
+                                                        onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                                                        placeholder="https://..."
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="col-span-2">
-                                        <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">상세 설명</label>
-                                        <textarea
-                                            required
-                                            value={formData.description}
-                                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                            placeholder="출고와 관련된 설명을 입력해주세요."
-                                            rows={4}
-                                            className="w-full bg-slate-50 border-none rounded-2xl p-6 text-sm font-bold focus:ring-2 focus:ring-slate-900/10 transition-all"
-                                        />
+                                    <div className="pt-10 border-t border-slate-100 flex gap-4">
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsModalOpen(false)}
+                                            className="flex-1 lg:flex-none px-10 py-4.5 bg-slate-50 text-slate-400 rounded-2xl font-black text-base hover:bg-slate-100 transition-all active:scale-95"
+                                        >
+                                            취소
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="flex-1 bg-indigo-600 text-white py-4.5 rounded-2xl font-black text-base hover:bg-indigo-700 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-indigo-600/20"
+                                        >
+                                            {editingCase ? '수정 사항 저장' : '새 출고 사례 등록'}
+                                        </button>
                                     </div>
-                                </div>
-
-                                <button type="submit" className="w-full h-16 bg-slate-900 text-white rounded-2xl font-black hover:bg-slate-800 transition-all active:scale-[0.98] mt-4 shadow-xl shadow-slate-900/10">
-                                    {editingCase ? '수정 내용 저장' : '출고 사례 등록'}
-                                </button>
-                            </form>
+                                </form>
+                            </div>
                         </motion.div>
                     </div>
                 )}

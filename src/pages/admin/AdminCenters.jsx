@@ -213,79 +213,148 @@ const AdminCenters = () => {
                         <p className="text-slate-400 font-bold">데이터를 불러오는 중...</p>
                     </div>
                 ) : (
-                    <div className="hidden lg:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                        <table className="w-full text-left">
-                            <thead className="bg-slate-50/50 border-b border-slate-100">
-                                <tr className="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em]">
-                                    <th className="px-8 py-6">Center Hub & Location</th>
-                                    <th className="px-8 py-6">Services</th>
-                                    <th className="px-8 py-6">Contact Info</th>
-                                    <th className="px-8 py-6 text-right">Settings</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-100">
-                                {filteredCenters.map((center) => (
-                                    <tr key={center.id} className="group hover:bg-slate-50/50 transition-colors">
-                                        <td className="px-8 py-6">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-16 h-16 rounded-lg bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
-                                                    {center.image ? (
-                                                        <img src={center.image} alt={center.name} className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-slate-300">
-                                                            <Building2 size={24} />
+                    <div className="space-y-6">
+                        {/* Desktop Table View */}
+                        <div className="hidden lg:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table className="w-full text-left">
+                                <thead className="bg-slate-50/50 border-b border-slate-100">
+                                    <tr className="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em]">
+                                        <th className="px-8 py-6">Center Hub & Location</th>
+                                        <th className="px-8 py-6">Services</th>
+                                        <th className="px-8 py-6">Contact Info</th>
+                                        <th className="px-8 py-6 text-right">Settings</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100">
+                                    {filteredCenters.map((center) => (
+                                        <tr key={center.id} className="group hover:bg-slate-50/50 transition-colors">
+                                            <td className="px-8 py-6">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-16 h-16 rounded-lg bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
+                                                        {center.image ? (
+                                                            <img src={center.image} alt={center.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                                <Building2 size={24} />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="text-base font-black text-slate-900">{center.name}</span>
+                                                        <div className="flex items-center gap-2 mt-1">
+                                                            <MapPin size={12} className="text-slate-400" />
+                                                            <span className="text-[11px] font-bold text-slate-400 truncate max-w-[200px]">{center.address} {center.detailAddress}</span>
                                                         </div>
-                                                    )}
-                                                </div>
-                                                <div className="flex flex-col">
-                                                    <span className="text-base font-black text-slate-900">{center.name}</span>
-                                                    <div className="flex items-center gap-2 mt-1">
-                                                        <MapPin size={12} className="text-slate-400" />
-                                                        <span className="text-[11px] font-bold text-slate-400 truncate max-w-[200px]">{center.address} {center.detailAddress}</span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <div className="flex flex-wrap gap-1">
-                                                {center.services.map((s, i) => (
-                                                    <span key={i} className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-md text-[10px] font-black uppercase tracking-tighter">#{s}</span>
-                                                ))}
-                                            </div>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <div className="space-y-1">
-                                                <div className="flex items-center gap-2">
-                                                    <Phone size={12} className="text-indigo-600" />
-                                                    <span className="text-[13px] font-bold text-slate-700">{center.phone}</span>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <div className="flex flex-wrap gap-1">
+                                                    {center.services.map((s, i) => (
+                                                        <span key={i} className="px-2 py-0.5 bg-indigo-50 text-indigo-600 rounded-md text-[10px] font-black uppercase tracking-tighter">#{s}</span>
+                                                    ))}
                                                 </div>
-                                                <div className="flex items-center gap-2">
-                                                    <Clock size={12} className="text-slate-400" />
-                                                    <span className="text-[11px] font-medium text-slate-500">{center.hours}</span>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <div className="space-y-1">
+                                                    <div className="flex items-center gap-2">
+                                                        <Phone size={12} className="text-indigo-600" />
+                                                        <span className="text-[13px] font-bold text-slate-700">{center.phone}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <Clock size={12} className="text-slate-400" />
+                                                        <span className="text-[11px] font-medium text-slate-500">{center.hours}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-6">
+                                                <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <button
+                                                        onClick={() => handleOpenModal(center)}
+                                                        className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm active:scale-95"
+                                                    >
+                                                        <Edit3 size={16} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDelete(center.id)}
+                                                        className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all shadow-sm active:scale-95"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Mobile Card View */}
+                        <div className="lg:hidden flex flex-col gap-4">
+                            {filteredCenters.map((center) => (
+                                <div key={center.id} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
+                                                {center.image ? (
+                                                    <img src={center.image} alt={center.name} className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                                        <Building2 size={24} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div>
+                                                <h3 className="text-lg font-black text-slate-900">{center.name}</h3>
+                                                <div className="flex items-center gap-1.5 mt-0.5">
+                                                    <MapPin size={12} className="text-slate-400" />
+                                                    <span className="text-[11px] font-bold text-slate-400 truncate max-w-[200px]">{center.address}</span>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td className="px-8 py-6">
-                                            <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <button
-                                                    onClick={() => handleOpenModal(center)}
-                                                    className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm active:scale-95"
-                                                >
-                                                    <Edit3 size={16} />
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDelete(center.id)}
-                                                    className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all shadow-sm active:scale-95"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => handleOpenModal(center)}
+                                                className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 flex items-center justify-center active:scale-90 transition-all"
+                                            >
+                                                <Edit3 size={18} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(center.id)}
+                                                className="w-10 h-10 rounded-xl bg-red-50 text-red-500 flex items-center justify-center active:scale-90 transition-all"
+                                            >
+                                                <Trash2 size={18} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {center.services.map((s, i) => (
+                                            <span key={i} className="px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-black uppercase tracking-tight">#{s}</span>
+                                        ))}
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
+                                        <div className="space-y-1">
+                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Contact</p>
+                                            <div className="flex items-center gap-2">
+                                                <Phone size={12} className="text-indigo-600" />
+                                                <span className="text-xs font-bold text-slate-700">{center.phone}</span>
                                             </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Hours</p>
+                                            <div className="flex items-center gap-2">
+                                                <Clock size={12} className="text-slate-400" />
+                                                <span className="text-xs font-medium text-slate-500">{center.hours}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+
                 )}
 
                 {/* Modal */}
