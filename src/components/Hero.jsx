@@ -31,11 +31,7 @@ const Hero = () => {
         <section className="relative min-h-[95vh] flex flex-col items-center justify-center text-center bg-[#0F172A] overflow-hidden py-24 md:py-32">
             {/* Premium Background Layer */}
             <div className="absolute inset-0 z-0">
-                {/* Image Overlay with Parallax */}
-                <motion.div
-                    style={{ y: y1, opacity: 0.4 }}
-                    className="absolute inset-0 bg-[url('/uploads/1770786250819-255210246.png')] bg-cover bg-center mix-blend-overlay grayscale-20 brightness-[0.7]"
-                />
+
 
                 {/* Dynamic Gradient Orbs */}
                 <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full animate-pulse" />
@@ -79,7 +75,7 @@ const Hero = () => {
                         variants={itemVariants}
                         className="text-[18px] md:text-[22px] font-medium leading-relaxed text-white/60 max-w-3xl mx-auto mb-14"
                     >
-                        단순한 렌탈을 넘어, 전국 최대 네트워크와<br className="hidden md:block" />
+                        단순한 렌탈을 넘어, 전국 최대 네트워크와 <br className="hidden md:block" />
                         투명한 데이터 정산으로 라이더의 수익과 성장을 책임집니다.
                     </motion.p>
 
