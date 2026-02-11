@@ -9,12 +9,20 @@ import {
     Wallet,
     Bike,
     Wrench,
-    ChevronRight
+    ChevronRight,
+    Search,
+    Zap,
+    CreditCard,
+    Cpu,
+    CheckCircle2,
+    Calendar,
+    AlertCircle,
+    FileCheck
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/svg/Ridy_logo.svg';
 
-// Animation variants for consistent usage
+// Animation variants
 const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
@@ -25,7 +33,7 @@ const staggerContainer = {
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.2
+            staggerChildren: 0.15
         }
     }
 };
@@ -33,68 +41,82 @@ const staggerContainer = {
 const Intro = () => {
     return (
         <div className="w-full overflow-hidden bg-bg-white">
-            {/* 1. Hero Section */}
-            <section className="relative w-full h-screen min-h-[700px] flex flex-col items-center justify-center text-center px-space-lg bg-bg-white pb-32 md:pb-40">
+            {/* 1. Hero Section: Vision-Focused */}
+            <section className="relative w-full h-screen min-h-[750px] flex flex-col items-center justify-center text-center px-space-lg bg-bg-white pb-32 md:pb-40">
                 {/* Background Decoration */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-                    <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px]" />
-                    <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-400/5 rounded-full blur-[100px]" />
+                    <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px]" />
+                    <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-[120px]" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,transparent_0%,white_80%)] z-1" />
                 </div>
 
-                <div className="relative z-10 max-w-[800px] mx-auto space-y-8 -mt-10">
+                <div className="relative z-10 max-w-[900px] mx-auto space-y-8 -mt-20">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.6 }}
-                        className="flex justify-center mb-6"
+                        className="flex justify-center mb-10"
                     >
-                        <img src={Logo} alt="Ridy Logo" className="h-[32px] md:h-space-2xl w-auto" />
+                        <img src={Logo} alt="Ridy Logo" className="h-[36px] md:h-space-2xl w-auto" />
                     </motion.div>
 
-                    <motion.h1
-                        className="text-hero text-text-secondary leading-tight"
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        라이디가 더 간편하게<br />만들어 드립니다.
-                    </motion.h1>
+                        <h1 className="text-hero text-text-secondary leading-[1.2] mb-6">
+                            라이더의 가치를 높이고,<br />
+                            배달 생태계의 <span className="text-primary">기준을 바꿉니다.</span>
+                        </h1>
+                        <p className="text-body text-[18px] md:text-[24px] text-text-muted leading-relaxed max-w-3xl mx-auto font-medium">
+                            라이디는 단순히 서비스를 제공하는 것을 넘어,<br className="hidden md:block" />
+                            라이더가 사회적으로 존중받고 경제적으로 안정된 환경에서<br className="hidden md:block" />
+                            오직 '운행'에만 전념할 수 있는 건강한 생태계를 구축합니다.
+                        </p>
+                    </motion.div>
 
-                    <motion.p
-                        className="text-body text-[18px] md:text-[22px] text-text-muted leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                        className="pt-10"
                     >
-                        라이더의 일상, Ridy가 함께합니다.<br />
-                        우리는 도시 곳곳에서 땀 흘리며 움직이는<br className="md:hidden" /> 사람들을 위해 존재합니다.
-                    </motion.p>
+                        <Link to="/rental/inquiry" className="btn-ridy btn-ridy-primary h-[56px]! px-10! text-lg! rounded-full">
+                            Ridy와 함께 시작하기
+                        </Link>
+                    </motion.div>
                 </div>
 
                 <motion.div
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2"
+                    className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
+                    transition={{ delay: 1.2, duration: 1 }}
                 >
-                    <div className="w-px h-space-3xl bg-linear-to-b from-transparent via-text-muted/30 to-transparent" />
+                    <span className="text-[12px] text-text-light font-bold tracking-[0.2em] uppercase">Scroll</span>
+                    <div className="w-px h-space-3xl bg-linear-to-b from-primary via-primary/30 to-transparent" />
                 </motion.div>
             </section>
 
-            {/* 2. Core Values Section */}
-            <section className="relative py-[100px] md:py-[150px] bg-bg-light">
-                <div className="container">
+            {/* 2. Problem & Solution Section: Why Ridy? */}
+            <section className="py-[100px] md:py-[160px] bg-bg-light relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-10 opacity-[0.03] text-primary rotate-12">
+                    <Search size={400} />
+                </div>
+
+                <div className="container relative z-10">
                     <motion.div
-                        className="text-center mb-[80px]"
+                        className="mb-space-3xl"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
                     >
-                        <h2 className="text-section-title mb-4">Core Values</h2>
-                        <p className="text-sub-title text-text-muted font-normal max-w-2xl mx-auto">
-                            Ridy는 단순히 이동을 돕는 서비스가 아닙니다.<br />
-                            우리는 라이더가 더 나은 삶을 만들어갈 수 있도록 돕습니다.
+                        <span className="text-primary font-bold tracking-widest uppercase mb-4 block">Problem & Solution</span>
+                        <h2 className="text-section-title mb-6">우리가 해결하려는 문제</h2>
+                        <p className="text-sub-title text-text-muted font-normal max-w-2xl">
+                            라이더분들이 현장에서 겪는 불편함을 Ridy만의 혁신적인 기술과 인프라로 해결합니다.
                         </p>
                     </motion.div>
 
@@ -105,177 +127,252 @@ const Intro = () => {
                         viewport={{ once: true, margin: "-100px" }}
                         variants={staggerContainer}
                     >
-                        {/* Value 1: Pride */}
-                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <div className="w-space-3xl h-space-3xl rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
-                                <Heart size={32} />
-                            </div>
-                            <h3 className="text-[24px] font-bold text-text-secondary mb-4">Pride</h3>
-                            <p className="text-body leading-relaxed">
-                                우리는 라이더가 자신의 일에<br />
-                                <span className="text-text-primary font-medium">자부심</span>을 느끼도록 돕습니다.
+                        {/* Issue 1 */}
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                            <h3 className="text-[22px] font-bold text-text-secondary mb-4">"정산이 너무 복잡하고 느려요"</h3>
+                            <div className="w-8 h-px bg-slate-200 mb-6" />
+                            <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
+                                <Zap size={16} /> Ridy Solution
+                            </h4>
+                            <p className="text-body text-text-primary font-medium leading-relaxed">
+                                <span className="text-primary font-bold">자동화된 투명한 시스템</span>으로<br /> 혁신하고 누락 없는 빠른 정산을 보장합니다.
                             </p>
                         </motion.div>
 
-                        {/* Value 2: Fairness */}
-                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <div className="w-space-3xl h-space-3xl rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
-                                <ShieldCheck size={32} />
-                            </div>
-                            <h3 className="text-[24px] font-bold text-text-secondary mb-4">Fairness</h3>
-                            <p className="text-body leading-relaxed">
-                                <span className="text-text-primary font-medium">투명하고 공정한</span> 구조 속에서<br />
-                                더 나은 삶을 만들어갑니다.
+                        {/* Issue 2 */}
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                            <h3 className="text-[22px] font-bold text-text-secondary mb-4">"바이크 구매 비용이 큰 부담이에요"</h3>
+                            <div className="w-8 h-px bg-slate-200 mb-6" />
+                            <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
+                                <Zap size={16} /> Ridy Solution
+                            </h4>
+                            <p className="text-body text-text-primary font-medium leading-relaxed">
+                                <span className="text-primary font-bold">인수형/반납형 렌탈 프로그램</span>으로 초기 비용 부담을 최소화합니다.
                             </p>
                         </motion.div>
 
-                        {/* Value 3: Human-centric */}
-                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <div className="w-space-3xl h-space-3xl rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6">
-                                <Users size={32} />
-                            </div>
-                            <h3 className="text-[24px] font-bold text-text-secondary mb-4">Human-centric</h3>
-                            <p className="text-body leading-relaxed">
-                                기술은 도구일 뿐,<br />
-                                <span className="text-text-primary font-medium">진짜 중심은 사람</span>입니다.
+                        {/* Issue 3 */}
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                            <h3 className="text-[22px] font-bold text-text-secondary mb-4">"믿고 맡길 정비소가 부족해요"</h3>
+                            <div className="w-8 h-px bg-slate-200 mb-6" />
+                            <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
+                                <Zap size={16} /> Ridy Solution
+                            </h4>
+                            <p className="text-body text-text-primary font-medium leading-relaxed">
+                                핵심 거점의 <span className="text-primary font-bold">자체 서비스 센터 네트워크</span>를 통해 신속하고 정확한 정비를 지원합니다.
                             </p>
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* 3. Vision & Mission Statement */}
-            <section className="relative py-[120px] bg-white overflow-hidden">
+            {/* 3. Three Pillars: Core Business Facts */}
+            <section className="py-[120px] md:py-[180px] bg-bg-dark text-white relative">
                 <div className="container relative z-10">
                     <motion.div
-                        className="max-w-4xl mx-auto text-center"
+                        className="text-center mb-[100px]"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
                     >
-                        <h2 className="text-[32px] md:text-[48px] font-bold text-text-secondary leading-snug mb-8">
-                            "지역 사회의 일자리와<br className="hidden md:block" /> 교육의 기회를 확장하고,<br />
-                            라이더가 단순한 '노동자'가 아닌<br />
-                            <span className="text-primary">도시의 동력</span>으로 인정받는 세상을 만듭니다."
-                        </h2>
-                        <div className="w-space-3xl h-[4px] bg-primary mx-auto mb-8 rounded-full opacity-50"></div>
-                        <p className="text-[20px] font-medium text-text-muted">
-                            Ridy는 사람과 사회의 성장을 지향합니다.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* 4. Brand Identity / Services */}
-            <section className="py-[100px] bg-bg-dark text-white">
-                <div className="container">
-                    <motion.div
-                        className="text-center mb-[80px]"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                    >
-                        <span className="text-primary font-bold tracking-widest uppercase mb-2 block">Brand Identity</span>
-                        <h2 className="text-section-title text-white mb-6">Our Services</h2>
-                        <p className="text-body text-white/70 text-[18px]">
-                            우리의 모든 서비스는 라이더가 더 나은 일상을 살아가도록<br /> 설계된 하나의 여정입니다.
+                        <span className="text-primary font-bold tracking-widest uppercase mb-4 block">Three Pillars</span>
+                        <h2 className="text-section-title text-white mb-6">3대 핵심 비즈니스</h2>
+                        <p className="text-[18px] md:text-[20px] text-white/60 max-w-2xl mx-auto">
+                            Ridy의 전방위적 생태계는 라이더가 오직 운행에만<br className="hidden md:block" /> 전념할 수 있는 최고의 환경을 제공합니다.
                         </p>
                     </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
-                        {/* Payout */}
+                    <div className="space-y-[120px] md:space-y-[180px]">
+                        {/* Pillar 1: Payout */}
                         <motion.div
-                            className="bg-bg-dark-card p-space-2xl rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            className="max-w-5xl mx-auto text-center space-y-10"
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
+                            variants={fadeInUp}
                         >
-                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-primary/10 rounded-full blur-2xl translate-x-1/2 translate-y-[-50%] group-hover:bg-primary/20 transition-all" />
-                            <Wallet className="text-primary w-12 h-12 mb-6" />
-                            <h3 className="text-sub-title text-white mb-4">Ridy Payout</h3>
-                            <p className="text-body text-white/60 mb-8 min-h-space-3xl">
-                                배달 플랫폼 정산을 자동화해주는 서비스.<br />
-                                라이더와 지사장의 정산 업무를 간편하게 처리합니다.
-                            </p>
-                            <Link to="/service/payout" className="inline-flex items-center text-primary font-bold hover:text-white transition-colors">
-                                자세히 보기 <ArrowRight size={16} className="ml-2" />
-                            </Link>
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <span className="text-primary font-black tracking-[0.2em] text-[13px] md:text-[15px] uppercase block">Smart & Transparent</span>
+                                    <h3 className="text-[42px] md:text-[72px] font-black text-white leading-[1.1] tracking-tight">
+                                        Ridy Payout <br />
+                                        <span className="text-primary">투명한 데이터 정산</span>
+                                    </h3>
+                                </div>
+                                <div className="w-space-3xl h-[3px] bg-primary mx-auto rounded-full"></div>
+                                <div className="max-w-3xl mx-auto space-y-6">
+                                    <p className="text-white text-[20px] md:text-[26px] font-bold leading-snug">
+                                        흩어진 데이터를 하나로.<br /> 라이더 수익의 투명한 기준을 만듭니다.
+                                    </p>
+                                    <p className="text-white/50 text-[16px] md:text-[18px] leading-relaxed font-medium">
+                                        여러 플랫폼에 흩어진 배달 데이터를 하나로 통합하여,<br className="hidden md:block" />
+                                        누락 없는 정확한 수익을 자동 계산하고 지사장과 라이더 모두가<br className="hidden md:block" />
+                                        신뢰할 수 있는 데이터 정산 리포트를 제공합니다.
+                                    </p>
+                                </div>
+                                <ul className="flex flex-col md:flex-row justify-center gap-6 md:gap-12 pt-6">
+                                    <li className="flex items-center gap-3 text-white/90 font-bold text-[17px]">
+                                        <CheckCircle2 size={20} className="text-primary" /> 실시간 통합 정산 리포트
+                                    </li>
+                                    <li className="flex items-center gap-3 text-white/90 font-bold text-[17px]">
+                                        <CheckCircle2 size={20} className="text-primary" /> 자동 오류 검출 시스템
+                                    </li>
+                                </ul>
+                            </div>
                         </motion.div>
 
-                        {/* Rental */}
+                        {/* Pillar 2: Rental */}
                         <motion.div
-                            className="bg-bg-dark-card p-space-2xl rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            className="max-w-5xl mx-auto text-center space-y-10"
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
+                            variants={fadeInUp}
                         >
-                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-emerald-500/10 rounded-full blur-2xl translate-x-1/2 translate-y-[-50%] group-hover:bg-emerald-500/20 transition-all" />
-                            <Bike className="text-emerald-400 w-12 h-12 mb-6" />
-                            <h3 className="text-sub-title text-white mb-4">Ridy Rental</h3>
-                            <p className="text-body text-white/60 mb-8 min-h-space-3xl">
-                                배달용 바이크 렌탈 서비스.<br />
-                                신차/중고 선택, 유지관리 포함.
-                            </p>
-                            <Link to="/rental" className="inline-flex items-center text-emerald-400 font-bold hover:text-white transition-colors">
-                                자세히 보기 <ArrowRight size={16} className="ml-2" />
-                            </Link>
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <span className="text-emerald-400 font-black tracking-[0.2em] text-[13px] md:text-[15px] uppercase block">Flexible & Reasonable</span>
+                                    <h3 className="text-[42px] md:text-[72px] font-black text-white leading-[1.1] tracking-tight">
+                                        Ridy Rental <br />
+                                        <span className="text-emerald-400">맞춤형 바이크 라이프</span>
+                                    </h3>
+                                </div>
+                                <div className="w-space-3xl h-[3px] bg-emerald-400 mx-auto rounded-full"></div>
+                                <div className="max-w-3xl mx-auto space-y-6">
+                                    <p className="text-white text-[20px] md:text-[26px] font-bold leading-snug">
+                                        초기 비용 부담 없이,<br /> 라이더의 현재에 가장 알맞은 솔루션.
+                                    </p>
+                                    <p className="text-white/50 text-[16px] md:text-[18px] leading-relaxed font-medium">
+                                        인수형/반납형 렌탈 프로그램부터 믿을 수 있는 품질의 중고 리스 승계까지,<br className="hidden md:block" />
+                                        Ridy는 라이더의 경제적 여건과 주행 환경을 고려하여<br className="hidden md:block" />
+                                        최적화된 바이크 마련 방안을 제안합니다.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-xl mx-auto pt-4">
+                                    <div className="p-6 rounded-2xl bg-white/3 border border-white/10 hover:border-emerald-400/30 transition-colors group">
+                                        <p className="text-emerald-400 font-black mb-1 text-[20px]">인수/반납형</p>
+                                        <p className="text-[13px] text-white/40 font-medium">상황에 따라 선택 가능한 자유로운 옵션</p>
+                                    </div>
+                                    <div className="p-6 rounded-2xl bg-white/3 border border-white/10 hover:border-emerald-400/30 transition-colors group">
+                                        <p className="text-emerald-400 font-black mb-1 text-[20px]">매물 리스 승계</p>
+                                        <p className="text-[13px] text-white/40 font-medium">엄격한 검수를 마친 우수한 품질의 바이크</p>
+                                    </div>
+                                </div>
+                            </div>
                         </motion.div>
 
-                        {/* Service Center */}
+                        {/* Pillar 3: Service Center */}
                         <motion.div
-                            className="bg-bg-dark-card p-space-2xl rounded-xl border border-white/5 hover:border-primary/50 transition-colors group relative overflow-hidden"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            className="max-w-5xl mx-auto text-center space-y-10"
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            variants={fadeInUp}
                         >
-                            <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-amber-500/10 rounded-full blur-2xl translate-x-1/2 translate-y-[-50%] group-hover:bg-amber-500/20 transition-all" />
-                            <Wrench className="text-amber-400 w-12 h-12 mb-6" />
-                            <h3 className="text-sub-title text-white mb-4">Ridy Service Center</h3>
-                            <p className="text-body text-white/60 mb-8 min-h-space-3xl">
-                                라이더 전용 장비 서비스.<br />
-                                장비, 점검, 소모품 교체를 전문으로 제공합니다.
-                            </p>
-                            <Link to="/service/center" className="inline-flex items-center text-amber-400 font-bold hover:text-white transition-colors">
-                                자세히 보기 <ArrowRight size={16} className="ml-2" />
-                            </Link>
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <span className="text-amber-400 font-black tracking-[0.2em] text-[13px] md:text-[15px] uppercase block">Expert & Hardware</span>
+                                    <h3 className="text-[42px] md:text-[72px] font-black text-white leading-[1.1] tracking-tight">
+                                        Service Center <br />
+                                        <span className="text-amber-400">독보적인 현장 인프라</span>
+                                    </h3>
+                                </div>
+                                <div className="w-space-3xl h-[3px] bg-amber-400 mx-auto rounded-full"></div>
+                                <div className="max-w-3xl mx-auto space-y-6">
+                                    <p className="text-white text-[20px] md:text-[26px] font-bold leading-snug">
+                                        운행에만 전념하도록.<br /> 전문 메카닉이 바이크를 케어합니다.
+                                    </p>
+                                    <p className="text-white/50 text-[16px] md:text-[18px] leading-relaxed font-medium">
+                                        전국 핵심 거점에 위치한 서비스 센터망과 전문 메카닉 상주 시스템으로<br className="hidden md:block" />
+                                        최상의 바이크 컨디션을 유지하며, 부품 및 소모품 관리까지<br className="hidden md:block" />
+                                        통합된 사후 관리 인프라를 제공합니다.
+                                    </p>
+                                </div>
+                                <ul className="flex flex-col md:flex-row justify-center gap-6 md:gap-12 pt-6">
+                                    <li className="flex items-center gap-3 text-white/90 font-bold text-[17px]">
+                                        <CheckCircle2 size={20} className="text-amber-400" /> 전문 메카닉 상주 시스템
+                                    </li>
+                                    <li className="flex items-center gap-3 text-white/90 font-bold text-[17px]">
+                                        <CheckCircle2 size={20} className="text-amber-400" /> 순정 부품 관리 연계 서비스
+                                    </li>
+                                </ul>
+                            </div>
                         </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* 5. Footer CTA */}
-            <section className="bg-primary py-[100px] md:py-[140px] text-center text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10 pointer-events-none"></div>
-                <div className="container relative z-10">
+            {/* 4. Trust & Safety Section: The Ridy Standard */}
+            <section className="py-[120px] md:py-[180px] bg-bg-white overflow-hidden">
+                <div className="container">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        className="text-center mb-space-3xl"
+                        initial="hidden"
+                        whileInView="visible"
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        variants={fadeInUp}
                     >
-                        <h2 className="text-[36px] md:text-[56px] font-bold mb-space-lg leading-tight">
-                            당신의 첫 라이딩을<br />책임지는 곳
-                        </h2>
-                        <p className="text-[18px] text-white/80 mb-space-3xl">
-                            지금 바로 시작하세요. 라이디가 함께합니다.
+                        <span className="text-primary font-bold tracking-widest uppercase mb-4 block">Trust & Safety</span>
+                        <h2 className="text-section-title mb-6">신뢰할 수 있는 안전망</h2>
+                        <p className="text-sub-title text-text-muted font-normal max-w-2xl mx-auto">
+                            우리의 목표는 라이더가 어떠한 상황에서도 안전하게<br className="hidden md:block" /> 보호받으며 운행에 집중할 수 있도록 만드는 것입니다.
                         </p>
+                    </motion.div>
 
-                        <div className="flex flex-col md:flex-row gap-space-md justify-center items-center">
-                            <Link to="/inquiry#rental" className="bg-white text-primary px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-opacity-90 transition-all min-w-[200px] shadow-lg hover:translate-y-[-2px]">
-                                리스/렌탈 문의하기
-                            </Link>
-                            <Link to="/inquiry#app" className="bg-transparent border-2 border-white text-white px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-white hover:text-primary transition-all min-w-[200px] hover:translate-y-[-2px]">
-                                정산앱 문의하기
-                            </Link>
-                            <Link to="/inquiry#franchise" className="bg-transparent border-2 border-white/30 text-white px-[32px] h-[56px] flex items-center justify-center rounded-full font-bold text-[18px] hover:bg-white hover:text-primary transition-all min-w-[200px] hover:translate-y-[-2px]">
-                                가맹점 창업 문의하기
-                            </Link>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-space-2xl md:gap-space-3xl">
+                        {/* Protection */}
+                        <motion.div
+                            className="flex gap-8 p-10 bg-bg-light rounded-3xl"
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="w-[64px] h-[64px] rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary shrink-0">
+                                <ShieldCheck size={32} />
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="text-[24px] font-bold text-text-secondary">철저한 보험 및 사고 대응</h3>
+                                <p className="text-body leading-relaxed text-[16px]">
+                                    종합/책임보험에 대한 전문적인 가이드와 사고 발생 시<br />
+                                    <span className="text-text-primary font-bold font-sans">대차 서비스 연계</span>를 통해 수리 기간에도<br /> 라이더의 수입 공백이 없도록 철저히 보호합니다.
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Technology */}
+                        <motion.div
+                            className="flex gap-8 p-10 bg-bg-light rounded-3xl"
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="w-[64px] h-[64px] rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary shrink-0">
+                                <FileCheck size={32} />
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="text-[24px] font-bold text-text-secondary">혁신적인 편리함</h3>
+                                <p className="text-body leading-relaxed text-[16px]">
+                                    <span className="text-text-primary font-bold font-sans">비대면 전자계약 시스템</span> 도입 등으로<br />
+                                    불필요한 대기 시간을 획기적으로 줄여 라이더의 시간을<br /> 가장 소중하게 생각하는 라이딩 환경을 제공합니다.
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
+
+                    <motion.div
+                        className="mt-space-3xl p-10 md:p-16 bg-primary rounded-[40px] text-white flex flex-col md:flex-row items-center justify-between gap-10"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="space-y-4 text-center md:text-left">
+                            <h3 className="text-[28px] md:text-[36px] font-bold leading-tight">라이더의 권익을 대변하는<br /> 든든한 파트너가 되겠습니다.</h3>
+                            <p className="text-white/70 font-medium">주식회사 LLNP Team Ridy</p>
                         </div>
+                        <Link to="/rental/inquiry" className="bg-white text-primary px-10 h-[64px] flex items-center justify-center rounded-full font-bold text-[18px] hover:scale-105 transition-transform shadow-xl min-w-[200px]">
+                            지금 문의하기 <ArrowRight size={20} className="ml-2" />
+                        </Link>
                     </motion.div>
                 </div>
             </section>

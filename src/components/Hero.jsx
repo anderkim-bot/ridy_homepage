@@ -1,69 +1,111 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, Zap, ShieldCheck, Globe, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
-    return (
-        <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center bg-primary overflow-hidden py-24 md:py-32">
-            {/* Background elements for depth */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/10 blur-[120px] rounded-full" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#3242B5]/40 blur-[100px] rounded-full" />
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-                {/* Subtle Grid Pattern */}
-                <div className="absolute inset-0 opacity-[0.03]"
-                    style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+        }
+    };
+
+    return (
+        <section className="relative min-h-[95vh] flex flex-col items-center justify-center text-center bg-[#0F172A] overflow-hidden py-24 md:py-32">
+            {/* Premium Background Layer */}
+            <div className="absolute inset-0 z-0">
+                {/* Image Overlay with Parallax */}
+                <motion.div
+                    style={{ y: y1, opacity: 0.4 }}
+                    className="absolute inset-0 bg-[url('/uploads/1770786250819-255210246.png')] bg-cover bg-center mix-blend-overlay grayscale-20 brightness-[0.7]"
+                />
+
+                {/* Dynamic Gradient Orbs */}
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full animate-pulse" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-500/10 blur-[180px] rounded-full" />
+
+                {/* Animated Grid */}
+                <div className="absolute inset-0 opacity-[0.1]"
+                    style={{
+                        backgroundImage: `linear-gradient(to right, #ffffff1a 1px, transparent 1px), linear-gradient(to bottom, #ffffff1a 1px, transparent 1px)`,
+                        backgroundSize: '60px 60px'
+                    }}
+                />
             </div>
 
             <div className="container relative z-10 px-6">
-                <div className="flex flex-col items-center max-w-4xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-8"
-                    >
-                        <span className="text-[12px] md:text-[13px] font-bold text-white tracking-widest uppercase">
-                            Premium Rider Solution
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex flex-col items-center max-w-5xl mx-auto"
+                >
+                    {/* Badge */}
+                    <motion.div variants={itemVariants} className="inline-flex items-center px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-10 shadow-xl shadow-black/20">
+                        <span className="flex h-2 w-2 rounded-full bg-primary mr-3 animate-ping" />
+                        <span className="text-[12px] md:text-[14px] font-black text-white tracking-[0.2em] uppercase">
+                            The New Standard for Riders
                         </span>
                     </motion.div>
 
+                    {/* Main Title */}
                     <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="text-[40px] md:text-[64px] font-extrabold leading-[1.2] md:leading-[1.15] tracking-[-0.04em] text-white mb-8"
+                        variants={itemVariants}
+                        className="text-[48px] md:text-[80px] lg:text-[92px] font-black leading-[1.05] tracking-tight text-white mb-8"
                     >
-                        당신의 모든 순간을 <br />
-                        <span className="text-white opacity-90">책임지는 파트너, 라이디</span>
+                        라이더의 가치를<br />
+                        <span className="bg-linear-to-r from-primary to-indigo-400 bg-clip-text text-transparent">증명하는 최고의 선택</span>
                     </motion.h1>
 
+                    {/* Description */}
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        className="text-[18px] md:text-[20px] font-medium leading-[1.6] text-white/80 max-w-3xl mx-auto mb-12"
+                        variants={itemVariants}
+                        className="text-[18px] md:text-[22px] font-medium leading-relaxed text-white/60 max-w-3xl mx-auto mb-14"
                     >
-                        전국 최대 네트워크로 라이더님의 앞길을 책임집니다. <br className="hidden md:block" />
-                        합리적인 렌탈부터 정산까지, 성공을 위한 가장 신뢰할 수 있는 선택.
+                        단순한 렌탈을 넘어, 전국 최대 네트워크와<br className="hidden md:block" />
+                        투명한 데이터 정산으로 라이더의 수익과 성장을 책임집니다.
                     </motion.p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex flex-col sm:flex-row gap-5"
-                    >
-                        <Link to="/product/honda" className="h-[64px] px-12 bg-white text-primary rounded-full font-black text-lg transition-all hover:bg-slate-50 hover:scale-[1.02] active:scale-95 shadow-2xl shadow-black/10 flex items-center justify-center group">
-                            렌탈 기종 보기
-                            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    {/* CTA Button */}
+                    <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mb-24">
+                        <Link to="/brand/intro" className="h-[72px] px-14 bg-white text-[#0F172A] rounded-full font-black text-xl transition-all hover:bg-slate-100 hover:scale-[1.05] active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center justify-center group overflow-hidden relative">
+                            <span className="relative z-10">서비스 시작하기</span>
+                            <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10" />
                         </Link>
                     </motion.div>
-                </div>
+
+
+                </motion.div>
             </div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5, duration: 1 }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 text-white/30"
+            >
+                <p className="text-[10px] font-black uppercase tracking-[0.3em]">Scroll Down</p>
+                <div className="w-px h-12 bg-linear-to-b from-white/30 to-transparent" />
+            </motion.div>
         </section>
     );
 };
-
 export default Hero;
