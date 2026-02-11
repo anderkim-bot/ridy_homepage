@@ -297,6 +297,7 @@ const AdminModels = () => {
 
     // Standard single dropzone for model items
     const ImageDropzone = ({ index }) => {
+        const currentImage = watch(`items.${index}.image`);
         const onDrop = useCallback(acceptedFiles => {
             const file = acceptedFiles[0];
             if (file) {
@@ -306,7 +307,14 @@ const AdminModels = () => {
                 };
                 reader.readAsDataURL(file);
             }
-        }, [index]);
+        }, [index, setValue]);
+
+        const { getRootProps, getInputProps, isDragActive } = useDropzone({
+            onDrop,
+            accept: { 'image/*': [] },
+            multiple: false
+        });
+
         return (
             <div {...getRootProps()} className={`relative w-full aspect-square rounded-lg md:rounded-xl border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/5' : 'border-slate-200 bg-slate-50 hover:border-primary/40'}`}>
                 <input {...getInputProps()} />
@@ -525,7 +533,17 @@ const AdminModels = () => {
                                         <tr key={model.id} className="group hover:bg-slate-50/30 transition-colors">
                                             <td className="px-8 py-6">
                                                 <div className="flex items-center gap-5">
-                                                    <div className="w-14 h-14 rounded-[12px] bg-slate-100 overflow-hidden border border-slate-200 shrink-0"><img src={model.brand === 'SUCCESSION' ? (model.succession_images?.[0] || model.successionImages?.[0]) : model.items?.[0]?.image} className="w-full h-full object-cover" alt="" /></div>
+                                                    <div className="w-14 h-14 rounded-[12px] bg-slate-100 overflow-hidden border border-slate-200 shrink-0">
+                                                        <img
+                                                            src={model.brand === 'SUCCESSION'
+                                                                ? (model.successionImages?.[0] || model.succession_images?.[0])
+                                                                : (model.items?.[0]?.image)
+                                                            }
+                                                            className="w-full h-full object-cover"
+                                                            alt=""
+                                                            onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Image'; }}
+                                                        />
+                                                    </div>
                                                     <div className="flex flex-col"><span className="text-lg font-black text-slate-900">{model.name}</span><span className="text-[11px] font-mono font-bold text-primary tracking-tighter mt-0.5">/{model.slug}</span></div>
                                                 </div>
                                             </td>
@@ -551,7 +569,17 @@ const AdminModels = () => {
                             {models.filter(m => (activeTab === 'ALL' || m.brand === activeTab) && (m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.slug.toLowerCase().includes(searchQuery.toLowerCase()))).map(model => (
                                 <div key={model.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
 
-                                    <div className="w-14 h-14 rounded-lg bg-slate-100 overflow-hidden border border-slate-100 shrink-0"><img src={model.brand === 'SUCCESSION' ? (model.succession_images?.[0] || model.successionImages?.[0]) : model.items?.[0]?.image} className="w-full h-full object-cover" alt="" /></div>
+                                    <div className="w-14 h-14 rounded-lg bg-slate-100 overflow-hidden border border-slate-100 shrink-0">
+                                        <img
+                                            src={model.brand === 'SUCCESSION'
+                                                ? (model.successionImages?.[0] || model.succession_images?.[0])
+                                                : (model.items?.[0]?.image)
+                                            }
+                                            className="w-full h-full object-cover"
+                                            alt=""
+                                            onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Image'; }}
+                                        />
+                                    </div>
 
                                     <div className="flex-1 min-w-0"><div className="flex flex-col"><span className="text-base font-black text-slate-900 truncate">{model.name}</span><div className="flex items-center gap-2 mt-1"><span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[8px] font-black tracking-widest uppercase ${model.brand === 'SUCCESSION' ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-600'}`}>{model.brand}</span><span className="text-[9px] font-bold text-slate-400 truncate">/{model.slug}</span></div></div></div>
                                     <div className="flex gap-2"><button onClick={() => handleEdit(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-primary/10 active:text-primary transition-colors"><Edit3 size={16} /></button><button onClick={() => handleDeleteClick(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-red-50 active:text-red-500 transition-colors"><Trash2 size={16} /></button></div>
