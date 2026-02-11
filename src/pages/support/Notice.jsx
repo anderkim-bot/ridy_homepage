@@ -54,7 +54,7 @@ const NoticeCard = ({ notice, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="group relative bg-white rounded-3xl p-6 md:p-8 border border-slate-100 transition-all hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer"
+            className="group relative bg-white rounded-xl p-6 md:p-8 border border-slate-100 transition-all hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer"
         >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex-1 space-y-4">
@@ -153,14 +153,14 @@ const Notice = () => {
                     <div className="max-w-5xl mx-auto px-6">
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             {/* Categories */}
-                            <div className="flex p-1 bg-slate-200/50 rounded-2xl w-full md:w-auto overflow-x-auto no-scrollbar">
+                            <div className="flex p-1 bg-slate-200/50 rounded-lg w-full md:w-auto overflow-x-auto no-scrollbar">
                                 {CATEGORIES.map(cat => (
                                     <button
                                         key={cat}
                                         onClick={() => setActiveCategory(cat)}
-                                        className={`px-6 py-2.5 rounded-xl text-sm font-black transition-all whitespace-nowrap ${activeCategory === cat
-                                                ? 'bg-white text-indigo-600 shadow-sm'
-                                                : 'text-slate-500 hover:text-slate-900'
+                                        className={`px-6 py-2.5 rounded-md text-sm font-black transition-all whitespace-nowrap ${activeCategory === cat
+                                            ? 'bg-white text-indigo-600 shadow-sm'
+                                            : 'text-slate-500 hover:text-slate-900'
                                             }`}
                                     >
                                         {cat}
@@ -175,7 +175,7 @@ const Notice = () => {
                                     placeholder="공지사항 검색"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full bg-white border border-slate-200 rounded-2xl px-12 py-3.5 font-bold focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all outline-none"
+                                    className="w-full bg-white border border-slate-200 rounded-lg px-12 py-3.5 font-bold focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all outline-none"
                                 />
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                             </div>

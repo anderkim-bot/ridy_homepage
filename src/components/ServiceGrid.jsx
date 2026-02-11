@@ -12,7 +12,7 @@ const Card = ({ icon: Icon, title, description, color, href, delay }) => (
         whileHover={{ y: -8 }}
         className="glass-card p-8 flex flex-col items-start min-h-[260px] group"
     >
-        <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all shadow-sm group-hover:scale-110 group-hover:shadow-lg" style={{ backgroundColor: `${color}15`, color: color }}>
+        <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-6 transition-all shadow-sm group-hover:scale-110 group-hover:shadow-lg" style={{ backgroundColor: `${color}15`, color: color }}>
             <Icon size={28} />
         </div>
         <h3 className="text-xl font-bold mb-3 text-slate-900">{title}</h3>

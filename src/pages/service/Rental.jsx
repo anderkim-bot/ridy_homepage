@@ -28,9 +28,9 @@ const BenefitCard = ({ icon: Icon, title, content, subItems, index }) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-xl transition-all group"
+        className="bg-white p-8 rounded-[20px] border border-slate-100 shadow-sm hover:shadow-xl transition-all group"
     >
-        <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+        <div className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
             <Icon size={28} />
         </div>
         <h3 className="text-[22px] font-black text-slate-900 mb-4">{title}</h3>
@@ -244,9 +244,9 @@ const Rental = () => {
                                 }}
                             >
                                 {[...cases, ...cases, ...cases].map((item, idx) => (
-                                    <div key={idx} className="inline-block mx-4 min-w-[300px] p-4 bg-white/5 rounded-xl border border-white/5">
+                                    <div key={idx} className="inline-block mx-4 min-w-[300px] p-4 bg-white/5 rounded-lg border border-white/5">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-10 bg-white/10 rounded-lg overflow-hidden shrink-0">
+                                            <div className="w-14 h-10 bg-white/10 rounded-md overflow-hidden shrink-0">
                                                 {item.image && <img src={item.image} alt="" className="w-full h-full object-cover" />}
                                             </div>
                                             <div className="text-left">
@@ -305,7 +305,7 @@ const Rental = () => {
             <section className="py-32 bg-white">
                 <div className="container max-w-4xl px-6">
                     <div className="flex items-center gap-6 mb-16">
-                        <div className="w-16 h-16 rounded-3xl bg-primary flex items-center justify-center text-white shrink-0">
+                        <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white shrink-0">
                             <HelpCircle size={32} />
                         </div>
                         <div>
@@ -360,11 +360,11 @@ const Rental = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                            <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-2xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
+                            <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
                                 렌탈 신청하기
                                 <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[72px] px-12 bg-[#FEE500] text-slate-900 rounded-2xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[72px] px-12 bg-[#FEE500] text-slate-900 rounded-xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
                                 <MessageCircle className="mr-2 w-6 h-6 fill-current" />
                                 카톡 상담 연결
                             </a>

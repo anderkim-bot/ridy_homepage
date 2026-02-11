@@ -24,11 +24,11 @@
 
   /* ── Border & Radius ── */
   --color-border-subtle: rgba(31, 30, 29, 0.4);
-  --radius-sm: 10px;
-  --radius-md: 12px;
-  --radius-lg: 17px;
-  --radius-xl: 20px;
-  --radius-pill: 34px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 16px;
   --radius-full: 9999px;
 
   /* ── Typography ── */

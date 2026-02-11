@@ -56,7 +56,7 @@ const Lease = () => {
                                             />
                                             {/* Status Badge */}
                                             {bike.maintenanceStatus && (
-                                                <div className="absolute top-4 left-4 bg-primary px-3 py-1.5 rounded-full shadow-lg flex items-center gap-2">
+                                                <div className="absolute top-4 left-4 bg-primary px-3 py-1.5 rounded-md shadow-lg flex items-center gap-2">
                                                     <span className="text-[10px] font-bold text-white uppercase tracking-widest opacity-80">제품 상태</span>
                                                     <span className="text-[12px] font-bold text-white">{bike.maintenanceStatus}</span>
                                                 </div>
@@ -64,7 +64,7 @@ const Lease = () => {
 
                                             {bike.isCompleted && (
                                                 <div className="absolute inset-0 bg-bg-dark/60 backdrop-blur-sm flex items-center justify-center">
-                                                    <div className="px-8 py-3 bg-white rounded-pill shadow-2xl">
+                                                    <div className="px-8 py-3 bg-white rounded-xl shadow-2xl">
                                                         <span className="text-[20px] font-bold text-bg-dark">승계 완료</span>
                                                     </div>
                                                 </div>

@@ -215,16 +215,16 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <div className="p-6 bg-slate-50 rounded-[32px] flex flex-col gap-6">
+              <div className="p-6 bg-slate-50 rounded-xl flex flex-col gap-6">
                 <div className="flex flex-col gap-2">
                   <h4 className="text-lg font-black text-foreground">라이더를 위한 토탈 솔루션</h4>
                   <p className="text-sm text-slate-500 font-medium">지금 라이디 앱을 다운로드하고 <br />스마트한 주행을 시작하세요.</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <button className="h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-sm font-bold shadow-sm">
+                  <button className="h-14 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-sm font-bold shadow-sm">
                     App Store
                   </button>
-                  <button className="h-14 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-sm font-bold shadow-sm">
+                  <button className="h-14 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-sm font-bold shadow-sm">
                     Google Play
                   </button>
                 </div>

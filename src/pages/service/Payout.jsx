@@ -28,13 +28,13 @@ const FeatureCard = ({ icon: Icon, title, description, benefits, color, index })
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-white/80 backdrop-blur-xl rounded-[32px] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
+        className="bg-white/80 backdrop-blur-xl rounded-[20px] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
     >
         <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/5 transition-colors" />
 
         <div className="flex flex-col gap-6 relative z-10">
             <div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform"
+                className="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg group-hover:rotate-6 transition-transform"
                 style={{ backgroundColor: `${color}10`, color: color }}
             >
                 <Icon size={32} />
@@ -120,7 +120,7 @@ const Payout = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="flex flex-col sm:flex-row gap-6 mb-20"
                         >
-                            <Link to="/service/info" className="h-[76px] px-14 bg-primary text-white rounded-2xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
+                            <Link to="/service/info" className="h-[76px] px-14 bg-primary text-white rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
                                 서비스 상세 소개 보러 가기
                                 <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                             </Link>
@@ -134,12 +134,12 @@ const Payout = () => {
                             className="w-full max-w-6xl mx-auto relative group"
                         >
                             <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
-                            <div className="relative bg-slate-900/50 backdrop-blur-2xl rounded-[40px] border border-white/10 p-4 md:p-8 shadow-3xl overflow-hidden aspect-21/9 flex items-center justify-center">
+                            <div className="relative bg-slate-900/50 backdrop-blur-2xl rounded-[16px] border border-white/10 p-4 md:p-8 shadow-3xl overflow-hidden aspect-21/9 flex items-center justify-center">
                                 {/* Abstract Dashboard Element */}
                                 <div className="grid grid-cols-12 gap-6 w-full h-full opacity-60">
-                                    <div className="col-span-3 h-full bg-white/5 rounded-2xl" />
+                                    <div className="col-span-3 h-full bg-white/5 rounded-xl" />
                                     <div className="col-span-9 flex flex-col gap-6">
-                                        <div className="h-1/3 w-full bg-white/5 rounded-2xl p-6 flex items-center justify-between">
+                                        <div className="h-1/3 w-full bg-white/5 rounded-xl p-6 flex items-center justify-between">
                                             <div className="flex gap-4">
                                                 <div className="w-12 h-12 bg-primary/20 rounded-xl" />
                                                 <div className="space-y-2">
@@ -149,7 +149,7 @@ const Payout = () => {
                                             </div>
                                             <div className="w-32 h-8 bg-white/5 rounded-lg" />
                                         </div>
-                                        <div className="flex-1 w-full bg-white/5 rounded-2xl" />
+                                        <div className="flex-1 w-full bg-white/5 rounded-xl" />
                                     </div>
                                 </div>
                                 {/* Center Float Highlight */}
@@ -213,7 +213,7 @@ const Payout = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                className="mt-12 bg-slate-900 p-8 rounded-[40px] shadow-2xl relative z-10"
+                                className="mt-12 bg-slate-900 p-8 rounded-[24px] shadow-2xl relative z-10"
                             >
                                 <ZapOff className="text-primary mb-6" size={48} />
                                 <h4 className="text-white text-xl font-black mb-2">Legacy</h4>
@@ -224,7 +224,7 @@ const Payout = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.3 }}
-                                className="bg-primary p-8 rounded-[40px] shadow-2xl shadow-primary/20 relative z-10"
+                                className="bg-primary p-8 rounded-[24px] shadow-2xl shadow-primary/20 relative z-10"
                             >
                                 <RefreshCw className="text-white mb-6 animate-spin-slow" size={48} />
                                 <h4 className="text-white text-xl font-black mb-2">RIDY Payout</h4>
@@ -312,11 +312,11 @@ const Payout = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                            <Link to="/rental/inquiry" className="h-[76px] px-16 bg-primary text-white rounded-[24px] font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
+                            <Link to="/rental/inquiry" className="h-[76px] px-16 bg-primary text-white rounded-[16px] font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
                                 도입 상담 신청하기
                                 <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-16 bg-[#FEE500] text-slate-900 rounded-[24px] font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-16 bg-[#FEE500] text-slate-900 rounded-[16px] font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
                                 <MessageCircle className="mr-2 w-6 h-6 fill-current" />
                                 카톡 상담 연결
                             </a>

@@ -78,7 +78,7 @@ const ModelDetail = () => {
             <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24">
                 {/* Left: Image Gallery */}
                 <div className="flex flex-col gap-10">
-                    <div className="relative aspect-4/3 rounded-xl bg-bg-light border border-border-subtle overflow-hidden">
+                    <div className="relative aspect-4/3 rounded-lg bg-bg-light border border-border-subtle overflow-hidden">
                         <AnimatePresence mode="wait">
                             <motion.img
                                 key={activeIdx}
@@ -94,7 +94,7 @@ const ModelDetail = () => {
 
                         {bike.isCompleted && (
                             <div className="absolute inset-0 bg-bg-dark/60 backdrop-blur-md flex items-center justify-center">
-                                <div className="px-10 py-4 bg-white rounded-pill shadow-2xl">
+                                <div className="px-10 py-4 bg-white rounded-xl shadow-2xl">
                                     <span className="text-[24px] font-bold text-bg-dark">승계 완료</span>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@ const ModelDetail = () => {
                                     <button
                                         key={idx}
                                         onClick={() => setActiveIdx(idx)}
-                                        className={`relative shrink-0 w-24 md:w-32 aspect-square rounded-lg overflow-hidden border-2 transition-all duration-300 ${activeIdx === idx ? 'border-primary outline outline-offset-4 outline-primary/20 scale-105 z-10' : 'border-border-subtle hover:border-text-muted'}`}
+                                        className={`relative shrink-0 w-24 md:w-32 aspect-square rounded-md overflow-hidden border-2 transition-all duration-300 ${activeIdx === idx ? 'border-primary outline outline-offset-4 outline-primary/20 scale-105 z-10' : 'border-border-subtle hover:border-text-muted'}`}
                                     >
                                         <img src={img} className="w-full h-full object-cover" alt="" />
                                     </button>
@@ -134,7 +134,7 @@ const ModelDetail = () => {
 
                         {isSuccession && bike.plateNumber && (
                             <div className="flex items-center gap-3">
-                                <div className="px-5 py-2.5 bg-bg-dark rounded-md">
+                                <div className="px-5 py-2.5 bg-bg-dark rounded-sm">
                                     <span className="text-white text-lg font-bold tracking-wider font-sans">
                                         {bike.plateNumber}
                                     </span>

@@ -82,7 +82,7 @@ const Intro = () => {
                         transition={{ delay: 0.8 }}
                         className="pt-10"
                     >
-                        <Link to="/rental/inquiry" className="btn-ridy btn-ridy-primary h-[56px]! px-10! text-lg! rounded-full">
+                        <Link to="/rental/inquiry" className="btn-ridy btn-ridy-primary h-[56px]! px-10! text-lg! rounded-xl">
                             Ridy와 함께 시작하기
                         </Link>
                     </motion.div>
@@ -128,7 +128,7 @@ const Intro = () => {
                         variants={staggerContainer}
                     >
                         {/* Issue 1 */}
-                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
                             <h3 className="text-[22px] font-bold text-text-secondary mb-4">"정산이 너무 복잡하고 느려요"</h3>
                             <div className="w-8 h-px bg-slate-200 mb-6" />
                             <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
@@ -140,7 +140,7 @@ const Intro = () => {
                         </motion.div>
 
                         {/* Issue 2 */}
-                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
                             <h3 className="text-[22px] font-bold text-text-secondary mb-4">"바이크 구매 비용이 큰 부담이에요"</h3>
                             <div className="w-8 h-px bg-slate-200 mb-6" />
                             <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
@@ -152,7 +152,7 @@ const Intro = () => {
                         </motion.div>
 
                         {/* Issue 3 */}
-                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300">
+                        <motion.div variants={fadeInUp} className="bg-white p-space-2xl rounded-xl shadow-sm hover:shadow-xl transition-all duration-300">
                             <h3 className="text-[22px] font-bold text-text-secondary mb-4">"믿고 맡길 정비소가 부족해요"</h3>
                             <div className="w-8 h-px bg-slate-200 mb-6" />
                             <h4 className="text-primary font-bold mb-2 flex items-center gap-2">
@@ -250,11 +250,11 @@ const Intro = () => {
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-xl mx-auto pt-4">
-                                    <div className="p-6 rounded-2xl bg-white/3 border border-white/10 hover:border-emerald-400/30 transition-colors group">
+                                    <div className="p-6 rounded-lg bg-white/3 border border-white/10 hover:border-emerald-400/30 transition-colors group">
                                         <p className="text-emerald-400 font-black mb-1 text-[20px]">인수/반납형</p>
                                         <p className="text-[13px] text-white/40 font-medium">상황에 따라 선택 가능한 자유로운 옵션</p>
                                     </div>
-                                    <div className="p-6 rounded-2xl bg-white/3 border border-white/10 hover:border-emerald-400/30 transition-colors group">
+                                    <div className="p-6 rounded-lg bg-white/3 border border-white/10 hover:border-emerald-400/30 transition-colors group">
                                         <p className="text-emerald-400 font-black mb-1 text-[20px]">매물 리스 승계</p>
                                         <p className="text-[13px] text-white/40 font-medium">엄격한 검수를 마친 우수한 품질의 바이크</p>
                                     </div>
@@ -323,7 +323,7 @@ const Intro = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-space-2xl md:gap-space-3xl">
                         {/* Protection */}
                         <motion.div
-                            className="flex gap-8 p-10 bg-bg-light rounded-3xl"
+                            className="flex gap-8 p-10 bg-bg-light rounded-xl"
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -342,7 +342,7 @@ const Intro = () => {
 
                         {/* Technology */}
                         <motion.div
-                            className="flex gap-8 p-10 bg-bg-light rounded-3xl"
+                            className="flex gap-8 p-10 bg-bg-light rounded-xl"
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}

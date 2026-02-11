@@ -35,7 +35,7 @@ const SouthKoreaMap = ({ centers }) => {
 
     return (
         <div className="relative w-full max-w-4xl mx-auto">
-            <div className="relative w-full aspect-3409/3635 md:aspect-square bg-white rounded-[32px] md:rounded-[40px] overflow-hidden border border-slate-100 shadow-2xl group max-h-[70vh] md:max-h-[800px]">
+            <div className="relative w-full aspect-3409/3635 md:aspect-square bg-white rounded-[16px] md:rounded-[20px] overflow-hidden border border-slate-100 shadow-2xl group max-h-[70vh] md:max-h-[800px]">
                 <svg
                     ref={svgRef}
                     viewBox="0 0 3409.59 3635.76"
@@ -85,7 +85,7 @@ const SouthKoreaMap = ({ centers }) => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="fixed inset-x-4 bottom-4 md:absolute md:inset-auto md:right-[-20px] md:bottom-20 md:w-[400px] bg-white/95 backdrop-blur-2xl p-6 md:p-8 rounded-[32px] md:rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 z-50 overflow-hidden"
+                        className="fixed inset-x-4 bottom-4 md:absolute md:inset-auto md:right-[-20px] md:bottom-20 md:w-[400px] bg-white/95 backdrop-blur-2xl p-6 md:p-8 rounded-[16px] md:rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 z-50 overflow-hidden"
                     >
                         <button
                             onClick={() => setSelectedCenter(null)}
@@ -138,7 +138,7 @@ const SouthKoreaMap = ({ centers }) => {
                                 <div className="flex gap-2 md:gap-3 pt-1 md:pt-2">
                                     <a
                                         href={`tel:${selectedCenter.phone}`}
-                                        className="flex-3 h-12 md:h-16 bg-slate-900 text-white rounded-xl md:rounded-[20px] text-sm md:text-base font-black flex items-center justify-center gap-2 md:gap-3 hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10"
+                                        className="flex-3 h-12 md:h-16 bg-slate-900 text-white rounded-lg md:rounded-xl text-sm md:text-base font-black flex items-center justify-center gap-2 md:gap-3 hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10"
                                     >
                                         <Phone size={16} /> 예약 전화
                                     </a>
@@ -146,7 +146,7 @@ const SouthKoreaMap = ({ centers }) => {
                                         href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex-1 h-12 md:h-16 bg-slate-100 text-slate-600 rounded-xl md:rounded-[20px] flex items-center justify-center hover:bg-slate-200 transition-all border border-slate-200"
+                                        className="flex-1 h-12 md:h-16 bg-slate-100 text-slate-600 rounded-lg md:rounded-xl flex items-center justify-center hover:bg-slate-200 transition-all border border-slate-200"
                                     >
                                         <MapPin size={20} />
                                     </a>
@@ -166,7 +166,7 @@ const FeatureCard = ({ icon: Icon, title, description, benefits, color, index })
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-white/80 backdrop-blur-xl rounded-[32px] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
+        className="bg-white/80 backdrop-blur-xl rounded-[20px] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
     >
         <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/5 transition-colors" />
 
@@ -270,11 +270,11 @@ const Center = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="flex flex-col sm:flex-row gap-6"
                         >
-                            <Link to="/rental/inquiry" className="h-[76px] px-14 bg-white text-slate-900 rounded-2xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10 group">
+                            <Link to="/rental/inquiry" className="h-[76px] px-14 bg-white text-slate-900 rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10 group">
                                 정비 예약하기
                                 <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-14 bg-[#FEE500] text-slate-900 rounded-2xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-14 bg-[#FEE500] text-slate-900 rounded-xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
                                 <MessageCircle className="mr-2 w-6 h-6 fill-current" />
                                 카톡 상담 연결
                             </a>
@@ -317,7 +317,7 @@ const Center = () => {
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: i * 0.05 }}
-                                        className="w-full p-6 text-left rounded-3xl border border-slate-100 hover:border-primary/20 hover:bg-slate-50 transition-all group flex justify-between items-center"
+                                        className="w-full p-6 text-left rounded-2xl border border-slate-100 hover:border-primary/20 hover:bg-slate-50 transition-all group flex justify-between items-center"
                                         onClick={() => {
                                             const event = new CustomEvent('centerSelect', { detail: center });
                                             window.dispatchEvent(event);
@@ -378,7 +378,7 @@ const Center = () => {
                                     initial={{ opacity: 0, y: 40 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    className="bg-slate-50 p-8 rounded-[40px] border border-slate-100 shadow-sm"
+                                    className="bg-slate-50 p-8 rounded-[16px] border border-slate-100 shadow-sm"
                                 >
                                     <AlertCircle className="text-red-500 mb-6" size={48} />
                                     <h4 className="text-slate-900 text-xl font-black mb-2">Before</h4>
@@ -389,7 +389,7 @@ const Center = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.2 }}
-                                    className="mt-12 bg-primary p-8 rounded-[40px] shadow-2xl shadow-primary/20"
+                                    className="mt-12 bg-primary p-8 rounded-[16px] shadow-2xl shadow-primary/20"
                                 >
                                     <ShieldCheck className="text-white mb-6" size={48} />
                                     <h4 className="text-white text-xl font-black mb-2">After</h4>
@@ -473,18 +473,18 @@ const Center = () => {
                                 국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-6">
-                                <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-2xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
+                                <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
                                     가맹 문의하기
                                     <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <button className="h-[72px] px-12 bg-white/5 text-white border border-white/10 rounded-2xl font-black text-lg flex items-center justify-center hover:bg-white/10 transition-all">
+                                <button className="h-[72px] px-12 bg-white/5 text-white border border-white/10 rounded-xl font-black text-lg flex items-center justify-center hover:bg-white/10 transition-all">
                                     사업 안내서 보기
                                 </button>
                             </div>
                         </div>
 
                         <div className="flex-1 w-full max-w-xl">
-                            <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-12 rounded-[40px] shadow-3xl">
+                            <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-12 rounded-[20px] shadow-3xl">
                                 <div className="grid grid-cols-2 gap-10">
                                     {[
                                         { label: "누적 정비 대수", value: "24,000+", icon: Toolbox },
@@ -529,11 +529,11 @@ const Center = () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                            <Link to="/rental/inquiry" className="h-[76px] px-16 bg-primary text-white rounded-[24px] font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
+                            <Link to="/rental/inquiry" className="h-[76px] px-16 bg-primary text-white rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
                                 예약 페이지 이동
                                 <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-16 bg-[#FEE500] text-slate-900 rounded-[24px] font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
+                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-16 bg-[#FEE500] text-slate-900 rounded-xl font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
                                 <MessageCircle className="mr-2 w-6 h-6 fill-current" />
                                 카톡 상담 연결
                             </a>

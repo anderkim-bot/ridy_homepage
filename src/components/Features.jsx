@@ -10,7 +10,7 @@ const FeatureCard = ({ icon: Icon, title, description, delay }) => (
         transition={{ duration: 0.6, delay }}
         className="glass p-8 hover:bg-white/[0.05] transition-all group border-white/5"
     >
-        <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-black transition-all">
+        <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-black transition-all">
             <Icon size={28} />
         </div>
         <h3 className="text-xl font-bold mb-4">{title}</h3>

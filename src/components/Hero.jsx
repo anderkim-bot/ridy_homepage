@@ -81,7 +81,7 @@ const Hero = () => {
 
                     {/* CTA Button */}
                     <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mb-24">
-                        <Link to="/brand/intro" className="h-[72px] px-14 bg-white text-[#0F172A] rounded-full font-black text-xl transition-all hover:bg-slate-100 hover:scale-[1.05] active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center justify-center group overflow-hidden relative">
+                        <Link to="/brand/intro" className="h-[72px] px-14 bg-white text-[#0F172A] rounded-xl font-black text-xl transition-all hover:bg-slate-100 hover:scale-[1.05] active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center justify-center group overflow-hidden relative">
                             <span className="relative z-10">서비스 시작하기</span>
                             <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10" />
                         </Link>

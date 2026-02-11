@@ -18,8 +18,8 @@ const ServiceCard = ({ iconSrc, title, description, href, index }) => (
         transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="h-full"
     >
-        <Link to={href} className="flex flex-col h-full bg-white p-10 rounded-[24px] border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group">
-            <div className="h-16 w-fit px-6 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 border border-slate-100 transition-all duration-300 group-hover:bg-primary group-hover:border-primary">
+        <Link to={href} className="flex flex-col h-full bg-white p-10 rounded-xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 group">
+            <div className="h-16 w-fit px-6 rounded-lg bg-slate-50 flex items-center justify-center mb-8 border border-slate-100 transition-all duration-300 group-hover:bg-primary group-hover:border-primary">
                 <img
                     src={iconSrc}
                     alt={title}
@@ -49,7 +49,7 @@ const ModelCard = ({ name, brand, slug, image, index }) => (
         transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
         className="group h-full"
     >
-        <Link to={`/product/detail/${slug}`} className="flex flex-col h-full bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
+        <Link to={`/product/detail/${slug}`} className="flex flex-col h-full bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
             <div className="aspect-[4/3] bg-slate-50 relative overflow-hidden flex items-center justify-center">
                 {image ? (
                     <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -64,7 +64,7 @@ const ModelCard = ({ name, brand, slug, image, index }) => (
             </div>
             <div className="p-8 flex flex-col items-center text-center">
                 <h4 className="text-[18px] font-black text-slate-900 mb-6 group-hover:text-primary transition-colors">{name}</h4>
-                <div className="w-full py-3.5 border-2 border-slate-100 rounded-xl text-[14px] font-black text-slate-400 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all">
+                <div className="w-full py-3.5 border-2 border-slate-100 rounded-lg text-[14px] font-black text-slate-400 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all">
                     상세 사양 보기
                 </div>
             </div>
@@ -80,7 +80,7 @@ const CaseCard = ({ region, description, image, link, created_at, index }) => (
         transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="group h-full"
     >
-        <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col h-full bg-white rounded-3xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
+        <a href={link} target="_blank" rel="noopener noreferrer" className="flex flex-col h-full bg-white rounded-xl border border-slate-100 overflow-hidden hover:shadow-xl hover:border-primary/20 transition-all duration-500">
             <div className="aspect-[16/9] bg-slate-50 relative overflow-hidden">
                 {image ? (
                     <img src={image} alt={description} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -234,7 +234,7 @@ const HomeContent = () => {
                         </div>
                     )}
                     <div className="mt-16 text-center">
-                        <a href="https://cafe.naver.com/ridyservice" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-slate-50 text-slate-600 rounded-2xl font-black text-sm hover:bg-slate-100 transition-all">
+                        <a href="https://cafe.naver.com/ridyservice" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-slate-50 text-slate-600 rounded-xl font-black text-sm hover:bg-slate-100 transition-all">
                             더 많은 출고 사례 보기 <ChevronRight size={16} className="ml-2" />
                         </a>
                     </div>
