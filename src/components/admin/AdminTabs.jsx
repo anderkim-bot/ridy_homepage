@@ -36,7 +36,7 @@ const AdminTabs = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="inline-flex bg-slate-200/50 p-1 rounded-2xl">
+        <div className="flex lg:inline-flex bg-slate-200/50 p-1 rounded-2xl w-full lg:w-auto">
             {TABS.map((tab) => {
                 const isActive = location.pathname === tab.path;
                 const Icon = tab.icon;
@@ -45,11 +45,19 @@ const AdminTabs = () => {
                     <button
                         key={tab.id}
                         onClick={() => navigate(tab.path)}
-                        className={`relative flex-1 flex items-center justify-center gap-2 px-8 py-2.5 rounded-xl text-sm font-black transition-all whitespace-nowrap z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
+                        className={`relative flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-1 md:px-8 py-2 md:py-2.5 rounded-xl text-[10px] md:text-sm font-black transition-all whitespace-nowrap z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
                             }`}
                     >
-                        <Icon size={16} />
-                        {tab.label}
+                        <Icon size={16} className="md:w-4 md:h-4 w-4 h-4" />
+                        <span className="leading-tight">
+                            {tab.id === 'centers' ? (
+                                <>{tab.label.split(' ')[0]}<br className="md:hidden" />센터 관리</>
+                            ) : tab.id === 'cases' ? (
+                                <>{tab.label.split(' ')[0]} {tab.label.split(' ')[1]}<br className="md:hidden" />{tab.label.split(' ')[2]}</>
+                            ) : (
+                                <>{tab.label.split(' ')[0]}<br className="md:hidden" />{tab.label.split(' ')[1]}</>
+                            )}
+                        </span>
                         {isActive && (
                             <motion.div
                                 layoutId="admin-tab-active"
