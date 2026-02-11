@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutGrid, Bell } from 'lucide-react';
+import { LayoutGrid, Bell, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const TABS = [
@@ -15,7 +15,20 @@ const TABS = [
         label: '공지사항 관리',
         path: '/admin/notices',
         icon: Bell
+    },
+    {
+        id: 'centers',
+        label: '서비스센터 관리',
+        path: '/admin/centers',
+        icon: LayoutGrid // Placeholder icon
+    },
+    {
+        id: 'cases',
+        label: '출고 사례 관리',
+        path: '/admin/cases',
+        icon: Briefcase
     }
+
 ];
 
 const AdminTabs = () => {

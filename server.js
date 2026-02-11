@@ -14,7 +14,10 @@ const PORT = 5000;
 const BIKES_PATH = path.join(__dirname, 'database', 'bikes.json');
 const SUCCESSIONS_PATH = path.join(__dirname, 'database', 'successions.json');
 const NOTICES_PATH = path.join(__dirname, 'database', 'notices.json');
+const CENTERS_PATH = path.join(__dirname, 'database', 'centers.json');
+const CASES_PATH = path.join(__dirname, 'database', 'cases.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
+
 
 // Ensure uploads directory exists
 if (!fs.existsSync(UPLOADS_DIR)) {
@@ -69,6 +72,27 @@ const readNotices = () => {
     }
 };
 
+const readCenters = () => {
+    try {
+        if (!fs.existsSync(CENTERS_PATH)) return [];
+        return JSON.parse(fs.readFileSync(CENTERS_PATH, 'utf8'));
+    } catch (err) {
+        console.error('Error reading Centers:', err);
+        return [];
+    }
+};
+
+const readCases = () => {
+    try {
+        if (!fs.existsSync(CASES_PATH)) return [];
+        return JSON.parse(fs.readFileSync(CASES_PATH, 'utf8'));
+    } catch (err) {
+        console.error('Error reading Cases:', err);
+        return [];
+    }
+};
+
+
 const readAll = () => {
     return [...readBikes(), ...readSuccessions()];
 };
@@ -103,6 +127,27 @@ const writeNotices = (data) => {
         return false;
     }
 };
+
+const writeCenters = (data) => {
+    try {
+        fs.writeFileSync(CENTERS_PATH, JSON.stringify(data, null, 4), 'utf8');
+        return true;
+    } catch (err) {
+        console.error('Error writing Centers:', err);
+        return false;
+    }
+};
+
+const writeCases = (data) => {
+    try {
+        fs.writeFileSync(CASES_PATH, JSON.stringify(data, null, 4), 'utf8');
+        return true;
+    } catch (err) {
+        console.error('Error writing Cases:', err);
+        return false;
+    }
+};
+
 
 // --- API Endpoints ---
 
@@ -208,6 +253,89 @@ app.delete('/api/notices/:id', (req, res) => {
     writeNotices(filtered);
     res.status(204).send();
 });
+
+// --- Center Endpoints ---
+
+// Get all centers
+app.get('/api/centers', (req, res) => {
+    res.json(readCenters());
+});
+
+// Save center (Create or Update)
+app.post('/api/centers', (req, res) => {
+    const newCenter = req.body;
+    const centers = readCenters();
+    const now = new Date().toISOString();
+
+    if (newCenter.id && centers.find(c => String(c.id) === String(newCenter.id))) {
+        // Update
+        const index = centers.findIndex(c => String(c.id) === String(newCenter.id));
+        centers[index] = { ...centers[index], ...newCenter, updated_at: now };
+        writeCenters(centers);
+        res.json(centers[index]);
+    } else {
+        // Create
+        const centerToAdd = {
+            ...newCenter,
+            id: 'center-' + Date.now(),
+            created_at: now,
+            updated_at: now
+        };
+        centers.unshift(centerToAdd);
+        writeCenters(centers);
+        res.status(201).json(centerToAdd);
+    }
+});
+
+// Delete center
+app.delete('/api/centers/:id', (req, res) => {
+    const centers = readCenters();
+    const filtered = centers.filter(c => String(c.id) !== String(req.params.id));
+    writeCenters(filtered);
+    res.status(204).send();
+});
+
+// --- Case Endpoints ---
+
+// Get all cases
+app.get('/api/cases', (req, res) => {
+    res.json(readCases());
+});
+
+// Save case (Create or Update)
+app.post('/api/cases', (req, res) => {
+    const newCase = req.body;
+    const cases = readCases();
+    const now = new Date().toISOString();
+
+    if (newCase.id && cases.find(c => String(c.id) === String(newCase.id))) {
+        // Update
+        const index = cases.findIndex(c => String(c.id) === String(newCase.id));
+        cases[index] = { ...cases[index], ...newCase, updated_at: now };
+        writeCases(cases);
+        res.json(cases[index]);
+    } else {
+        // Create
+        const caseToAdd = {
+            ...newCase,
+            id: Date.now(),
+            created_at: now,
+            updated_at: now
+        };
+        cases.unshift(caseToAdd);
+        writeCases(cases);
+        res.status(201).json(caseToAdd);
+    }
+});
+
+// Delete case
+app.delete('/api/cases/:id', (req, res) => {
+    const cases = readCases();
+    const filtered = cases.filter(c => String(c.id) !== String(req.params.id));
+    writeCases(filtered);
+    res.status(204).send();
+});
+
 
 // Image Upload
 app.post('/api/upload', upload.single('image'), (req, res) => {

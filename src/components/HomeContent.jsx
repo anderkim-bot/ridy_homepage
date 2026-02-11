@@ -11,24 +11,25 @@ const ServiceCard = ({ icon: Icon, title, description, color, href, index }) => 
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-        <Link to={href} className="card-halo transition-all bg-white group block h-full">
+        <Link to={href} className="card-ridy p-8! border border-[#E0E0E0] group block h-full">
             <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform"
-                style={{ backgroundColor: `${color}15`, color: color }}
+
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-8 border border-[#E0E0E0] bg-white text-text-secondary group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300"
             >
-                <Icon size={32} />
+                <Icon size={28} />
             </div>
-            <h3 className="text-2xl font-black mb-4 text-foreground">{title}</h3>
-            <p className="text-slate-500 text-lg font-medium leading-relaxed mb-10">
+            <h3 className="text-sub-title mb-4">{title}</h3>
+            <p className="text-body mb-8">
                 {description}
             </p>
-            <div className="mt-auto flex items-center text-sm transition-all duration-300 opacity-0 group-hover:opacity-100 text-slate-500 font-bold group-hover:text-primary group-hover:font-black">
+            <div className="mt-auto flex items-center text-[14px] font-bold text-text-tertiary group-hover:text-primary transition-colors">
                 <span>자세히 보기</span>
-                <ChevronRight size={18} className="ml-1" />
+                <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
             </div>
         </Link>
     </motion.div>
 );
+
 
 const ModelCard = ({ name, brand, slug, image, index }) => (
     <motion.div
@@ -36,36 +37,30 @@ const ModelCard = ({ name, brand, slug, image, index }) => (
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="card-halo !p-0 overflow-hidden bg-white border border-slate-50 group"
+        className="card-ridy border border-[#E0E0E0] text-center"
     >
         <Link to={`/product/detail/${slug}`} className="block">
-            <div className="aspect-[4/3] bg-slate-50 relative overflow-hidden rounded-t-xl">
+            <div className="aspect-4/3 bg-bg-light relative overflow-hidden">
                 {image ? (
-                    <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+
+                    <img src={image} alt={name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate-300">
-                        <span className="text-4xl text-slate-200">🏍️</span>
+                        <span className="text-4xl">🏍️</span>
                     </div>
                 )}
             </div>
-            <div className="p-4 md:p-6 flex flex-col gap-4">
-                <div className="flex flex-col gap-1 px-1">
-                    <span className="text-[13px] font-black text-slate-400 uppercase tracking-wider">
-                        {(brand === 'HONDA' ? '혼다' :
-                            brand === 'YAMAHA' ? '야마하' :
-                                brand === 'ZONTES' ? '존테스' :
-                                    brand === 'SUCCESSION' ? '리스 승계' : brand) || '기타'}
-                    </span>
-                    <h4 className="text-lg md:text-2xl font-black text-foreground line-clamp-1">{name}</h4>
-                </div>
-                <div className="flex justify-between items-center pt-6 border-t border-slate-50 mt-4">
-                    <span className="text-slate-400 font-bold text-sm group-hover:text-primary transition-colors">상세보기</span>
-                    <button className="btn-halo btn-halo-primary !py-2 !px-4 !text-xs">상담신청</button>
+            <div className="p-6">
+                <h4 className="text-[16px] font-bold text-text-primary mb-4">{name}</h4>
+                <div className="btn-ridy btn-ridy-outline h-[42px]! w-full! rounded-pill!">
+                    자세히 보기
                 </div>
             </div>
+
         </Link>
     </motion.div>
 );
+
 
 const ReviewCard = ({ name, content, rating, index }) => (
     <motion.div
@@ -138,28 +133,22 @@ const HomeContent = () => {
             </section>
 
             {/* Popular Models Section */}
-            <section className="bg-[#F7F8FA]">
+            <section className="bg-bg-light py-24">
                 <div className="container">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-                        <div className="flex flex-col gap-4">
-                            <h2 className="text-h2 text-foreground">인기 렌탈 기종</h2>
-                            <p className="text-p max-w-xl font-bold opacity-80">
-                                가장 완벽한 주행 성능과 효율적인 연비. <br className="hidden md:block" /> 라이더가 선호하는 베스트 셀러 기종을 확인하세요.
-                            </p>
+                    <div className="text-center mb-16">
+                        <h2 className="text-section-title mb-6">렌탈 기종 보기</h2>
+                        <div className="flex justify-center gap-6 border-b border-[#E0E0E0] pb-4 mb-12">
+                            <span className="text-[18px] font-extrabold text-text-secondary border-b-2 border-text-secondary pb-4">상세보기</span>
                         </div>
-                        <Link to="/product/honda" className="btn-halo btn-halo-outline bg-white !px-10 !py-5 font-bold flex items-center group">
-                            전체 기종 보기
-                            <ChevronRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Link>
                     </div>
 
                     {isLoading ? (
                         <div className="py-20 flex flex-col items-center justify-center gap-4">
                             <Loader2 size={40} className="text-primary animate-spin" />
-                            <p className="text-slate-400 font-bold">인기 모델을 불러오는 중...</p>
+                            <p className="text-text-muted font-bold">기종 정보를 불러오는 중...</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                             {displayModels.length > 0 ? (
                                 displayModels.map((bike, index) => (
                                     <ModelCard
@@ -172,12 +161,20 @@ const HomeContent = () => {
                                     />
                                 ))
                             ) : (
-                                <div className="col-span-full py-20 text-center font-bold text-slate-400 bg-white rounded-xl">등록된 인기 기종이 없습니다.</div>
+                                <div className="col-span-full py-20 text-center font-bold text-text-muted bg-white rounded-xl">등록된 인기 기종이 없습니다.</div>
                             )}
                         </div>
                     )}
+
+                    <div className="flex justify-center mt-12">
+                        <Link to="/product/honda" className="btn-ridy btn-ridy-outline px-12! h-[42px]! rounded-pill!">
+                            전체 기종 보기
+                        </Link>
+                    </div>
+
                 </div>
             </section>
+
 
             {/* Reviews Section */}
             <section className="bg-white">

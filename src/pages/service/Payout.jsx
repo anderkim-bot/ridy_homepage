@@ -16,31 +16,47 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const ServiceItem = ({ icon: Icon, title, description, index }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="bg-white rounded-xl p-8 border border-border-subtle shadow-sm hover:shadow-xl transition-all duration-300 group"
+    >
+        <div className="w-14 h-14 rounded-lg bg-bg-light flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+            <Icon size={28} />
+        </div>
+        <h4 className="text-[20px] font-bold text-text-primary mb-3">{title}</h4>
+        <p className="text-body">{description}</p>
+    </motion.div>
+);
+
 const FeatureCard = ({ icon: Icon, title, description, benefits, color, index }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="card-halo bg-white h-full"
+        className="bg-white rounded-xl p-8 border border-border-subtle shadow-sm hover:shadow-xl transition-all duration-300 h-full"
     >
         <div className="flex items-center gap-4 mb-6">
             <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                className="w-12 h-12 rounded-lg flex items-center justify-center"
                 style={{ backgroundColor: `${color}15`, color: color }}
             >
                 <Icon size={24} />
             </div>
-            <h3 className="text-xl font-black text-foreground">{title}</h3>
+            <h3 className="text-[20px] font-bold text-text-primary">{title}</h3>
         </div>
-        <p className="text-slate-500 font-medium mb-8 text-sm leading-relaxed">
+        <p className="text-body mb-8">
             {description}
         </p>
         <ul className="flex flex-col gap-3">
             {benefits.map((benefit, i) => (
                 <li key={i} className="flex items-start gap-2">
                     <CheckCircle2 size={16} className="text-primary mt-0.5 shrink-0" />
-                    <span className="text-slate-700 font-bold text-sm">{benefit}</span>
+                    <span className="text-[14px] font-bold text-text-secondary">{benefit}</span>
                 </li>
             ))}
         </ul>
@@ -49,28 +65,30 @@ const FeatureCard = ({ icon: Icon, title, description, benefits, color, index })
 
 const SectionHeader = ({ badge, title, description, align = 'center' }) => (
     <div className={`mb-16 flex flex-col gap-4 ${align === 'center' ? 'items-center text-center' : 'items-start text-left'}`}>
-        <span className="badge-halo">{badge}</span>
-        <h2 className="text-h2 text-foreground">{title}</h2>
-        <p className="text-p max-w-2xl font-bold opacity-80">{description}</p>
+        <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-[12px] font-bold uppercase tracking-widest">{badge}</span>
+        <h2 className="text-section-title">{title}</h2>
+        <p className="text-body max-w-2xl font-bold mx-auto">{description}</p>
     </div>
 );
+
 
 const Payout = () => {
     return (
         <div className="flex flex-col">
             {/* Hero Section */}
-            <section className="relative pt-[60px] pb-[100px] md:pt-[120px] md:pb-[180px] bg-[#0F172A] overflow-hidden">
+            <section className="relative pt-[120px] pb-[120px] md:pt-[160px] md:pb-[200px] bg-bg-dark overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
-                    <div className="absolute inset-0 bg-gradient-to-l from-primary/30 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-l from-primary/30 to-transparent" />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px]" />
                 </div>
+
 
                 <div className="container relative z-20">
                     <div className="max-w-3xl flex flex-col gap-6">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="badge-halo !bg-white/10 !text-white border border-white/10 backdrop-blur-md w-fit"
+                            className="inline-block px-4 py-2 bg-white/10 text-white border border-white/10 rounded-pill text-[12px] font-bold uppercase tracking-widest backdrop-blur-md w-fit"
                         >
                             RIDY Payout: 스마트 정산 솔루션
                         </motion.div>
@@ -79,7 +97,7 @@ const Payout = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-h1 text-white"
+                            className="text-[40px] md:text-[64px] font-bold text-white leading-tight tracking-tight"
                         >
                             복잡한 정산 관리, <br />
                             <span className="text-primary">RIDY Payout</span>이 <br />
@@ -90,7 +108,7 @@ const Payout = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-xl text-slate-400 font-medium leading-relaxed max-w-2xl"
+                            className="text-[18px] md:text-[20px] text-text-light font-medium leading-relaxed max-w-2xl"
                         >
                             관리자에게는 투명한 운영을, 라이더에게는 빠른 수익 창출을. <br className="hidden md:block" />
                             라이디 페이아웃으로 정산의 모든 과정을 자동화하고 효율을 높이세요.
@@ -102,17 +120,19 @@ const Payout = () => {
                             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                             className="flex flex-col sm:flex-row gap-4 mt-8"
                         >
-                            <a href="https://docs.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="btn-halo btn-halo-primary !px-10 !py-5 !text-lg !font-bold">
+                            <a href="https://docs.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="btn-ridy btn-ridy-primary h-[56px]! px-10! text-[16px]!">
                                 메뉴얼 확인하기
                                 <ArrowRight className="ml-2 w-5 h-5" />
                             </a>
-                            <Link to="/rental/inquiry" className="btn-halo btn-halo-outline !px-10 !py-5 !text-lg !font-bold !text-white border-white/20 hover:bg-white/5 backdrop-blur-sm">
+                            <Link to="/rental/inquiry" className="btn-ridy btn-ridy-outline h-[56px]! px-10! text-[16px]! text-white! border-white/20 hover:bg-white/5 backdrop-blur-sm">
                                 도입 문의하기
                             </Link>
                         </motion.div>
+
                     </div>
                 </div>
             </section>
+
 
             {/* Admin Section */}
             <section className="bg-white py-32 overflow-hidden">
@@ -212,7 +232,7 @@ const Payout = () => {
                             viewport={{ once: true }}
                             className="flex-1"
                         >
-                            <div className="relative mx-auto w-[280px] h-[580px] bg-slate-900 rounded-[50px] border-[8px] border-slate-800 shadow-2xl p-4 overflow-hidden">
+                            <div className="relative mx-auto w-[280px] h-[580px] bg-slate-900 rounded-[50px] border-8 border-slate-800 shadow-2xl p-4 overflow-hidden">
                                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-800 rounded-b-2xl" />
                                 <div className="mt-12 space-y-6">
                                     <div className="bg-primary/10 rounded-2xl p-4 border border-primary/20">
@@ -289,13 +309,14 @@ const Payout = () => {
                             복잡한 정산 업무에서 해방되었습니다. 지금 바로 시작하세요.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-                            <Link to="/rental/inquiry" className="btn-halo btn-halo-primary !px-16 !py-6 !text-xl !font-black">
+                            <Link to="/rental/inquiry" className="btn-halo btn-halo-primary px-16! py-6! text-xl! font-black!">
                                 도입 상담 신청
                             </Link>
-                            <a href="https://docs.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="btn-halo btn-halo-outline !px-16 !py-6 !text-xl !font-black !bg-white">
+                            <a href="https://docs.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="btn-halo btn-halo-outline px-16! py-6! text-xl! font-black! bg-white!">
                                 서비스 둘러보기
                             </a>
                         </div>
+
                     </div>
                 </div>
             </section>

@@ -27,6 +27,9 @@ import Archive from './pages/support/Archive';
 import Partnership from './pages/partnership/Center';
 import AdminModels from './pages/admin/AdminModels';
 import AdminNotices from './pages/admin/AdminNotices';
+import AdminCenters from './pages/admin/AdminCenters';
+import AdminCases from './pages/admin/AdminCases';
+
 
 function App() {
   return (
@@ -39,7 +42,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/admin/models" element={<AdminModels />} />
             <Route path="/admin/notices" element={<AdminNotices />} />
+            <Route path="/admin/centers" element={<AdminCenters />} />
+            <Route path="/admin/cases" element={<AdminCases />} />
             <Route path="/product/detail/:slug" element={<ModelDetail />} />
+
 
             {/* Brand */}
             <Route path="/brand/intro" element={<Intro />} />

@@ -155,12 +155,13 @@ const AdminNotices = () => {
     );
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12 font-sans text-slate-900">
+            <div className="max-w-[1500px] mx-auto">
+
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-10 lg:mb-16">
                     <div className="space-y-3">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-indigo-600 rounded-[20px] flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/20">
                                 <Bell className="text-white w-6 h-6 lg:w-8 lg:h-8" />
                             </div>
                             <div className="shrink-0 flex flex-col whitespace-nowrap">
@@ -173,6 +174,7 @@ const AdminNotices = () => {
                         </div>
                     </div>
 
+
                     <div className="flex flex-col lg:flex-row w-full lg:w-auto gap-4">
                         <div className="relative w-full lg:w-80">
                             <input
@@ -180,42 +182,52 @@ const AdminNotices = () => {
                                 placeholder="공지사항 검색"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full bg-white border border-slate-200 rounded-[16px] md:rounded-[20px] px-12 py-4 md:py-4.5 text-sm md:text-base font-bold focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-600 outline-none transition-all shadow-sm"
+                                className="form-input-ridy h-[56px]! pl-12! rounded-lg lg:rounded-xl shadow-sm border-slate-200 outline-none focus:border-primary transition-all"
                             />
-                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-text-muted" size={20} />
                         </div>
                         <button
                             onClick={() => handleOpenModal()}
-                            className="w-full lg:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 lg:py-4.5 rounded-[16px] lg:rounded-[20px] font-black text-sm lg:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10 whitespace-nowrap shrink-0"
+                            className="w-full lg:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 lg:py-4.5 rounded-lg lg:rounded-xl font-black text-sm lg:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10 whitespace-nowrap shrink-0"
                         >
                             <Plus size={20} />
                             <span>신규 공지사항 추가</span>
                         </button>
                     </div>
+
                 </header>
 
+
                 {isLoading ? (
-                    <div className="py-32 flex flex-col items-center justify-center gap-4">
-                        <Loader2 className="animate-spin text-indigo-600" size={48} />
-                        <p className="text-slate-400 font-bold">공지사항을 불러오는 중...</p>
+                    <div className="py-20 flex flex-col items-center justify-center gap-4">
+                        <Loader2 size={40} className="text-primary animate-spin" />
+                        <p className="text-slate-400 font-bold">데이터를 불러오는 중...</p>
                     </div>
                 ) : (
                     <>
                         {/* Desktop Table */}
-                        <div className="hidden lg:block bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
+                        <div className="hidden lg:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                             <table className="w-full text-left">
-                                <thead className="bg-slate-50 border-b border-slate-100">
-                                    <tr className="text-slate-400 font-black text-[11px] uppercase tracking-widest">
-                                        <th className="px-8 py-5 w-[140px]">상태/카테고리</th>
-                                        <th className="px-8 py-5">제목</th>
-                                        <th className="px-8 py-5 w-[180px]">등록일</th>
-                                        <th className="px-8 py-5 w-[120px] text-right">관리</th>
+                                <thead className="bg-slate-50/50 border-b border-slate-100">
+                                    <tr className="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em]">
+                                        <th className="px-8 py-6">Notice Info</th>
+                                        <th className="px-8 py-6">Category</th>
+                                        <th className="px-8 py-6 text-right">Settings</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
                                     {filteredNotices.map((notice) => (
                                         <tr key={notice.id} className="group hover:bg-slate-50/50 transition-colors">
-                                            <td className="px-8 py-5">
+                                            <td className="px-8 py-6">
+                                                <div className="flex flex-col">
+                                                    <span className="text-base font-black text-slate-900">{notice.title}</span>
+                                                    <div className="flex items-center gap-2 mt-1">
+                                                        <Calendar size={12} className="text-slate-400" />
+                                                        <span className="text-[11px] font-bold text-slate-400">{notice.date}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-6">
                                                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black tracking-tight ${notice.category === '안내' ? 'bg-blue-50 text-blue-600' :
                                                     notice.category === '점검' ? 'bg-orange-50 text-orange-600' :
                                                         'bg-purple-50 text-purple-600'
@@ -223,46 +235,25 @@ const AdminNotices = () => {
                                                     {notice.category}
                                                 </span>
                                             </td>
-                                            <td className="px-8 py-5">
-                                                <p className="font-bold text-slate-900 line-clamp-1">{notice.title}</p>
-                                            </td>
-                                            <td className="px-8 py-5">
-                                                <p className="text-sm font-bold text-slate-400">{notice.date}</p>
-                                            </td>
-                                            <td className="px-8 py-5">
+                                            <td className="px-8 py-6">
                                                 <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <button
-                                                        onClick={() => handleOpenModal(notice)}
-                                                        className="p-2 text-slate-400 hover:text-indigo-600 transition-colors"
-                                                    >
-                                                        <Edit3 size={18} />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDeleteClick(notice)}
-                                                        className="p-2 text-slate-400 hover:text-red-500 transition-colors"
-                                                    >
-                                                        <Trash2 size={18} />
-                                                    </button>
+                                                    <button onClick={() => handleOpenModal(notice)} className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:border-primary hover:text-primary transition-all shadow-sm active:scale-95"><Edit3 size={16} /></button>
+                                                    <button onClick={() => handleDeleteClick(notice)} className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-400 flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all shadow-sm active:scale-95"><Trash2 size={16} /></button>
                                                 </div>
                                             </td>
                                         </tr>
                                     ))}
-                                    {filteredNotices.length === 0 && (
-                                        <tr>
-                                            <td colSpan="4" className="px-8 py-20 text-center">
-                                                <p className="text-slate-400 font-bold">등록된 공지사항이 없습니다.</p>
-                                            </td>
-                                        </tr>
-                                    )}
                                 </tbody>
                             </table>
                         </div>
 
+
                         {/* Mobile Cards */}
                         <div className="lg:hidden space-y-3">
                             {filteredNotices.map((notice) => (
-                                <div key={notice.id} className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm space-y-4">
+                                <div key={notice.id} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
                                     <div className="flex items-center justify-between">
+
                                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black tracking-tight ${notice.category === '안내' ? 'bg-blue-50 text-blue-600' :
                                             notice.category === '점검' ? 'bg-orange-50 text-orange-600' :
                                                 'bg-purple-50 text-purple-600'
@@ -293,7 +284,7 @@ const AdminNotices = () => {
                                 </div>
                             ))}
                             {filteredNotices.length === 0 && (
-                                <div className="bg-white p-20 rounded-[24px] border border-slate-200 text-center">
+                                <div className="bg-white p-20 rounded-3xl border border-slate-200 text-center">
                                     <p className="text-slate-400 font-bold">등록된 공지사항이 없습니다.</p>
                                 </div>
                             )}
@@ -305,9 +296,10 @@ const AdminNotices = () => {
             {/* Modal */}
             <AnimatePresence>
                 {isModalOpen && (
-                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
+
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={handleCloseModal}
@@ -320,10 +312,16 @@ const AdminNotices = () => {
                             className="relative bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl"
                         >
                             <form onSubmit={handleSubmit}>
-                                <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center">
-                                    <h2 className="text-xl font-black text-slate-900">
-                                        {editingNotice ? '공지사항 수정' : '신규 공지사항 등록'}
-                                    </h2>
+                                <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-11 h-11 md:w-12 md:h-12 rounded-[12px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                            <Bell size={22} />
+                                        </div>
+                                        <div>
+                                            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingNotice ? '공지사항 수정' : '신규 공지사항 추가'}</h2>
+                                            <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingNotice ? 'Edit' : 'New'} Entry</p>
+                                        </div>
+                                    </div>
                                     <button
                                         type="button"
                                         onClick={handleCloseModal}
@@ -332,6 +330,7 @@ const AdminNotices = () => {
                                         <X size={20} />
                                     </button>
                                 </div>
+
 
                                 <div className="p-8 space-y-6">
                                     <div className="grid grid-cols-2 gap-6">
@@ -412,9 +411,10 @@ const AdminNotices = () => {
             {/* Delete Confirmation Modal */}
             <AnimatePresence>
                 {isDeleteModalOpen && (
-                    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-200 flex items-center justify-center p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
+
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsDeleteModalOpen(false)}
@@ -424,9 +424,10 @@ const AdminNotices = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative bg-white w-full max-w-sm rounded-[32px] overflow-hidden shadow-2xl p-8 text-center"
+                            className="relative bg-white w-full max-w-sm rounded-xl overflow-hidden shadow-2xl p-8 text-center"
                         >
                             <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+
                                 <AlertCircle size={40} className="text-red-500" />
                             </div>
                             <h2 className="text-2xl font-black text-slate-900 mb-2">정말 삭제할까요?</h2>

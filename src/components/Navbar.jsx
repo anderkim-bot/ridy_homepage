@@ -54,34 +54,37 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-2.5 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-sm' : 'bg-transparent'
+        className={`fixed top-0 left-0 w-full z-100 transition-all duration-500 ${scrolled ? 'bg-white shadow-sm h-[60px] md:h-[80px]' : 'bg-transparent h-[80px]'
           }`}
       >
+        {/* Progress Bar */}
+        {scrolled && <div className="absolute top-0 left-0 h-[6px] bg-primary w-full" />}
+
         <div className="container flex justify-between items-center h-full">
           {/* Logo */}
-          <Link to="/" className="flex items-center hover:scale-[1.02] transition-transform">
-            <img src={Logo} alt="RIDY Logo" className="h-7 lg:h-8.5 w-auto" />
+          <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <img src={Logo} alt="RIDY Logo" className="h-6 md:h-7 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <div
                 key={item.name}
-                className="relative py-4"
+                className="relative h-full flex items-center"
                 onMouseEnter={() => setIsHovered(item.name)}
                 onMouseLeave={() => setIsHovered(null)}
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-1 text-[15px] whitespace-nowrap shrink-0 transition-all duration-300 ${location.pathname.startsWith(item.href)
-                    ? 'text-primary font-black'
-                    : 'text-slate-500 font-bold hover:text-primary'
+                  className={`text-nav flex items-center gap-1 transition-colors ${location.pathname.startsWith(item.href)
+                      ? 'text-primary'
+                      : 'hover:text-primary'
                     }`}
                 >
                   {item.name}
                   {item.subItems && (
-                    <ChevronDown size={14} className={`shrink-0 transition-transform duration-300 ${isHovered === item.name ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={14} className={`transition-transform duration-300 ${isHovered === item.name ? 'rotate-180' : ''}`} />
                   )}
                 </Link>
 
@@ -92,19 +95,19 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 5 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-white rounded-2xl shadow-xl border border-slate-50 p-3 mt-1"
+                      className="absolute top-[80%] left-1/2 -translate-x-1/2 w-64 bg-white rounded-sm shadow-dropdown-ridy py-4 mt-2"
                     >
-                      <div className="flex flex-col gap-1">
+                      <div className="flex flex-col">
                         {item.subItems.map((sub) => (
                           <Link
                             key={sub.name}
                             to={sub.href}
-                            className="p-3 rounded-xl hover:bg-slate-50 group transition-all"
+                            className="px-5 py-3 hover:bg-bg-gray transition-colors group"
                           >
-                            <span className="block text-sm font-black text-foreground group-hover:text-primary transition-colors">
+                            <span className="block text-[14px] font-bold text-[#4F4F4F] group-hover:text-primary transition-colors">
                               {sub.name}
                             </span>
-                            <span className="block text-[11px] text-slate-400 font-medium">
+                            <span className="block text-[11px] text-text-muted font-normal mt-0.5">
                               {sub.desc}
                             </span>
                           </Link>
@@ -118,17 +121,17 @@ const Navbar = () => {
           </nav>
 
           {/* CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-4">
             <Link
               to="/rental/inquiry"
-              className="btn-halo btn-halo-primary !px-5 md:!px-8 !py-3 !text-[13px] md:!text-[15px] flex items-center gap-2 whitespace-nowrap shrink-0"
+              className="hidden sm:flex btn-ridy btn-ridy-outline rounded-lg! border-text-primary text-text-primary hover:bg-text-primary hover:text-white"
+
             >
-              <MessageSquare size={16} className="hidden sm:block shrink-0" />
-              <span>문의하기</span>
+              <span>렌탈 문의하기</span>
             </Link>
 
             <button
-              className="lg:hidden p-2 rounded-xl bg-slate-50 text-slate-900 border border-slate-200"
+              className="lg:hidden p-2 text-text-secondary"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -137,6 +140,7 @@ const Navbar = () => {
         </div>
       </header>
 
+
       {/* Mobile Overlay */}
       <AnimatePresence>
         {isOpen && (
@@ -144,7 +148,8 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[90] bg-white pt-28 overflow-y-auto"
+            className="fixed inset-0 z-90 bg-white pt-28 overflow-y-auto"
+
           >
             <div className="container flex flex-col gap-8 pb-10">
               <div className="flex flex-col gap-2">

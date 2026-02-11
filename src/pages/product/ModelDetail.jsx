@@ -56,29 +56,29 @@ const ModelDetail = () => {
     const currentImage = images[activeIdx] || bike.image;
 
     return (
-        <div className="bg-white min-h-screen pt-24 pb-32">
+        <div className="bg-bg-white min-h-screen pt-24 pb-32">
             {/* Header */}
-            <div className="max-w-[1440px] mx-auto px-6 md:px-12 mb-12 flex items-center justify-between">
+            <div className="container mb-12 flex items-center justify-between">
                 <Link
                     to={isSuccession ? "/product/succession" : `/product/${bike.brand?.toLowerCase() || 'rental'}`}
-                    className="group flex items-center gap-2 text-slate-400 hover:text-slate-900 transition-colors"
+                    className="group flex items-center gap-2 text-text-muted hover:text-text-primary transition-colors"
                 >
-                    <div className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center group-hover:border-slate-900 transition-all">
+                    <div className="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center group-hover:border-text-primary transition-all">
                         <ChevronLeft size={20} />
                     </div>
-                    <span className="font-black tracking-tight">{isSuccession ? "리스 승계" : "신차 장기 리스"}</span>
+                    <span className="text-[14px] font-bold tracking-tight">{isSuccession ? "리스 승계" : "신차 장기 리스"}</span>
                 </Link>
                 <div className="flex items-center gap-4">
-                    <button className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all">
-                        <Share2 size={18} className="text-slate-600" />
+                    <button className="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center hover:bg-bg-light transition-all">
+                        <Share2 size={18} className="text-text-secondary" />
                     </button>
                 </div>
             </div>
 
-            <div className="max-w-[1440px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24">
+            <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24">
                 {/* Left: Image Gallery */}
                 <div className="flex flex-col gap-10">
-                    <div className="relative aspect-[4/3] rounded-xl bg-slate-50 border border-slate-100 overflow-hidden shadow-sm">
+                    <div className="relative aspect-4/3 rounded-xl bg-bg-light border border-border-subtle overflow-hidden">
                         <AnimatePresence mode="wait">
                             <motion.img
                                 key={activeIdx}
@@ -93,26 +93,26 @@ const ModelDetail = () => {
                         </AnimatePresence>
 
                         {bike.isCompleted && (
-                            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md flex items-center justify-center">
-                                <div className="px-10 py-4 bg-white rounded-full shadow-2xl">
-                                    <span className="text-2xl font-black text-slate-900">승계 완료</span>
+                            <div className="absolute inset-0 bg-bg-dark/60 backdrop-blur-md flex items-center justify-center">
+                                <div className="px-10 py-4 bg-white rounded-pill shadow-2xl">
+                                    <span className="text-[24px] font-bold text-bg-dark">승계 완료</span>
                                 </div>
                             </div>
                         )}
                     </div>
 
                     {images.length > 1 && (
-                        <div className="flex flex-col gap-6 px-4">
+                        <div className="flex flex-col gap-6">
                             <div className="flex flex-col gap-1">
-                                <span className="text-sm font-black text-slate-400 uppercase tracking-widest">Photo Gallery</span>
-                                <h3 className="text-xl font-black text-slate-900">{isSuccession ? "상세 실물 사진" : "컬러 라인업"}</h3>
+                                <span className="text-[12px] font-bold text-text-muted uppercase tracking-widest">Photo Gallery</span>
+                                <h3 className="text-sub-title">{isSuccession ? "상세 실물 사진" : "컬러 라인업"}</h3>
                             </div>
-                            <div className="flex gap-4 overflow-x-auto py-4 px-2 -mx-2 no-scrollbar">
+                            <div className="flex gap-4 overflow-x-auto py-4 no-scrollbar">
                                 {images.map((img, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => setActiveIdx(idx)}
-                                        className={`relative shrink-0 w-24 md:w-32 aspect-square rounded-[20px] overflow-hidden border-2 transition-all duration-300 ${activeIdx === idx ? 'border-indigo-600 outline outline-offset-4 outline-indigo-600/20 scale-105 z-10' : 'border-slate-100 hover:border-slate-300'}`}
+                                        className={`relative shrink-0 w-24 md:w-32 aspect-square rounded-lg overflow-hidden border-2 transition-all duration-300 ${activeIdx === idx ? 'border-primary outline outline-offset-4 outline-primary/20 scale-105 z-10' : 'border-border-subtle hover:border-text-muted'}`}
                                     >
                                         <img src={img} className="w-full h-full object-cover" alt="" />
                                     </button>
@@ -126,16 +126,16 @@ const ModelDetail = () => {
                 <div className="flex flex-col gap-10 md:gap-12">
                     <div className="flex flex-col gap-6">
                         <div className="flex flex-col gap-2">
-                            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-                                <span className="text-slate-400 mr-2 font-bold">{isSuccession ? bike.originalBrand : bike.brand}</span>
+                            <h1 className="text-hero">
+                                <span className="text-text-muted mr-2 font-bold">{isSuccession ? bike.originalBrand : bike.brand}</span>
                                 {bike.name}
                             </h1>
                         </div>
 
                         {isSuccession && bike.plateNumber && (
                             <div className="flex items-center gap-3">
-                                <div className="px-5 py-2.5 bg-slate-900 rounded-xl">
-                                    <span className="text-white text-lg font-black tracking-wider font-pretendard">
+                                <div className="px-5 py-2.5 bg-bg-dark rounded-md">
+                                    <span className="text-white text-lg font-bold tracking-wider font-sans">
                                         {bike.plateNumber}
                                     </span>
                                 </div>
@@ -147,15 +147,15 @@ const ModelDetail = () => {
                     {!isSuccession && bike.items?.length > 1 && (
                         <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-top-4 duration-700">
                             <div className="flex items-center justify-between">
-                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Select Color</h4>
-                                <span className="text-sm font-black text-indigo-600 uppercase tracking-tight">{bike.items[activeIdx]?.colorName}</span>
+                                <h4 className="text-[12px] font-bold text-text-muted uppercase tracking-widest">Select Color</h4>
+                                <span className="text-[14px] font-bold text-primary uppercase tracking-tight">{bike.items[activeIdx]?.colorName}</span>
                             </div>
                             <div className="flex flex-wrap gap-3.5">
                                 {bike.items?.filter(item => item.image).map((item, idx) => (
                                     <button
                                         key={idx}
                                         onClick={() => setActiveIdx(idx)}
-                                        className={`group relative w-10 h-10 md:w-12 md:h-12 rounded-full border-2 transition-all p-0.5 ${activeIdx === idx ? 'border-indigo-600 scale-110 shadow-lg shadow-indigo-600/10' : 'border-slate-100 hover:border-slate-300'}`}
+                                        className={`group relative w-10 h-10 md:w-12 md:h-12 rounded-full border-2 transition-all p-0.5 ${activeIdx === idx ? 'border-primary scale-110 shadow-lg shadow-primary/10' : 'border-border-subtle hover:border-text-muted'}`}
                                         title={item.colorName}
                                     >
                                         <div
@@ -169,7 +169,7 @@ const ModelDetail = () => {
                     )}
 
                     {/* Specs List */}
-                    <div className="flex flex-col gap-6 md:gap-7 border-t border-slate-100 pt-10">
+                    <div className="flex flex-col gap-6 md:gap-7 border-t border-bg-gray pt-10">
                         {isSuccession ? (
                             [
                                 { label: '연식', val: bike.year },
@@ -179,8 +179,8 @@ const ModelDetail = () => {
                                 { label: '인수 가능한 지역', val: bike.location },
                             ].map((spec, i) => (
                                 <div key={i} className="flex items-center justify-between group">
-                                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">{spec.label}</span>
-                                    <span className="text-lg font-black text-slate-900 group-hover:text-indigo-600 transition-colors">{spec.val}</span>
+                                    <span className="text-[12px] font-bold text-text-muted uppercase tracking-widest">{spec.label}</span>
+                                    <span className="text-[20px] font-bold text-text-primary group-hover:text-primary transition-colors">{spec.val}</span>
                                 </div>
                             ))
                         ) : (
@@ -191,8 +191,8 @@ const ModelDetail = () => {
                                 { label: '유료 옵션', val: '선택 가능' },
                             ].map((spec, i) => (
                                 <div key={i} className="flex items-center justify-between group">
-                                    <span className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">{spec.label}</span>
-                                    <span className="text-lg font-black text-slate-900 group-hover:text-indigo-600 transition-colors font-pretendard">{spec.val}</span>
+                                    <span className="text-[12px] font-bold text-text-muted uppercase tracking-widest">{spec.label}</span>
+                                    <span className="text-[20px] font-bold text-text-primary group-hover:text-primary transition-colors font-sans">{spec.val}</span>
                                 </div>
                             ))
                         )}
@@ -201,11 +201,11 @@ const ModelDetail = () => {
             </div>
 
             {/* Inquiry Form Section */}
-            <div id="inquiry-section" className="max-w-[1440px] mx-auto px-6 md:px-12 mt-32">
+            <div id="inquiry-section" className="container mt-32">
                 <div className="max-w-4xl mx-auto space-y-16">
                     <div className="text-center space-y-4">
-                        <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">상담 신청하기</h2>
-                        <p className="text-slate-500 font-bold">내용을 남겨주시면 담당자가 빠른 시일 내에 연락드리겠습니다.</p>
+                        <h2 className="text-section-title">상담 신청하기</h2>
+                        <p className="text-body font-bold text-text-muted">내용을 남겨주시면 담당자가 빠른 시일 내에 연락드리겠습니다.</p>
                     </div>
                     {isSuccession ? (
                         <SuccessionInquiry prefilledPlateNumber={bike.plateNumber} key={bike.id} />
@@ -216,6 +216,8 @@ const ModelDetail = () => {
             </div>
         </div>
     );
+
+
 };
 
 export default ModelDetail;

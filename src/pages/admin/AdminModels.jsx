@@ -63,30 +63,31 @@ const CustomSelect = ({ label, value, options, onChange, darkMode = false }) => 
     const selectedOption = options.find(opt => opt.value === value);
 
     return (
-        <div ref={containerRef} className="relative flex flex-col gap-3 md:gap-4 mb-4">
-            <label className={`${darkMode ? 'text-slate-400' : 'text-slate-400'} text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] ml-1`}>
+        <div ref={containerRef} className="relative flex flex-col gap-2 mb-6">
+            <label className="text-[12px] font-bold text-text-tertiary ml-1 uppercase tracking-wider">
                 {label}
             </label>
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className={`flex items-center justify-between px-5 md:px-6 py-4 md:py-4.5 rounded-[12px] md:rounded-[14px] cursor-pointer transition-all border outline-none
+                className={`flex items-center justify-between px-4 py-3 rounded-md border transition-all duration-300 cursor-pointer
                     ${darkMode
-                        ? 'bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20 focus:ring-2 focus:ring-primary/40'
-                        : 'bg-white border-slate-200/30 text-slate-900 hover:border-slate-200 focus:ring-4 focus:ring-primary/5 focus:border-primary/40 shadow-sm'}`}
+                        ? 'bg-bg-dark-card border-white/10 text-white'
+                        : 'bg-white border-[#E0E0E0] text-text-primary hover:border-primary'}`}
             >
-                <span className="text-[14px] md:text-[15px] font-bold">{selectedOption ? selectedOption.label : '선택해주세요'}</span>
-                <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} ${darkMode ? 'text-slate-500' : 'text-slate-400'}`} />
+                <span className="text-[14px] font-bold">{selectedOption ? selectedOption.label : '선택해주세요'}</span>
+                <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} text-text-muted`} />
             </div>
 
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 5, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className={`absolute z-[100] w-full mt-2 rounded-[14px] md:rounded-[16px] shadow-2xl border overflow-hidden
-                            ${darkMode ? 'bg-slate-800 border-white/10' : 'bg-white border-slate-100'}`}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        className={`absolute z-100 w-full top-full mt-2 rounded-md shadow-dropdown-ridy border overflow-hidden
+                            ${darkMode ? 'bg-bg-dark border-white/10' : 'bg-white border-[#E0E0E0]'}`}
                     >
+
                         {options.map((opt) => (
                             <div
                                 key={opt.value}
@@ -94,10 +95,10 @@ const CustomSelect = ({ label, value, options, onChange, darkMode = false }) => 
                                     onChange(opt.value);
                                     setIsOpen(false);
                                 }}
-                                className={`px-6 py-4 text-[13px] md:text-[14px] font-bold cursor-pointer transition-colors
+                                className={`px-4 py-3 text-[14px] font-bold cursor-pointer transition-colors
                                     ${darkMode
-                                        ? 'text-slate-300 hover:bg-white/10 hover:text-white'
-                                        : 'text-slate-600 hover:bg-slate-50 hover:text-primary'}`}
+                                        ? 'text-white/70 hover:bg-white/5 hover:text-white'
+                                        : 'text-text-secondary hover:bg-bg-light hover:text-primary'}`}
                             >
                                 {opt.label}
                             </div>
@@ -108,6 +109,7 @@ const CustomSelect = ({ label, value, options, onChange, darkMode = false }) => 
         </div>
     );
 };
+
 
 const AdminModels = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -120,6 +122,8 @@ const AdminModels = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     const loadModels = async () => {
         setIsLoading(true);
@@ -303,11 +307,10 @@ const AdminModels = () => {
                 reader.readAsDataURL(file);
             }
         }, [index]);
-        const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: { 'image/*': [] }, multiple: false });
-        const currentImage = watch(`items.${index}.image`);
         return (
-            <div {...getRootProps()} className={`relative w-full aspect-square rounded-[12px] md:rounded-[14px] border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/5' : 'border-slate-200 bg-slate-50 hover:border-primary/40'}`}>
+            <div {...getRootProps()} className={`relative w-full aspect-square rounded-lg md:rounded-xl border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/5' : 'border-slate-200 bg-slate-50 hover:border-primary/40'}`}>
                 <input {...getInputProps()} />
+
                 {currentImage ? (
                     <>
                         <img src={currentImage} className="absolute inset-0 w-full h-full object-cover" alt="Preview" />
@@ -356,8 +359,9 @@ const AdminModels = () => {
         });
 
         return (
-            <div {...getRootProps()} className={`w-full py-10 md:py-12 border-2 border-dashed rounded-[16px] md:rounded-[20px] transition-all flex flex-col items-center justify-center cursor-pointer gap-4 ${isDragActive ? 'border-primary bg-primary/5' : 'border-slate-200/60 bg-white hover:border-primary/40 shadow-sm'}`}>
+            <div {...getRootProps()} className={`w-full py-10 md:py-12 border-2 border-dashed rounded-lg md:rounded-xl transition-all flex flex-col items-center justify-center cursor-pointer gap-4 ${isDragActive ? 'border-primary bg-primary/5' : 'border-slate-200/60 bg-white hover:border-primary/40 shadow-sm'}`}>
                 <input {...getInputProps()} />
+
                 <div className="w-12 h-12 md:w-14 md:h-14 bg-slate-100 rounded-[12px] flex items-center justify-center text-slate-400">
                     <Upload size={28} />
                 </div>
@@ -405,6 +409,7 @@ const AdminModels = () => {
                                 <div className="text-slate-300 group-hover:text-slate-400 transition-colors shrink-0"><GripVertical size={20} /></div>
                                 <div className="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center shrink-0"><span className="text-[12px] font-black">{idx + 1}</span></div>
                                 <div className="w-14 h-14 md:w-20 md:h-20 rounded-lg overflow-hidden border border-slate-100 shrink-0"><img src={img} className="w-full h-full object-cover" alt="" /></div>
+
                                 <div className="flex-1 flex flex-col"><span className="text-[11px] font-black text-slate-900 uppercase tracking-tighter">{idx === 0 ? 'MAIN THUMBNAIL' : `IMAGE ${idx + 1}`}</span><span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Drag to reorder</span></div>
                                 <button type="button" onClick={() => removeImage(idx)} className="w-10 h-10 md:w-11 md:h-11 bg-red-50 text-red-500 rounded-lg flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-all shrink-0 active:scale-90"><Trash2 size={18} /></button>
                             </Reorder.Item>
@@ -428,9 +433,10 @@ const AdminModels = () => {
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-10 lg:mb-16">
                     <div className="space-y-3">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-indigo-600 rounded-[20px] flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-600/20">
                                 <PackagePlus className="text-white w-6 h-6 lg:w-8 lg:h-8" />
                             </div>
+
                             <div className="shrink-0 flex flex-col whitespace-nowrap">
                                 <h1 className="text-2xl lg:text-3xl font-black tracking-tight text-slate-900 leading-none">기종 관리</h1>
                                 <p className="text-[10px] lg:text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Model & Succession Manager</p>
@@ -440,49 +446,67 @@ const AdminModels = () => {
                             <AdminTabs />
                         </div>
                     </div>
-                    <button
-                        onClick={() => {
-                            reset({
-                                brand: 'HONDA',
-                                category: '소형',
-                                isPopular: false,
-                                rentalFee: '상담 시 안내',
-                                location: '전국',
-                                transferMethod: '전국 탁송',
-                                successionColor: '',
-                                successionColorHex: '#000000',
-                                maintenanceStatus: '양호',
-                                originalBrand: 'HONDA',
-                                items: Array(5).fill({ image: '', colorHex: '#FFFFFF', colorName: '' }),
-                                successionImages: [],
-                                isCompleted: false,
-                                name: '',
-                                slug: '',
-                                weight: '',
-                                displacement: '',
-                                engine: '',
-                                cooling: '',
-                                maxPower: ''
-                            });
-                            setEditingId(null);
-                            setIsModalOpen(true);
-                        }}
-                        className="w-full lg:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 lg:py-4.5 rounded-[16px] lg:rounded-[20px] font-black text-sm lg:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10 whitespace-nowrap shrink-0"
-                    >
-                        <Plus size={20} />
-                        <span>신규 기종 추가</span>
-                    </button>
+                    <div className="flex flex-col lg:flex-row w-full lg:w-auto gap-4">
+                        <div className="relative w-full lg:w-80">
+                            <input
+                                type="text"
+                                placeholder="기종명 검색"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full bg-white h-[56px]! pl-12! rounded-lg lg:rounded-xl shadow-sm border border-slate-200 outline-none focus:border-primary transition-all text-sm font-bold placeholder:text-slate-400"
+                            />
+                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                        </div>
+                        <button
+                            onClick={() => {
+                                reset({
+                                    brand: 'HONDA',
+                                    category: '소형',
+                                    isPopular: false,
+                                    rentalFee: '상담 시 안내',
+                                    location: '전국',
+                                    transferMethod: '전국 탁송',
+                                    successionColor: '',
+                                    successionColorHex: '#000000',
+                                    maintenanceStatus: '양호',
+                                    originalBrand: 'HONDA',
+                                    items: Array(5).fill({ image: '', colorHex: '#FFFFFF', colorName: '' }),
+                                    successionImages: [],
+                                    isCompleted: false,
+                                    name: '',
+                                    slug: '',
+                                    weight: '',
+                                    displacement: '',
+                                    engine: '',
+                                    cooling: '',
+                                    maxPower: ''
+                                });
+                                setEditingId(null);
+                                setIsModalOpen(true);
+                            }}
+                            className="w-full lg:w-auto flex items-center justify-center gap-4 bg-slate-900 text-white px-8 py-4 lg:py-4.5 rounded-lg lg:rounded-xl font-black text-sm lg:text-base transition-all hover:bg-slate-800 hover:scale-[1.02] active:scale-95 shadow-xl shadow-slate-900/10 whitespace-nowrap shrink-0"
+                        >
+                            <Plus size={20} />
+                            <span>신규 기종 추가</span>
+                        </button>
+                    </div>
+
                 </header>
 
                 <div className="overflow-x-auto pb-4 mb-8 md:mb-12 no-scrollbar">
-                    <div className="flex p-1.5 bg-white rounded-[16px] md:rounded-[20px] shadow-sm border border-slate-200 w-max">
+                    <div className="flex p-1 bg-white rounded-md shadow-sm border border-[#E0E0E0] w-max">
                         {['ALL', 'HONDA', 'YAMAHA', 'ZONTES', 'SUCCESSION'].map(tab => (
-                            <button key={tab} onClick={() => setActiveTab(tab)} className={`min-w-[90px] md:min-w-[110px] py-3 md:py-3.5 px-4 md:px-6 rounded-[10px] md:rounded-[14px] text-xs md:text-sm font-black transition-all ${activeTab === tab ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/10' : 'text-slate-400 hover:text-slate-600'}`}>
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`min-w-[100px] py-3 px-6 rounded-md text-[14px] font-bold transition-all ${activeTab === tab ? 'bg-primary text-white shadow-md' : 'text-text-muted hover:text-text-primary'}`}
+                            >
                                 {tab === 'ALL' ? '전체 보기' : (tab === 'SUCCESSION' ? '리스 승계' : tab)}
                             </button>
                         ))}
                     </div>
                 </div>
+
 
                 {isLoading ? (
                     <div className="py-20 flex flex-col items-center justify-center gap-4">
@@ -492,11 +516,12 @@ const AdminModels = () => {
                 ) : (
                     <>
                         {/* Desktop Table */}
-                        <div className="hidden lg:block bg-white rounded-[20px] md:rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
+                        <div className="hidden lg:block bg-white rounded-xl md:rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+
                             <table className="w-full text-left">
                                 <thead className="bg-slate-50/50 border-b border-slate-100"><tr className="text-slate-400 font-bold text-[11px] uppercase tracking-[0.2em]"><th className="px-8 py-6">Model & Identity</th><th className="px-8 py-6">Classification</th><th className="px-8 py-6 text-right">Settings</th></tr></thead>
                                 <tbody className="divide-y divide-slate-100">
-                                    {models.filter(m => activeTab === 'ALL' || m.brand === activeTab).map(model => (
+                                    {models.filter(m => (activeTab === 'ALL' || m.brand === activeTab) && (m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.slug.toLowerCase().includes(searchQuery.toLowerCase()))).map(model => (
                                         <tr key={model.id} className="group hover:bg-slate-50/30 transition-colors">
                                             <td className="px-8 py-6">
                                                 <div className="flex items-center gap-5">
@@ -523,9 +548,11 @@ const AdminModels = () => {
 
                         {/* Mobile Cards */}
                         <div className="lg:hidden space-y-3">
-                            {models.filter(m => activeTab === 'ALL' || m.brand === activeTab).map(model => (
-                                <div key={model.id} className="bg-white p-4 rounded-[20px] border border-slate-200 shadow-sm flex items-center gap-4">
-                                    <div className="w-14 h-14 rounded-[12px] bg-slate-100 overflow-hidden border border-slate-100 shrink-0"><img src={model.brand === 'SUCCESSION' ? (model.succession_images?.[0] || model.successionImages?.[0]) : model.items?.[0]?.image} className="w-full h-full object-cover" alt="" /></div>
+                            {models.filter(m => (activeTab === 'ALL' || m.brand === activeTab) && (m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.slug.toLowerCase().includes(searchQuery.toLowerCase()))).map(model => (
+                                <div key={model.id} className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+
+                                    <div className="w-14 h-14 rounded-lg bg-slate-100 overflow-hidden border border-slate-100 shrink-0"><img src={model.brand === 'SUCCESSION' ? (model.succession_images?.[0] || model.successionImages?.[0]) : model.items?.[0]?.image} className="w-full h-full object-cover" alt="" /></div>
+
                                     <div className="flex-1 min-w-0"><div className="flex flex-col"><span className="text-base font-black text-slate-900 truncate">{model.name}</span><div className="flex items-center gap-2 mt-1"><span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[8px] font-black tracking-widest uppercase ${model.brand === 'SUCCESSION' ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-600'}`}>{model.brand}</span><span className="text-[9px] font-bold text-slate-400 truncate">/{model.slug}</span></div></div></div>
                                     <div className="flex gap-2"><button onClick={() => handleEdit(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-primary/10 active:text-primary transition-colors"><Edit3 size={16} /></button><button onClick={() => handleDeleteClick(model)} className="w-9 h-9 rounded-lg bg-slate-50 text-slate-400 flex items-center justify-center active:bg-red-50 active:text-red-500 transition-colors"><Trash2 size={16} /></button></div>
                                 </div>
@@ -537,9 +564,10 @@ const AdminModels = () => {
 
             <AnimatePresence>
                 {isModalOpen && (
-                    <div className="fixed inset-0 z-[200] flex items-end md:items-center justify-center p-0 md:p-6 lg:p-10">
+                    <div className="fixed inset-0 z-200 flex items-end md:items-center justify-center p-0 md:p-6 lg:p-10">
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={!isSubmitting ? closeModal : undefined} className="absolute inset-0 bg-slate-950/60 backdrop-blur-xl" />
-                        <motion.div initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: "100%" }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="relative bg-white w-full max-w-7xl h-[95vh] md:h-[90vh] rounded-t-[20px] md:rounded-[24px] shadow-2xl flex flex-col overflow-hidden" >
+                        <motion.div initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: "100%" }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="relative bg-white w-full max-w-7xl h-[95vh] md:h-[90vh] rounded-t-xl md:rounded-xl shadow-2xl flex flex-col overflow-hidden" >
+
                             <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
                                 <div className="flex items-center gap-4"><div className={`w-11 h-11 md:w-12 md:h-12 rounded-[12px] flex items-center justify-center ${currentBrand === 'SUCCESSION' ? 'bg-amber-500 text-white' : 'bg-primary text-white'}`}><PackagePlus size={22} /></div><div><h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{currentBrand === 'SUCCESSION' ? '리스 승계 관리' : '기종 관리'}</h2><p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingId ? 'Edit' : 'New'} Entry</p></div></div>
                                 <button onClick={!isSubmitting ? closeModal : undefined} className="w-10 h-10 bg-slate-50 hover:bg-slate-100 rounded-full flex items-center justify-center text-slate-400 transition-all"><X size={20} /></button>
@@ -575,8 +603,9 @@ const AdminModels = () => {
                                             </div>
                                         </section>
                                         {/* Specification Section */}
-                                        <section className="space-y-8 p-6 md:p-10 bg-slate-900 rounded-[20px] md:rounded-[24px] text-white shadow-2xl shadow-slate-900/20">
+                                        <section className="space-y-8 p-6 md:p-10 bg-slate-900 rounded-xl md:rounded-xl text-white shadow-2xl shadow-slate-900/20">
                                             <div className="flex items-center gap-3"><Cpu size={16} className="text-primary" /><h3 className="text-[11px] md:text-[12px] font-black text-slate-300 uppercase tracking-widest">Specifications</h3></div>
+
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                                                 {currentBrand === 'SUCCESSION' ? (
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 w-full">
@@ -618,13 +647,14 @@ const AdminModels = () => {
                                                     <p className="text-[11px] font-bold leading-relaxed uppercase tracking-tight">이미지를 등록하지 않은 컬러 세트는 홈페이지에 노출되지 않습니다. (최대 5개)</p>
                                                 </div>
                                                 {[0, 1, 2, 3, 4].map(idx => (
-                                                    <div key={idx} className="p-4 bg-white border border-slate-200/20 rounded-[16px] flex items-center gap-5 shadow-sm">
+                                                    <div key={idx} className="p-4 bg-white border border-slate-200/20 rounded-lg flex items-center gap-5 shadow-sm">
                                                         <div className="w-16 h-16 shrink-0"><ImageDropzone index={idx} /></div>
                                                         <div className="flex-1 space-y-3">
                                                             <div className="flex flex-col gap-1.5">
                                                                 <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Color Name {idx + 1}</label>
-                                                                <input {...register(`items.${idx}.colorName`)} placeholder="ex) Pearl White" className="cms-input !py-2.5 !text-[12px] !bg-slate-50 border-none" />
+                                                                <input {...register(`items.${idx}.colorName`)} placeholder="ex) Pearl White" className="cms-input py-2.5! text-[12px]! bg-slate-50! border-none" />
                                                             </div>
+
                                                             <div className="flex items-center gap-3">
                                                                 <div className="flex flex-col gap-1.5 flex-1">
                                                                     <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Color Picker</label>
@@ -654,10 +684,11 @@ const AdminModels = () => {
             </AnimatePresence>
 
             {/* Succession Color Picker */}
-            <AnimatePresence>{isSuccessionPickerOpen && (<div className="fixed inset-0 z-[300] flex items-center justify-center p-4"><motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsSuccessionPickerOpen(false)} className="absolute inset-0 bg-slate-950/40 backdrop-blur-md" /><motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative bg-white p-6 md:p-8 rounded-[20px] shadow-2xl w-full max-w-[400px] flex flex-col items-center gap-6"><div className="w-full flex justify-between items-center bg-slate-50 px-5 py-3.5 rounded-xl"><div className="flex items-center gap-3"><Pipette size={14} className="text-primary" /><h4 className="text-base font-black tracking-tight text-slate-900">Color Spectrum</h4></div><button onClick={() => setIsSuccessionPickerOpen(false)} className="text-slate-400 hover:text-slate-900"><X size={16} /></button></div><ColorPicker value={watch('successionColorHex')} onChange={(val) => setValue('successionColorHex', val)} hideGradient hideOpacity width={260} height={160} /><div className="w-full grid grid-cols-2 gap-4"><div className="space-y-1"><span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Hex</span><input value={watch('successionColorHex')} onChange={(e) => setValue('successionColorHex', e.target.value)} className="w-full bg-slate-100 border-none rounded-lg p-3 font-mono font-black text-center text-sm text-slate-900 outline-none focus:ring-2 focus:ring-primary/20" /></div><button onClick={() => setIsSuccessionPickerOpen(false)} className="h-fit self-end bg-slate-900 text-white font-black py-3 rounded-lg shadow-lg active:scale-95 text-sm uppercase tracking-widest">Done</button></div></motion.div></div>)}</AnimatePresence>
+            <AnimatePresence>{isSuccessionPickerOpen && (<div className="fixed inset-0 z-300 flex items-center justify-center p-4"><motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsSuccessionPickerOpen(false)} className="absolute inset-0 bg-slate-950/40 backdrop-blur-md" /><motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative bg-white p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-[400px] flex flex-col items-center gap-6"><div className="w-full flex justify-between items-center bg-slate-50 px-5 py-3.5 rounded-xl"><div className="flex items-center gap-3"><Pipette size={14} className="text-primary" /><h4 className="text-base font-black tracking-tight text-slate-900">Color Spectrum</h4></div><button onClick={() => setIsSuccessionPickerOpen(false)} className="text-slate-400 hover:text-slate-900"><X size={16} /></button></div><ColorPicker value={watch('successionColorHex')} onChange={(val) => setValue('successionColorHex', val)} hideGradient hideOpacity width={260} height={160} /><div className="w-full grid grid-cols-2 gap-4"><div className="space-y-1"><span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Hex</span><input value={watch('successionColorHex')} onChange={(e) => setValue('successionColorHex', e.target.value)} className="w-full bg-slate-100 border-none rounded-lg p-3 font-mono font-black text-center text-sm text-slate-900 outline-none focus:ring-2 focus:ring-primary/20" /></div><button onClick={() => setIsSuccessionPickerOpen(false)} className="h-fit self-end bg-slate-900 text-white font-black py-3 rounded-lg shadow-lg active:scale-95 text-sm uppercase tracking-widest">Done</button></div></motion.div></div>)}</AnimatePresence>
 
             {/* Standard Item Color Picker */}
-            <AnimatePresence>{pickerIdx !== null && (<div className="fixed inset-0 z-[300] flex items-center justify-center p-4"><motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPickerIdx(null)} className="absolute inset-0 bg-slate-950/40 backdrop-blur-md" /><motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative bg-white p-6 md:p-8 rounded-[20px] shadow-2xl w-full max-w-[400px] flex flex-col items-center gap-6"><div className="w-full flex justify-between items-center bg-slate-50 px-5 py-3.5 rounded-xl"><div className="flex items-center gap-3"><Pipette size={14} className="text-primary" /><h4 className="text-base font-black tracking-tight text-slate-900">Color Spectrum {pickerIdx + 1}</h4></div><button onClick={() => setPickerIdx(null)} className="text-slate-400 hover:text-slate-900"><X size={16} /></button></div><ColorPicker value={watch(`items.${pickerIdx}.colorHex`)} onChange={(val) => setValue(`items.${pickerIdx}.colorHex`, val)} hideGradient hideOpacity width={260} height={160} /><div className="w-full grid grid-cols-2 gap-4"><div className="space-y-1"><span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Hex</span><input value={watch(`items.${pickerIdx}.colorHex`)} onChange={(e) => setValue(`items.${pickerIdx}.colorHex`, e.target.value)} className="w-full bg-slate-100 border-none rounded-lg p-3 font-mono font-black text-center text-sm text-slate-900 outline-none focus:ring-2 focus:ring-primary/20" /></div><button onClick={() => setPickerIdx(null)} className="h-fit self-end bg-slate-900 text-white font-black py-3 rounded-lg shadow-lg active:scale-95 text-sm uppercase tracking-widest">Done</button></div></motion.div></div>)}</AnimatePresence>
+            <AnimatePresence>{pickerIdx !== null && (<div className="fixed inset-0 z-300 flex items-center justify-center p-4"><motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setPickerIdx(null)} className="absolute inset-0 bg-slate-950/40 backdrop-blur-md" /><motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative bg-white p-6 md:p-8 rounded-xl shadow-2xl w-full max-w-[400px] flex flex-col items-center gap-6"><div className="w-full flex justify-between items-center bg-slate-50 px-5 py-3.5 rounded-xl"><div className="flex items-center gap-3"><Pipette size={14} className="text-primary" /><h4 className="text-base font-black tracking-tight text-slate-900">Color Spectrum {pickerIdx + 1}</h4></div><button onClick={() => setPickerIdx(null)} className="text-slate-400 hover:text-slate-900"><X size={16} /></button></div><ColorPicker value={watch(`items.${pickerIdx}.colorHex`)} onChange={(val) => setValue(`items.${pickerIdx}.colorHex`, val)} hideGradient hideOpacity width={260} height={160} /><div className="w-full grid grid-cols-2 gap-4"><div className="space-y-1"><span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Hex</span><input value={watch(`items.${pickerIdx}.colorHex`)} onChange={(e) => setValue(`items.${pickerIdx}.colorHex`, e.target.value)} className="w-full bg-slate-100 border-none rounded-lg p-3 font-mono font-black text-center text-sm text-slate-900 outline-none focus:ring-2 focus:ring-primary/20" /></div><button onClick={() => setPickerIdx(null)} className="h-fit self-end bg-slate-900 text-white font-black py-3 rounded-lg shadow-lg active:scale-95 text-sm uppercase tracking-widest">Done</button></div></motion.div></div>)}</AnimatePresence>
+
 
             <style>{`
                 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
@@ -669,9 +700,10 @@ const AdminModels = () => {
             {/* Delete Confirmation Modal */}
             <AnimatePresence>
                 {isDeleteModalOpen && (
-                    <div className="fixed inset-0 z-[500] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-500 flex items-center justify-center p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
+
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsDeleteModalOpen(false)}

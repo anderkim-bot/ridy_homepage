@@ -2,34 +2,46 @@
 @import "tailwindcss";
 
 @theme {
-  /* Ridy New Design Tokens */
-  --color-primary: #4A61ED;
-  --color-primary-dark: #3A4CC0;
+  /* ── RIDY Primary ── */
+  --color-primary: #4054E7;
+  --color-primary-dark: #3242B5;
   --color-primary-foreground: #FFFFFF;
 
-  --color-background: #F7F8FA;
-  --color-foreground: #1A1A1A;
+  /* ── Neutral Text ── */
+  --color-text-primary: #212121;
+  --color-text-secondary: #3D3D3D;
+  --color-text-tertiary: #5C5C5C;
+  --color-text-muted: #757575;
+  --color-text-light: #8A8A8A;
+  --color-text-disabled: #919191;
 
-  --color-muted: #F1F2F4;
-  --color-muted-foreground: #767676;
+  /* ── Neutral Background ── */
+  --color-bg-white: #FFFFFF;
+  --color-bg-light: #FAF9F5;
+  --color-bg-gray: #F2F2F2;
+  --color-bg-dark: #212121;
+  --color-bg-dark-card: #242424;
 
-  --color-card: #FFFFFF;
-  --color-card-foreground: #1A1A1A;
+  /* ── Border & Radius ── */
+  --color-border-subtle: rgba(31, 30, 29, 0.4);
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 17px;
+  --radius-xl: 20px;
+  --radius-pill: 34px;
+  --radius-full: 9999px;
 
-  --radius-xl: 24px;
-  --radius-lg: 16px;
-  --radius-md: 8px;
-  --radius-pill: 999px;
-
+  /* ── Typography ── */
   --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-
-  /* Custom Spacing - Matching previous system */
-  --spacing-space-xs: 0.5rem;
-  --spacing-space-s: 1rem;
-  --spacing-space-m: 2rem;
-  --spacing-space-l: 4rem;
-  --spacing-space-xl: 8rem;
-  --spacing-space-2xl: 12rem;
+  
+  /* ── Spacing ── */
+  --spacing-space-xs: 8px;
+  --spacing-space-sm: 12px;
+  --spacing-space-md: 16px;
+  --spacing-space-lg: 20px;
+  --spacing-space-xl: 30px;
+  --spacing-space-2xl: 40px;
+  --spacing-space-3xl: 60px;
 }
 
 /* Global Styles */
@@ -43,23 +55,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans leading-relaxed;
+    @apply bg-bg-white text-text-primary font-sans leading-relaxed;
+    color: var(--color-text-primary);
   }
 
-  /* Force Pretendard on all form elements and placeholders */
-  input,
-  button,
-  select,
-  textarea,
-  optgroup,
-  option {
-    font-family: inherit;
-    font-weight: inherit;
-  }
-
-  ::placeholder {
-    font-family: var(--font-sans);
-    @apply text-slate-300 opacity-60;
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-text-secondary font-bold;
+    letter-spacing: -0.04em;
   }
 
   a {
@@ -71,85 +73,82 @@
 /* Components */
 @layer components {
   .container {
-    @apply w-full max-w-[1280px] mx-auto px-8;
+    @apply w-full max-w-[1200px] mx-auto px-[20px] md:px-[60px];
   }
 
-  /* Shadcn/Halo Card */
-  .card-halo {
-    @apply bg-card border border-black/5 rounded-lg p-12 flex flex-col gap-4 transition-all duration-500;
-    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.05);
-    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Typography Presets */
+  .text-hero {
+    @apply text-[32px] md:text-[48px] font-extrabold leading-[1.6] tracking-[-0.04em] text-text-secondary;
   }
 
-  .card-halo:hover {
-    @apply -translate-y-2 border-primary/10;
-    box-shadow: 0 30px 60px -20px rgba(74, 97, 237, 0.12);
+  .text-section-title {
+    @apply text-[36px] md:text-[56px] font-bold leading-[1.6] tracking-[-0.04em] text-text-secondary;
   }
 
-  /* Updated Buttons from Brief */
-  .btn-halo {
-    @apply inline-flex items-center justify-center rounded-pill text-base font-semibold px-6 py-3 transition-all duration-200 cursor-pointer border-none font-sans;
+  .text-sub-title {
+    @apply text-[20px] md:text-[24px] font-extrabold leading-[1.35] tracking-[-0.04em] text-text-secondary;
   }
 
-  .btn-halo-primary {
-    @apply bg-primary text-primary-foreground;
+  .text-body {
+    @apply text-[15px] md:text-[16px] font-normal leading-[1.6] tracking-[-0.02em] text-text-muted;
   }
 
-  .btn-halo-primary:hover {
-    @apply bg-primary-dark;
-    box-shadow: 0 8px 16px rgba(74, 97, 237, 0.25);
+  .text-nav {
+    @apply text-[14px] font-bold leading-[1.6] tracking-[-0.02em] text-text-tertiary;
   }
 
-  .btn-halo-outline {
-    @apply bg-transparent border border-muted text-foreground hover:bg-muted font-bold;
+  /* Buttons */
+  .btn-ridy {
+    @apply inline-flex items-center justify-center transition-all duration-300 cursor-pointer border-none font-bold text-[14px] h-[42px] px-[24px];
   }
 
-  /* Badge (Halo Label) */
-  .badge-halo {
-    @apply inline-flex items-center justify-center rounded-pill px-4 py-2 text-sm font-bold bg-primary/10 text-primary;
+  .btn-ridy-primary {
+    @apply bg-primary text-primary-foreground rounded-sm hover:translate-y-[-2px];
+    box-shadow: 0 4px 12px rgba(64, 84, 231, 0.2);
   }
 
-  /* Typography */
-  .text-h1 {
-    @apply text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.1];
+  .btn-ridy-outline {
+    @apply bg-transparent border border-border-subtle rounded-pill text-text-secondary hover:bg-bg-gray;
   }
 
-  .text-h2 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.2];
+  .btn-ridy-dark {
+    @apply bg-bg-dark-card text-white rounded-sm h-[60px] md:h-[86px] w-full md:w-[302px] text-[16px];
   }
 
-  .text-p {
-    @apply text-xl text-muted-foreground font-medium leading-relaxed;
+  /* Cards */
+  .card-ridy {
+    @apply bg-white rounded-xl overflow-hidden transition-all duration-300;
   }
 
-  /* Floating Navbar Extension */
-  header.fixed {
-    @apply top-[10px] mx-5 rounded-[20px] bg-white/85 backdrop-blur-2xl border border-black/5 pt-2.5 pb-2.5;
-    width: calc(100% - 40px);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  .card-case {
+    @apply bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all;
   }
 
-  /* Admin CMS Styles */
-  .cms-input {
-    @apply w-full px-5 py-4 bg-white border border-slate-200 outline-none rounded-xl text-sm font-bold transition-all focus:ring-4 focus:ring-primary/5 focus:border-primary/40 placeholder:text-slate-300;
+  /* Input */
+  .form-input-ridy {
+    @apply w-full h-[48px] border border-[#E0E0E0] rounded-[8px] px-[16px] text-[16px] font-normal text-text-primary bg-white outline-none focus:border-primary transition-all;
   }
 
-  .cms-label {
-    @apply text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 mb-2 block;
-  }
-
-  .su-input {
-    @apply w-full bg-white/5 border border-white/5 rounded-xl p-4 text-sm font-bold outline-none focus:bg-white/10 focus:ring-2 focus:ring-primary/40 focus:border-white/20 transition-all text-white placeholder:text-slate-600;
-  }
-
-  .su-label {
-    @apply text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] pl-1 mb-2 block;
+  .form-label-ridy {
+    @apply block text-[14px] font-normal text-text-primary mb-[6px];
   }
 }
 
-/* Custom Utilities if needed */
+/* Shadows & Specials */
 @layer utilities {
-  .text-cta-halo {
-    @apply inline-flex items-center font-semibold text-muted-foreground cursor-pointer transition-all duration-300 hover:text-primary hover:font-black;
+  .shadow-dropdown-ridy {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 50px 0px;
+  }
+
+  .shadow-glow-ridy {
+    box-shadow:
+      rgba(217, 119, 87, 0.7) 0px 0px 15px 0px inset,
+      rgba(217, 119, 87, 0.5) 0px 0px 25px 0px inset,
+      rgba(217, 119, 87, 0.2) 0px 0px 35px 0px inset;
+  }
+
+  .bg-frosted-ridy {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
   }
 }
