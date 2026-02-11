@@ -450,7 +450,7 @@ const AdminModels = () => {
                                 <p className="text-[10px] lg:text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest">Model & Succession Manager</p>
                             </div>
                         </div>
-                        <div className="mt-8">
+                        <div className="mt-8 w-full">
                             <AdminTabs />
                         </div>
                     </div>

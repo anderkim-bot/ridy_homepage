@@ -36,7 +36,7 @@ const AdminTabs = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex lg:inline-flex bg-slate-200/50 p-1 rounded-2xl w-full lg:w-auto">
+        <div className="flex lg:inline-flex bg-slate-200/50 p-1 rounded-2xl w-full">
             {TABS.map((tab) => {
                 const isActive = location.pathname === tab.path;
                 const Icon = tab.icon;
