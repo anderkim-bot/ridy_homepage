@@ -36,38 +36,32 @@ const AdminTabs = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="flex bg-slate-200/50 p-1 rounded-2xl w-full">
-            {TABS.map((tab) => {
-                const isActive = location.pathname === tab.path;
-                const Icon = tab.icon;
+        <div className="w-full overflow-x-auto no-scrollbar pb-1.5 md:pb-0">
+            <div className="inline-flex bg-slate-200/50 p-1 rounded-2xl min-w-max md:min-w-0">
+                {TABS.map((tab) => {
+                    const isActive = location.pathname === tab.path;
+                    const Icon = tab.icon;
 
-                return (
-                    <button
-                        key={tab.id}
-                        onClick={() => navigate(tab.path)}
-                        className={`relative flex-1 min-w-0 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 py-3 md:py-2.5 rounded-xl text-[11px] md:text-sm font-black transition-all z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
-                            }`}
-                    >
-                        <Icon size={20} className="md:w-4 md:h-4 w-5 h-5" />
-                        <span className="leading-tight text-center">
-                            {tab.id === 'centers' ? (
-                                <>서비스센터<br className="md:hidden" />관리</>
-                            ) : tab.id === 'cases' ? (
-                                <>출고사례<br className="md:hidden" />관리</>
-                            ) : (
-                                <>{tab.label.split(' ')[0]}<br className="md:hidden" />{tab.label.split(' ')[1]}</>
+                    return (
+                        <button
+                            key={tab.id}
+                            onClick={() => navigate(tab.path)}
+                            className={`relative flex-1 flex items-center justify-center gap-2 px-8 py-2.5 rounded-xl text-sm font-black transition-all whitespace-nowrap z-10 ${isActive ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
+                                }`}
+                        >
+                            <Icon size={16} />
+                            {tab.label}
+                            {isActive && (
+                                <motion.div
+                                    layoutId="admin-tab-active"
+                                    className="absolute inset-0 bg-white rounded-xl shadow-sm -z-10"
+                                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                                />
                             )}
-                        </span>
-                        {isActive && (
-                            <motion.div
-                                layoutId="admin-tab-active"
-                                className="absolute inset-0 bg-white rounded-xl shadow-sm -z-10"
-                                transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                            />
-                        )}
-                    </button>
-                );
-            })}
+                        </button>
+                    );
+                })}
+            </div>
         </div>
     );
 };
