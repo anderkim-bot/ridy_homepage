@@ -35,11 +35,11 @@ const SouthKoreaMap = ({ centers }) => {
 
     return (
         <div className="relative w-full max-w-4xl mx-auto">
-            <div className="relative w-full aspect-3409/3635 md:aspect-square bg-white rounded-[16px] md:rounded-[20px] overflow-hidden border border-slate-100 shadow-2xl group max-h-[70vh] md:max-h-[800px]">
+            <div className="relative w-full aspect-[3/5] md:aspect-square bg-white rounded-xl md:rounded-[20px] overflow-hidden border border-slate-100 shadow-2xl group max-h-[90vh] md:max-h-[800px]">
                 <svg
                     ref={svgRef}
                     viewBox="0 0 3409.59 3635.76"
-                    className="w-full h-full"
+                    className="w-full h-full scale-[1.5] translate-y-[5%] md:scale-100 md:translate-y-0 origin-center transition-transform"
                     onClick={() => setSelectedCenter(null)}
                 >
                     <image
@@ -62,13 +62,13 @@ const SouthKoreaMap = ({ centers }) => {
                                     handlePinClick(center);
                                 }}
                             >
-                                <circle r="60" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
-                                <circle r="45" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
-                                <circle r="18" fill="white" />
+                                <circle r="100" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
+                                <circle r="75" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
+                                <circle r="30" fill="white" />
 
-                                <foreignObject x="-400" y="-220" width="800" height="180" className="pointer-events-none overflow-visible">
+                                <foreignObject x="-500" y="-320" width="1000" height="250" className="pointer-events-none overflow-visible">
                                     <div className="flex justify-center">
-                                        <span className="px-12 py-5 bg-white/95 backdrop-blur-md border-[3px] border-slate-100 rounded-full text-[64px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight">
+                                        <span className="px-16 py-8 bg-white/95 backdrop-blur-md border-[4px] border-slate-100 rounded-full text-[100px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight">
                                             {center.name}
                                         </span>
                                     </div>
@@ -85,7 +85,7 @@ const SouthKoreaMap = ({ centers }) => {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="fixed inset-x-4 bottom-4 md:absolute md:inset-auto md:right-[-20px] md:bottom-20 md:w-[400px] bg-white/95 backdrop-blur-2xl p-6 md:p-8 rounded-[16px] md:rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 z-50 overflow-hidden"
+                        className="fixed inset-x-8 bottom-8 md:absolute md:inset-auto md:right-[-20px] md:bottom-20 w-[calc(100%-64px)] md:w-[380px] bg-white/95 backdrop-blur-2xl p-6 md:p-8 rounded-xl md:rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 z-50 overflow-hidden mx-auto max-w-[340px] md:max-w-none"
                     >
                         <button
                             onClick={() => setSelectedCenter(null)}
@@ -289,51 +289,14 @@ const Center = () => {
                 <div className="container px-6">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
                         <div className="lg:col-span-12">
-                            <div>
+                            <div className="mb-12">
                                 <h2 className="text-[32px] md:text-[48px] font-black text-slate-900 leading-[1.2] mb-6">
                                     라이디 <span className="text-primary">서비스센터 찾기</span>
                                 </h2>
-                                <p className="text-slate-500 text-lg font-bold leading-relaxed mb-10">
-                                    전국 주요 거점에 위치한 공식 센터가 <br />
-                                    항상 라이더님 곁에 있습니다.
+                                <p className="text-slate-500 text-lg font-bold leading-relaxed">
+                                    전국 주요 거점에 위치한 공식 센터가 항상 라이더님 곁에 있습니다.
                                 </p>
                             </div>
-
-                            <div className="relative group max-w-2xl mb-16">
-                                <input
-                                    type="text"
-                                    placeholder="지점명 또는 지역 검색"
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full h-20 bg-slate-50 border-2 border-slate-100 rounded-[28px] px-16 text-lg font-black focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all placeholder:text-slate-300"
-                                />
-                                <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-primary transition-colors" size={28} />
-                            </div>
-
-                            <div className="space-y-4 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar mb-20 lg:mb-0">
-                                {filteredCenters.map((center, i) => (
-                                    <motion.button
-                                        key={center.id}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.05 }}
-                                        className="w-full p-6 text-left rounded-2xl border border-slate-100 hover:border-primary/20 hover:bg-slate-50 transition-all group flex justify-between items-center"
-                                        onClick={() => {
-                                            const event = new CustomEvent('centerSelect', { detail: center });
-                                            window.dispatchEvent(event);
-                                        }}
-                                    >
-                                        <div className="space-y-1">
-                                            <h4 className="text-xl font-black text-slate-900 group-hover:text-primary transition-colors">{center.name}</h4>
-                                            <p className="text-sm text-slate-400 font-bold">{center.address}</p>
-                                        </div>
-                                        <ChevronRight size={20} className="text-slate-200 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                                    </motion.button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="lg:col-span-12">
                             <SouthKoreaMap centers={centers} />
                         </div>
                     </div>
@@ -459,50 +422,24 @@ const Center = () => {
                 </div>
 
                 <div className="container px-6 relative z-10">
-                    <div className="flex flex-col lg:flex-row items-center gap-24">
-                        <div className="flex-1 space-y-12">
-                            <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full">
+                    <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-12">
+                        <div className="space-y-12">
+                            <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mx-auto">
                                 <span className="text-primary font-black uppercase tracking-widest text-[12px]">Partnership</span>
                             </div>
                             <h2 className="text-[36px] md:text-[56px] font-black text-white leading-[1.1]">
                                 라이디와 함께할 <br />
-                                <span className="text-primary italic">정비 파트너</span>를 모십니다.
+                                <span className="text-primary">정비 파트너</span>를 모십니다.
                             </h2>
-                            <p className="text-white/40 text-xl font-bold leading-relaxed max-w-xl">
+                            <p className="text-white/40 text-xl font-bold leading-relaxed mx-auto max-w-2xl">
                                 풍부한 정비 물량 확보고 표준화된 관리 시스템 지원까지. <br className="hidden md:block" />
                                 국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-6">
+                            <div className="flex flex-col sm:flex-row gap-6 justify-center">
                                 <Link to="/rental/inquiry" className="h-[72px] px-12 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
                                     가맹 문의하기
                                     <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
-                                <button className="h-[72px] px-12 bg-white/5 text-white border border-white/10 rounded-xl font-black text-lg flex items-center justify-center hover:bg-white/10 transition-all">
-                                    사업 안내서 보기
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="flex-1 w-full max-w-xl">
-                            <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-12 rounded-[20px] shadow-3xl">
-                                <div className="grid grid-cols-2 gap-10">
-                                    {[
-                                        { label: "누적 정비 대수", value: "24,000+", icon: Toolbox },
-                                        { label: "전국 지점망", value: "48+", icon: MapPin },
-                                        { label: "순정 부품 확보율", value: "100%", icon: ShieldCheck },
-                                        { label: "정비 효율 개선", value: "35%↑", icon: Zap }
-                                    ].map((stat, i) => (
-                                        <div key={i} className="space-y-4">
-                                            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-primary">
-                                                <stat.icon size={20} />
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[11px] text-white/30 font-black uppercase tracking-widest mb-1">{stat.label}</span>
-                                                <span className="text-3xl font-black text-white">{stat.value}</span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
                             </div>
                         </div>
                     </div>

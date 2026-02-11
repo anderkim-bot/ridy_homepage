@@ -233,7 +233,7 @@ const SuccessionInquiry = ({ prefilledPlateNumber }) => {
                             <button
                                 onClick={handleSubmit(onSubmit)}
                                 disabled={isSubmitting}
-                                className="flex-[2] bg-indigo-600 text-white py-6 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all group disabled:opacity-50"
+                                className="flex-2 bg-indigo-600 text-white py-6 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all group disabled:opacity-50"
                             >
                                 {isSubmitting ? (
                                     <>
@@ -255,7 +255,7 @@ const SuccessionInquiry = ({ prefilledPlateNumber }) => {
             {/* Success Modal */}
             <AnimatePresence>
                 {showSuccessModal && (
-                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}

@@ -14,6 +14,9 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
     const [searchParams] = useSearchParams();
     const initialModel = preselectedModel || searchParams.get('model') || '';
 
+    const isDetailMode = !!preselectedModel;
+    const isPCX = preselectedModel === 'PCX125';
+
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -26,7 +29,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
             phone: '',
             address: '',
             customerType: '개인',
-            inquiryType: '반납형 렌탈 (1개월~)',
+            inquiryType: isDetailMode && !isPCX ? '인수형 리스 (12개월)' : '반납형 렌탈 (1개월~)',
             model: initialModel,
             insurance: '유상운송책임',
             deliveryMethod: '픽업',
@@ -35,12 +38,15 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
         }
     });
 
-    // Sync model if preselectedModel changes from parent
+    // Sync model and inquiryType if preselectedModel changes from parent
     React.useEffect(() => {
         if (preselectedModel) {
             setValue('model', preselectedModel);
+            if (!isPCX) {
+                setValue('inquiryType', '인수형 리스 (12개월)');
+            }
         }
-    }, [preselectedModel, setValue]);
+    }, [preselectedModel, isPCX, setValue]);
 
     const inquiryType = watch('inquiryType');
     const deliveryMethod = watch('deliveryMethod');
@@ -59,25 +65,25 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
         { name: 'XMAX300', val: 'XMAX300' },
         { name: 'TMAX560', val: 'TMAX560' },
         { name: 'FORZA750', val: 'FORZA750' },
-        { name: 'SUPER CUB 110', val: 'SUPERCUB110' },
-        { name: 'ADV125(한솜)', val: 'ADV125' },
+        { name: 'SUPER CUB 110', val: 'SUPER CUB 110' },
+        { name: 'ADV 125(한솜)', val: 'ADV125' },
         { name: 'ADV350', val: 'ADV350' },
         { name: 'X-ADV750', val: 'X-ADV750' },
-        { name: 'ZONTES 125D', val: 'ZONTES 125D' },
-        { name: 'ZONTES 350D', val: 'ZONTES 350D' },
-        { name: 'ZONTES 368G', val: 'ZONTES 368G' },
+        { name: 'ZONTES 125D', val: '125D' },
+        { name: 'ZONTES 350D', val: '350D' },
+        { name: 'ZONTES 368G', val: '368G' },
         { name: 'BMW C400GT', val: 'BMW C400GT' },
         { name: 'BMW C400X', val: 'BMW C400X' }
     ];
 
     const currentAvailableModels = inquiryType.includes('반납형') ? RENTAL_MODELS : LEASE_MODELS;
 
-    // Reset model if current selection is invalid for the new inquiry type
+    // Reset model if current selection is invalid for the new inquiry type (only in standalone mode)
     React.useEffect(() => {
-        if (selectedModel && !currentAvailableModels.some(m => m.val === selectedModel)) {
+        if (!isDetailMode && selectedModel && !currentAvailableModels.some(m => m.val === selectedModel)) {
             setValue('model', currentAvailableModels[0]?.val || '');
         }
-    }, [inquiryType, currentAvailableModels, selectedModel, setValue]);
+    }, [inquiryType, currentAvailableModels, selectedModel, setValue, isDetailMode]);
 
     const onSubmit = async (data) => {
         setIsSubmitting(true);
@@ -210,14 +216,23 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                                         {[
                                             { label: '반납형 렌탈 (1개월~)', val: '반납형 렌탈 (1개월~)' },
                                             { label: '인수형 리스 (12개월)', val: '인수형 리스 (12개월)' }
-                                        ].map(item => (
-                                            <label key={item.val} className="relative group cursor-pointer">
-                                                <input type="radio" value={item.val} {...register('inquiryType', { required: true })} className="peer sr-only" />
-                                                <div className="px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent peer-checked:border-indigo-600 peer-checked:bg-white font-black transition-all group-hover:bg-slate-100 flex items-center justify-center">
-                                                    <span>{item.label}</span>
-                                                </div>
-                                            </label>
-                                        ))}
+                                        ].map(item => {
+                                            const disabled = isDetailMode && !isPCX && item.val.includes('반납형');
+                                            return (
+                                                <label key={item.val} className={`relative group ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
+                                                    <input
+                                                        type="radio"
+                                                        value={item.val}
+                                                        {...register('inquiryType', { required: true })}
+                                                        className="peer sr-only"
+                                                        disabled={disabled}
+                                                    />
+                                                    <div className={`px-8 py-5 rounded-2xl bg-slate-50 border-2 border-transparent ${!disabled && 'peer-checked:border-indigo-600 peer-checked:bg-white'} font-black transition-all ${!disabled && 'group-hover:bg-slate-100'} flex items-center justify-center`}>
+                                                        <span>{item.label}</span>
+                                                    </div>
+                                                </label>
+                                            );
+                                        })}
                                     </div>
                                 </div>
 
@@ -226,11 +241,16 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                                     <label className="flex items-center gap-2 text-sm font-black text-slate-900 uppercase tracking-widest">차종 선택 <span className="text-indigo-600">*</span></label>
                                     <select
                                         {...register('model')}
-                                        className="w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-600 transition-all appearance-none"
+                                        disabled={isDetailMode}
+                                        className={`w-full bg-slate-50 border-none rounded-2xl px-6 py-4 font-bold focus:ring-2 focus:ring-indigo-600 transition-all appearance-none ${isDetailMode ? 'cursor-not-allowed text-slate-400' : ''}`}
                                     >
-                                        {currentAvailableModels.map(model => (
-                                            <option key={model.val} value={model.val}>{model.name}</option>
-                                        ))}
+                                        {isDetailMode ? (
+                                            <option value={preselectedModel}>{preselectedModel}</option>
+                                        ) : (
+                                            currentAvailableModels.map(model => (
+                                                <option key={model.val} value={model.val}>{model.name}</option>
+                                            ))
+                                        )}
                                     </select>
                                 </div>
 
@@ -331,7 +351,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                                 <button
                                     onClick={handleSubmit(onSubmit)}
                                     disabled={isSubmitting}
-                                    className="flex-[2] bg-indigo-600 text-white py-6 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all group disabled:opacity-50"
+                                    className="flex-2 bg-indigo-600 text-white py-6 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 hover:bg-indigo-700 transition-all group disabled:opacity-50"
                                 >
                                     {isSubmitting ? (
                                         <>
@@ -379,7 +399,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                 {/* 성공 확인 팝업 (Success Modal) */}
                 <AnimatePresence>
                     {showSuccessModal && (
-                        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+                        <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
