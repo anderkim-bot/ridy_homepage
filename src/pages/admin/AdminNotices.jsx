@@ -182,9 +182,9 @@ const AdminNotices = () => {
                                 placeholder="공지사항 검색"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="form-input-ridy h-[56px]! pl-12! rounded-lg lg:rounded-xl shadow-sm border-slate-200 outline-none focus:border-primary transition-all"
+                                className="w-full bg-white form-input-ridy h-[56px]! pl-12! rounded-lg lg:rounded-xl shadow-sm border border-slate-200 outline-none focus:border-primary transition-all text-sm font-bold placeholder:text-slate-400"
                             />
-                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-text-muted" size={20} />
+                            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         </div>
                         <button
                             onClick={() => handleOpenModal()}
