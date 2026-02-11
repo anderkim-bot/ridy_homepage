@@ -156,7 +156,7 @@ const AdminNotices = () => {
 
     return (
         <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12 font-sans text-slate-900">
-            <div className="max-w-[1500px] mx-auto">
+            <div className="max-w-full mx-auto">
 
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-10 lg:mb-16">
                     <div className="space-y-3">
