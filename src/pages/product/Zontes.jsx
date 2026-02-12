@@ -52,7 +52,8 @@ const Zontes = () => {
                             transition={{ delay: 0.1 }}
                             className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
                         >
-                            차세대 강자 존테스, 스마트한 기술력과 독보적인 가성비의 최신 기종들을 경험해보세요.
+                            스마트한 라이더의 영리한 선택. <br className="hidden md:block" />
+                            합리적인 가격에 담긴 최첨단 사양.
                         </motion.p>
                     </div>
                 </div>

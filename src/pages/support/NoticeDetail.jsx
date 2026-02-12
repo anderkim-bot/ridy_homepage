@@ -73,30 +73,20 @@ const NoticeDetail = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className="min-h-screen bg-slate-50 pb-20"
+                className="min-h-screen bg-slate-50 pb-20 pt-24"
             >
-                {/* Header Background */}
-                {notice.image ? (
-                    <div className="absolute top-0 left-0 w-full h-[60vh] z-0">
-                        <div className="absolute inset-0 bg-slate-900/40 z-10" />
-                        <img src={notice.image} alt="" className="w-full h-full object-cover" />
-                    </div>
-                ) : (
-                    <div className="h-64 bg-slate-900 absolute top-0 left-0 w-full z-0" />
-                )}
-
-                <div className="container relative z-10 pt-20 md:pt-32 px-6 max-w-4xl mx-auto">
+                <div className="container px-6 max-w-4xl mx-auto">
                     {/* Back Button */}
                     <button
                         onClick={() => navigate('/board/notice')}
-                        className="flex items-center text-white/70 hover:text-white mb-8 transition-colors gap-2 font-bold"
+                        className="flex items-center text-slate-500 hover:text-slate-900 mb-8 transition-colors gap-2 font-bold"
                     >
                         <ArrowLeft size={20} />
                         목록으로
                     </button>
 
                     {/* Content Card */}
-                    <div className="bg-white rounded-[2rem] shadow-xl overflow-hidden">
+                    <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                         <div className="p-8 md:p-12 border-b border-slate-100">
                             <div className="flex items-center gap-3 mb-6">
                                 <span className={`px-3 py-1 rounded-full text-xs font-black
@@ -118,6 +108,17 @@ const NoticeDetail = () => {
                         </div>
 
                         <div className="p-8 md:p-12 bg-white min-h-[300px]">
+                            {/* Attached Image */}
+                            {notice.image && (
+                                <div className="mb-8 rounded-xl overflow-hidden shadow-sm border border-slate-100">
+                                    <img
+                                        src={notice.image}
+                                        alt={notice.title}
+                                        className="w-full h-auto object-cover"
+                                    />
+                                </div>
+                            )}
+
                             <div className="prose prose-lg max-w-none text-slate-600 font-medium leading-relaxed whitespace-pre-line">
                                 {notice.content}
                             </div>

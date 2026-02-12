@@ -3,10 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
 import HomeContent from '../components/HomeContent';
 import NoticeBanner from '../components/NoticeBanner';
+import MainPopup from '../components/MainPopup';
 
 const Home = () => {
     return (
         <>
+            <MainPopup />
             <Helmet>
                 <title>라이디 (RIDY) | 라이더의 가치를 증명하는 최고의 선택</title>
                 <meta name="description" content="라이디(RIDY)는 라이더를 위한 토탈 솔루션 플랫폼입니다. 오토바이 렌탈, 스마트 정산 Payout, 전국 정비 네트워크 등을 통해 라이더의 수익과 성장을 지원합니다." />

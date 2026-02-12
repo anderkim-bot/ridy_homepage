@@ -26,6 +26,7 @@ import AdminModels from './pages/admin/AdminModels';
 import AdminNotices from './pages/admin/AdminNotices';
 import AdminCenters from './pages/admin/AdminCenters';
 import AdminCases from './pages/admin/AdminCases';
+import AdminPopups from './pages/admin/AdminPopups';
 import ScrollToTop from './components/ScrollToTop';
 
 
@@ -45,6 +46,7 @@ function App() {
             <Route path="/admin/notices" element={<AdminNotices />} />
             <Route path="/admin/centers" element={<AdminCenters />} />
             <Route path="/admin/cases" element={<AdminCases />} />
+            <Route path="/admin/popups" element={<AdminPopups />} />
             <Route path="/product/detail/:slug" element={<ModelDetail />} />
 
 

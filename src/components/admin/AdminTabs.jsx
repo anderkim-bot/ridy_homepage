@@ -1,34 +1,44 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { LayoutGrid, Bell, Briefcase } from 'lucide-react';
+import { LayoutGrid, Bell, Briefcase, Layers } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const TABS = [
     {
         id: 'models',
         label: '기종 관리',
+        mobileLabel: '기종',
         path: '/admin/models',
         icon: LayoutGrid
     },
     {
         id: 'notices',
         label: '공지사항 관리',
+        mobileLabel: '공지',
         path: '/admin/notices',
         icon: Bell
     },
     {
         id: 'centers',
         label: '서비스센터 관리',
+        mobileLabel: '서비스센터',
         path: '/admin/centers',
         icon: LayoutGrid // Placeholder icon
     },
     {
         id: 'cases',
         label: '출고 사례 관리',
+        mobileLabel: '출고',
         path: '/admin/cases',
         icon: Briefcase
+    },
+    {
+        id: 'popups',
+        label: '팝업 관리',
+        mobileLabel: '팝업',
+        path: '/admin/popups',
+        icon: Layers
     }
-
 ];
 
 const AdminTabs = () => {
@@ -52,7 +62,8 @@ const AdminTabs = () => {
                         >
                             <Icon size={12} className="md:w-4 md:h-4" />
 
-                            {tab.label}
+                            <span className="md:hidden">{tab.mobileLabel}</span>
+                            <span className="hidden md:inline">{tab.label}</span>
                             {isActive && (
                                 <motion.div
                                     layoutId="admin-tab-active"

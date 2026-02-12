@@ -16,6 +16,7 @@ const SUCCESSIONS_PATH = path.join(__dirname, 'database', 'successions.json');
 const NOTICES_PATH = path.join(__dirname, 'database', 'notices.json');
 const CENTERS_PATH = path.join(__dirname, 'database', 'centers.json');
 const CASES_PATH = path.join(__dirname, 'database', 'cases.json');
+const POPUPS_PATH = path.join(__dirname, 'database', 'popups.json');
 const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 
 
@@ -95,6 +96,16 @@ const readCases = () => {
     }
 };
 
+const readPopups = () => {
+    try {
+        if (!fs.existsSync(POPUPS_PATH)) return [];
+        return JSON.parse(fs.readFileSync(POPUPS_PATH, 'utf8'));
+    } catch (err) {
+        console.error('Error reading Popups:', err);
+        return [];
+    }
+};
+
 
 const readAll = () => {
     return [...readBikes(), ...readSuccessions()];
@@ -147,6 +158,16 @@ const writeCases = (data) => {
         return true;
     } catch (err) {
         console.error('Error writing Cases:', err);
+        return false;
+    }
+};
+
+const writePopups = (data) => {
+    try {
+        fs.writeFileSync(POPUPS_PATH, JSON.stringify(data, null, 4), 'utf8');
+        return true;
+    } catch (err) {
+        console.error('Error writing Popups:', err);
         return false;
     }
 };
@@ -336,6 +357,50 @@ app.delete('/api/cases/:id', (req, res) => {
     const cases = readCases();
     const filtered = cases.filter(c => String(c.id) !== String(req.params.id));
     writeCases(filtered);
+    res.status(204).send();
+});
+
+// --- Popup Endpoints ---
+
+// Get all popups
+app.get('/api/popups', (req, res) => {
+    const popups = readPopups();
+    // Sort by updated_at desc
+    popups.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    res.json(popups);
+});
+
+// Save popup (Create or Update)
+app.post('/api/popups', (req, res) => {
+    const newPopup = req.body;
+    const popups = readPopups();
+    const now = new Date().toISOString();
+
+    if (newPopup.id && popups.find(p => String(p.id) === String(newPopup.id))) {
+        // Update
+        const index = popups.findIndex(p => String(p.id) === String(newPopup.id));
+        popups[index] = { ...popups[index], ...newPopup, updated_at: now };
+        writePopups(popups);
+        res.json(popups[index]);
+    } else {
+        // Create
+        const popupToAdd = {
+            ...newPopup,
+            id: Date.now(),
+            created_at: now,
+            updated_at: now
+        };
+        popups.unshift(popupToAdd);
+        writePopups(popups);
+        res.status(201).json(popupToAdd);
+    }
+});
+
+// Delete popup
+app.delete('/api/popups/:id', (req, res) => {
+    const popups = readPopups();
+    const filtered = popups.filter(p => String(p.id) !== String(req.params.id));
+    writePopups(filtered);
     res.status(204).send();
 });
 

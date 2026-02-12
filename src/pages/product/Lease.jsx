@@ -69,8 +69,8 @@ const Lease = () => {
                             transition={{ delay: 0.1 }}
                             className="text-[15px] md:text-[18px] font-medium text-slate-500 leading-relaxed max-w-2xl"
                         >
-                            가장 합리적인 가격으로 시작하는 방법. <br className="hidden md:block" />
-                            라이디가 보증하는 투명한 리스 승계 매물을 확인하세요.
+                            기다림 없이 바로, 부담은 확 낮춘 <br className="hidden md:block" />
+                            리스 승계 꿀매물을 확인하세요.
                         </motion.p>
                     </div>
                 </div>

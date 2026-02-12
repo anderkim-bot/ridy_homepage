@@ -52,7 +52,8 @@ const Yamaha = () => {
                             transition={{ delay: 0.1 }}
                             className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
                         >
-                            감동의 야마하, 감각적인 디자인과 탁월한 엔진 성능을 자랑하는 렌탈 라인업을 확인하세요.
+                            스타일과 성능 모두 포기할 수 없다면, <br className="hidden md:block" />
+                            정답은 언제나 야마하입니다.
                         </motion.p>
                     </div>
                 </div>

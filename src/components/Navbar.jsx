@@ -60,7 +60,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-100 transition-all duration-500 ${scrolled ? 'bg-white shadow-sm h-[60px] md:h-[80px]' : 'bg-transparent h-[80px]'
+        className={`fixed top-0 left-0 w-full z-100 transition-all duration-500 ${scrolled ? 'bg-white/70 backdrop-blur-xl border-b border-white/20 shadow-sm h-[60px] md:h-[80px]' : 'bg-transparent h-[80px]'
           }`}
       >
         {/* Progress Bar */}

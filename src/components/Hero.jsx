@@ -104,7 +104,7 @@ const Hero = () => {
                     className="flex flex-col items-center max-w-5xl mx-auto"
                 >
                     {/* Badge */}
-                    <motion.div variants={itemVariants} className="inline-flex items-center px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-10 shadow-xl shadow-black/20">
+                    <motion.div variants={itemVariants} className="inline-flex items-center px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-10 shadow-xl shadow-black/20 scale-[0.6] origin-center">
                         <span className="flex h-2 w-2 rounded-full bg-primary mr-3 animate-ping" />
                         <span className="text-[12px] md:text-[13px] font-bold text-white tracking-[0.2em] uppercase">
                             The New Standard for Riders

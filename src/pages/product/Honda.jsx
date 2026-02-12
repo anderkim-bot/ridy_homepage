@@ -52,7 +52,8 @@ const Honda = () => {
                             transition={{ delay: 0.1 }}
                             className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
                         >
-                            기술의 혼다, 전국 라이디 지점에서 가장 신뢰받는 인기 모델들을 지금 렌탈로 만나보세요.
+                            배달 현장의 표준. 당신의 하루를 끝까지 책임지는 <br className="hidden md:block" />
+                            혼다의 기술력.
                         </motion.p>
                     </div>
                 </div>
