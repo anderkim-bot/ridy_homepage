@@ -94,72 +94,76 @@ const Lease = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.05 }}
                                     viewport={{ once: true }}
+                                    className="h-full"
                                 >
                                     <Link
                                         to={`/product/detail/${bike.slug}`}
                                         className="group flex flex-col h-full bg-white rounded-xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500 overflow-hidden"
                                     >
-                                        <div className="aspect-4/3 bg-slate-50/50 relative overflow-hidden flex items-center justify-center p-4">
+                                        {/* Image Area: Optimized for 1:2 overall ratio */}
+                                        <div className="aspect-[1/1] md:aspect-4/3 bg-slate-50/50 relative overflow-hidden flex items-center justify-center p-4 shrink-0">
                                             <div className="absolute inset-0 bg-linear-to-b from-transparent to-slate-100/30 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             <img
                                                 src={bike.successionImages?.[0] || ''}
                                                 alt={bike.name}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 relative z-10"
                                             />
-                                            {/* Status Badge */}
+                                            {/* Status Badge - Reduced size for mobile */}
                                             {bike.maintenanceStatus && (
-                                                <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur-md px-3 py-1.5 rounded-md shadow-lg flex items-center gap-2 z-20">
-                                                    <span className="text-[10px] font-black text-white/70 uppercase">상태</span>
-                                                    <span className="text-[12px] font-black text-white">{bike.maintenanceStatus}</span>
+                                                <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-primary/90 backdrop-blur-md px-2 py-1 md:px-3 md:py-1.5 rounded shadow-lg flex items-center gap-1.5 md:gap-2 z-20">
+                                                    <span className="text-[8px] md:text-[10px] font-black text-white/70 uppercase">상태</span>
+                                                    <span className="text-[10px] md:text-[12px] font-black text-white">{bike.maintenanceStatus}</span>
                                                 </div>
                                             )}
 
                                             {bike.isCompleted && (
                                                 <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-30">
-                                                    <div className="px-6 py-2 bg-white rounded-lg shadow-2xl scale-110">
-                                                        <span className="text-[16px] font-black text-slate-900">승계 완료</span>
+                                                    <div className="px-4 py-1.5 md:px-6 md:py-2 bg-white rounded-lg shadow-2xl scale-90 md:scale-110">
+                                                        <span className="text-[14px] md:text-[16px] font-black text-slate-900">승계 완료</span>
                                                     </div>
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex flex-col p-5 gap-4 flex-1">
-                                            <div className="flex flex-col gap-2">
-                                                <div className="flex flex-col gap-1">
-                                                    <span className="text-[11px] font-black text-slate-300 uppercase tracking-widest">
+
+                                        <div className="flex flex-col p-3 md:p-5 gap-3 md:gap-4 flex-1 min-h-0">
+                                            <div className="flex flex-col gap-1.5 md:gap-2 flex-1">
+                                                <div className="flex flex-col gap-0.5 md:gap-1">
+                                                    <span className="text-[9px] md:text-[11px] font-black text-slate-300 uppercase tracking-widest">
                                                         {(bike.originalBrand === 'HONDA' ? '혼다' :
                                                             bike.originalBrand === 'YAMAHA' ? '야마하' :
                                                                 bike.originalBrand === 'ZONTES' ? '존테스' : bike.originalBrand) || '기타'}
                                                     </span>
-                                                    <h3 className="text-[16px] md:text-[18px] font-black text-slate-900 group-hover:text-primary line-clamp-2 leading-snug transition-colors">
+                                                    <h3 className="text-[14px] md:text-[18px] font-black text-slate-900 group-hover:text-primary line-clamp-2 leading-tight md:leading-snug transition-colors">
                                                         {bike.name}
                                                     </h3>
                                                 </div>
 
-                                                <div className="grid grid-cols-2 gap-2 pt-2">
-                                                    <div className="bg-slate-50 rounded-lg p-2 flex flex-col items-center justify-center">
-                                                        <span className="text-[10px] font-black text-slate-300 uppercase">연식</span>
-                                                        <span className="text-[13px] font-black text-slate-600">{bike.year || '-'}</span>
+                                                {/* Compact Info Grid - Vertical on mobile if needed, but grid 2 works if padding is small */}
+                                                <div className="grid grid-cols-2 lg:grid-cols-2 gap-1.5 md:gap-2 pt-1 md:pt-2">
+                                                    <div className="bg-slate-50 rounded-lg p-1.5 md:p-2 flex flex-col items-center justify-center">
+                                                        <span className="text-[8px] md:text-[10px] font-black text-slate-300 uppercase">연식</span>
+                                                        <span className="text-[11px] md:text-[13px] font-black text-slate-600">{bike.year || '-'}</span>
                                                     </div>
-                                                    <div className="bg-slate-50 rounded-lg p-2 flex flex-col items-center justify-center">
-                                                        <span className="text-[10px] font-black text-slate-300 uppercase">주행</span>
-                                                        <span className="text-[13px] font-black text-slate-600">
-                                                            {bike.mileage ? (bike.mileage.toString().includes('km') ? bike.mileage : `${bike.mileage}km`) : '-'}
+                                                    <div className="bg-slate-50 rounded-lg p-1.5 md:p-2 flex flex-col items-center justify-center">
+                                                        <span className="text-[8px] md:text-[10px] font-black text-slate-300 uppercase">주행</span>
+                                                        <span className="text-[11px] md:text-[13px] font-black text-slate-600 truncate max-w-full">
+                                                            {bike.mileage ? (bike.mileage.toString().includes('km') ? bike.mileage.toString().replace('km', 'k') : `${bike.mileage}k`) : '-'}
                                                         </span>
                                                     </div>
                                                 </div>
 
-                                                <div className="mt-2 w-full bg-primary/5 py-3 rounded-lg flex items-center justify-center gap-2 border border-primary/10 transition-colors group-hover:bg-primary/10">
-                                                    <span className="text-[11px] font-black text-primary/60 uppercase tracking-widest">잔여</span>
-                                                    <span className="text-[18px] font-bold text-primary">
+                                                <div className="mt-1.5 md:mt-2 w-full bg-primary/5 py-2 md:py-3 rounded-lg flex flex-col md:flex-row items-center justify-center gap-0.5 md:gap-2 border border-primary/10 transition-colors group-hover:bg-primary/10">
+                                                    <span className="text-[9px] md:text-[11px] font-black text-primary/60 uppercase tracking-widest">잔여</span>
+                                                    <span className="text-[14px] md:text-[18px] font-bold text-primary">
                                                         {bike.remainingPeriod ? (bike.remainingPeriod.toString().includes('일') ? bike.remainingPeriod : `${bike.remainingPeriod}일`) : '-'}
                                                     </span>
                                                 </div>
                                             </div>
 
-                                            <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-50">
-                                                <span className="text-[12px] font-black text-primary underline underline-offset-4 decoration-primary/30">매물 보기</span>
-                                                <div className="w-8 h-8 rounded-lg bg-slate-50 text-slate-300 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-7-7 7 7-7 7" /></svg>
+                                            <div className="mt-auto pt-2 md:pt-4 flex items-center justify-between border-t border-slate-50">
+                                                <span className="text-[10px] md:text-[12px] font-black text-primary underline underline-offset-4 decoration-primary/30">매물 보기</span>
+                                                <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-slate-50 text-slate-300 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                                                    <svg width="12" height="12" md:width="16" md:height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-7-7 7 7-7 7" /></svg>
                                                 </div>
                                             </div>
                                         </div>

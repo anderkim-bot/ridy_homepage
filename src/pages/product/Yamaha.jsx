@@ -14,7 +14,9 @@ const Yamaha = () => {
         const loadBikes = async () => {
             try {
                 const data = await bikeService.getBikes();
-                setYamahaBikes(data.filter(b => b.brand === 'YAMAHA' && b.items?.some(item => item.image)));
+                const filtered = data.filter(b => b.brand === 'YAMAHA' && b.items?.some(item => item.image));
+                const sorted = filtered.sort((a, b) => (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0));
+                setYamahaBikes(sorted);
             } catch (error) {
                 console.error('Error loading Yamaha bikes:', error);
             } finally {
@@ -90,6 +92,9 @@ const Yamaha = () => {
                                         <div className="flex flex-col p-5 gap-4 flex-1">
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex flex-wrap gap-1.5">
+                                                    {bike.isPopular && (
+                                                        <span className="text-[10px] font-black bg-red-50 text-red-600 px-2 py-0.5 rounded-md uppercase">인기상품</span>
+                                                    )}
                                                     {bike.salesType?.includes('rental') && (
                                                         <span className="text-[10px] font-black bg-blue-50 text-blue-600 px-2 py-0.5 rounded-md uppercase">반납형 렌탈</span>
                                                     )}

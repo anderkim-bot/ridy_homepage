@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import {
     ChevronLeft, Share2, Star, Calendar, MessageSquare, AlertCircle,
     Copy, CheckCircle2, Loader2, Gauge, Zap, Settings2, Shield, MapPin,
-    Clock, BadgeCheck, ExternalLink, ArrowRight
+    Clock, BadgeCheck, ExternalLink, ArrowRight, Weight, Cpu, Thermometer
 } from 'lucide-react';
 import RentalInquiry from '../inquiry/RentalInquiry';
 import SuccessionInquiry from '../inquiry/SuccessionInquiry';
@@ -72,9 +72,13 @@ const ModelDetail = () => {
         { icon: MapPin, label: '지역', val: bike.location || '전국' },
     ] : [
         { icon: Calendar, label: '연식', val: bike.year || '25년식' },
-        { icon: Settings2, label: '배기량', val: bike.cc || '-' },
-        { icon: Shield, label: '보증', val: '라이디 케어' },
+        { icon: Weight, label: '중량 (KG)', val: bike.weight ? `${bike.weight}kg` : '-' },
+        { icon: Cpu, label: '엔진', val: bike.engine || '-' },
+        { icon: Gauge, label: '배기량', val: bike.displacement ? (bike.displacement.toString().includes('cc') ? bike.displacement : `${bike.displacement}cc`) : '-' },
+        { icon: Thermometer, label: '냉각방식', val: bike.cooling || '-' },
+        { icon: Zap, label: '최고출력', val: bike.maxPower || '-' },
         { icon: BadgeCheck, label: '카테고리', val: bike.category || '스쿠터' },
+        { icon: Shield, label: '보증', val: '라이디 케어' },
     ];
 
     return (
@@ -124,9 +128,11 @@ const ModelDetail = () => {
                                         <span className="text-[12px] font-black uppercase tracking-widest leading-none">PRE-OWNED</span>
                                     </div>
                                 ) : (
-                                    <div className="px-4 py-2 bg-primary/90 backdrop-blur-md rounded-xl text-white shadow-xl">
-                                        <span className="text-[12px] font-black uppercase tracking-widest leading-none">2025 NEW MODEL</span>
-                                    </div>
+                                    bike.isPopular && (
+                                        <div className="px-4 py-2 bg-red-600/90 backdrop-blur-md rounded-xl text-white shadow-xl">
+                                            <span className="text-[12px] font-black uppercase tracking-widest leading-none">인기상품</span>
+                                        </div>
+                                    )
                                 )}
                             </div>
 
@@ -262,7 +268,7 @@ const ModelDetail = () => {
                                             <spec.icon size={16} />
                                             <span className="text-[11px] font-black uppercase tracking-widest">{spec.label}</span>
                                         </div>
-                                        <span className="text-[18px] font-black text-slate-900 truncate">
+                                        <span className="text-[15px] font-bold md:text-[18px] md:font-black text-slate-900 truncate">
                                             {spec.val}
                                         </span>
                                     </motion.div>
@@ -294,9 +300,9 @@ const ModelDetail = () => {
                 <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
 
-                <div className="container px-4 relative z-10">
+                <div className="container px-0 md:px-4 relative z-10">
                     <div className="max-w-4xl mx-auto">
-                        <div className="text-center space-y-4 md:space-y-6 mb-12 md:mb-20">
+                        <div className="text-center space-y-4 md:space-y-6 mb-12 md:mb-20 px-4 md:px-0">
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
@@ -318,7 +324,7 @@ const ModelDetail = () => {
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-[24px] md:rounded-[40px] p-6 md:p-16 shadow-2xl shadow-slate-200/60 border border-slate-100"
+                            className="bg-white rounded-none md:rounded-[40px] p-6 md:p-16 shadow-xl md:shadow-2xl shadow-slate-200/60 border-y md:border border-slate-100"
                         >
                             {isSuccession ? (
                                 <SuccessionInquiry prefilledPlateNumber={bike.plateNumber} key={bike.id} />

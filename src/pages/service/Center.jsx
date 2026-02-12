@@ -35,12 +35,13 @@ const SouthKoreaMap = ({ centers }) => {
     };
 
     return (
-        <div className="relative w-full max-w-4xl mx-auto">
-            <div className="relative w-full aspect-[3/5] md:aspect-square bg-white rounded-xl md:rounded-[20px] overflow-hidden border border-slate-100 shadow-2xl group max-h-[90vh] md:max-h-[800px]">
+        <div className="relative w-full overflow-hidden bg-slate-50">
+            {/* Map Container - Vertical Focus */}
+            <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-h-[800px] bg-white overflow-hidden group mx-auto">
                 <svg
                     ref={svgRef}
                     viewBox="0 0 3409.59 3635.76"
-                    className="w-full h-full scale-[1.5] translate-y-[5%] md:scale-100 md:translate-y-0 origin-center transition-transform"
+                    className="w-full h-full scale-100 translate-y-0 origin-center transition-transform"
                     onClick={() => setSelectedCenter(null)}
                 >
                     <image
@@ -50,7 +51,11 @@ const SouthKoreaMap = ({ centers }) => {
                         className="opacity-90"
                     />
 
-                    {centers.map((center) => (
+                    {[...centers].sort((a, b) => {
+                        if (hoveredCenter?.id === a.id) return 1;
+                        if (hoveredCenter?.id === b.id) return -1;
+                        return 0;
+                    }).map((center) => (
                         center.location && (
                             <g
                                 key={center.id}
@@ -62,6 +67,7 @@ const SouthKoreaMap = ({ centers }) => {
                                     e.stopPropagation();
                                     handlePinClick(center);
                                 }}
+                                style={{ isolation: 'isolate' }}
                             >
                                 <circle r="100" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
                                 <circle r="75" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
@@ -69,7 +75,7 @@ const SouthKoreaMap = ({ centers }) => {
 
                                 <foreignObject x="-500" y="-320" width="1000" height="250" className="pointer-events-none overflow-visible">
                                     <div className="flex justify-center">
-                                        <span className="px-16 py-8 bg-white/95 backdrop-blur-md border-[4px] border-slate-100 rounded-full text-[100px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight">
+                                        <span className={`px-16 py-8 bg-white/95 backdrop-blur-md border-[4px] border-slate-100 rounded-full text-[100px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight transition-all ${hoveredCenter?.id === center.id ? 'scale-110 border-primary shadow-primary/20' : ''}`}>
                                             {center.name}
                                         </span>
                                     </div>
@@ -80,81 +86,157 @@ const SouthKoreaMap = ({ centers }) => {
                 </svg>
             </div>
 
+            {/* Bottom-Up Modal (Drawer) */}
             <AnimatePresence>
                 {selectedCenter && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="fixed inset-x-8 bottom-8 md:absolute md:inset-auto md:right-[-20px] md:bottom-20 w-[calc(100%-64px)] md:w-[380px] bg-white/95 backdrop-blur-2xl p-6 md:p-8 rounded-xl md:rounded-[20px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 z-50 overflow-hidden mx-auto max-w-[340px] md:max-w-none"
-                    >
-                        <button
+                    <>
+                        {/* Overlay */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             onClick={() => setSelectedCenter(null)}
-                            className="absolute top-4 right-4 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 bg-slate-100/50 backdrop-blur-sm flex items-center justify-center text-slate-400 rounded-full hover:text-slate-900 transition-colors shadow-sm"
+                            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40"
+                        />
+
+                        {/* Drawer Content */}
+                        <motion.div
+                            initial={{ y: "100%", x: "-50%" }}
+                            animate={{ y: "-50%", x: "-50%" }}
+                            exit={{ y: "100%", x: "-50%" }}
+                            style={{
+                                left: "50%",
+                                top: "50%",
+                            }}
+                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                            className="fixed hidden md:block bg-white rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.2)] z-50 w-full max-w-5xl overflow-hidden border border-slate-100"
                         >
-                            <X size={18} />
-                        </button>
-
-                        <div className="flex flex-col gap-4 md:gap-6">
-                            <div className="aspect-16/9 md:aspect-16/10 rounded-2xl md:rounded-3xl overflow-hidden bg-slate-100 relative group">
-                                {selectedCenter.image ? (
-                                    <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center">
-                                        <Building2 className="text-slate-200" size={32} />
-                                    </div>
-                                )}
-                            </div>
-
-                            <div className="space-y-4 md:space-y-6">
-                                <div>
-                                    <h3 className="text-xl md:text-3xl font-black text-slate-900 tracking-tight leading-tight">{selectedCenter.name}</h3>
-                                    <div className="flex items-start gap-2 mt-1 md:mt-2 text-slate-500 font-bold">
-                                        <MapPin size={14} className="shrink-0 mt-1" />
-                                        <p className="text-xs md:text-sm leading-relaxed">{selectedCenter.address} {selectedCenter.detailAddress}</p>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-3 md:gap-4">
-                                    <div className="flex items-center gap-2 md:gap-3 bg-slate-50 p-2 md:p-3 rounded-xl md:rounded-2xl border border-slate-100">
-                                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
-                                            <Phone size={14} />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-[8px] md:text-[10px] text-slate-400 font-black uppercase">Phone</span>
-                                            <p className="text-[10px] md:text-xs font-black text-slate-900">{selectedCenter.phone}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-2 md:gap-3 bg-slate-50 p-2 md:p-3 rounded-xl md:rounded-2xl border border-slate-100">
-                                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm">
-                                            <Clock size={14} />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-[8px] md:text-[10px] text-slate-400 font-black uppercase">Hours</span>
-                                            <p className="text-[10px] md:text-xs font-black text-slate-900">{selectedCenter.hours || '09:00 - 18:00'}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-2 md:gap-3 pt-1 md:pt-2">
-                                    <a
-                                        href={`tel:${selectedCenter.phone}`}
-                                        className="flex-3 h-12 md:h-16 bg-slate-900 text-white rounded-lg md:rounded-xl text-sm md:text-base font-black flex items-center justify-center gap-2 md:gap-3 hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10"
+                            <div className="p-12 overflow-y-auto max-h-[90vh]">
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setSelectedCenter(null)}
+                                        className="absolute -top-4 -right-4 w-14 h-14 bg-slate-50 flex items-center justify-center text-slate-400 rounded-full hover:text-slate-900 transition-all hover:scale-110"
                                     >
-                                        <Phone size={16} /> 예약 전화
-                                    </a>
-                                    <a
-                                        href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 h-12 md:h-16 bg-slate-100 text-slate-600 rounded-lg md:rounded-xl flex items-center justify-center hover:bg-slate-200 transition-all border border-slate-200"
-                                    >
-                                        <MapPin size={20} />
-                                    </a>
+                                        <X size={28} />
+                                    </button>
+
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                                        {/* Left Side: Large Image */}
+                                        <div className="aspect-[4/3] rounded-[32px] overflow-hidden bg-slate-100 border border-slate-100 shadow-inner">
+                                            {selectedCenter.image ? (
+                                                <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center">
+                                                    <Building2 className="text-slate-200" size={80} />
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Right Side: Detailed Content */}
+                                        <div className="flex flex-col justify-center">
+                                            <div className="mb-10">
+                                                <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-black rounded-full mb-4 uppercase tracking-widest leading-none">Official Center</span>
+                                                <h3 className="text-5xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+                                                    {selectedCenter.name}
+                                                </h3>
+                                                <div className="flex items-start gap-3 text-slate-500 font-bold text-xl">
+                                                    <MapPin size={24} className="shrink-0 mt-1 text-primary" />
+                                                    <p className="leading-relaxed">{selectedCenter.address} <br />{selectedCenter.detailAddress}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-6 mb-10">
+                                                <div className="flex items-center gap-6 bg-slate-50 p-6 rounded-3xl border border-slate-100 hover:border-primary/20 transition-colors">
+                                                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100">
+                                                        <Phone size={28} />
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="text-xs text-slate-400 font-black uppercase tracking-wider mb-1">Reservation & Inquiry</span>
+                                                        <p className="text-2xl font-black text-slate-900">{selectedCenter.phone}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center gap-6 bg-slate-50 p-6 rounded-3xl border border-slate-100 hover:border-emerald-200 transition-colors">
+                                                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-slate-100">
+                                                        <Clock size={28} />
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="text-xs text-slate-400 font-black uppercase tracking-wider mb-1">Operating Hours</span>
+                                                        <p className="text-2xl font-black text-slate-900">{selectedCenter.hours || '09:00 - 18:00'}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex gap-4">
+                                                <a
+                                                    href={`tel:${selectedCenter.phone}`}
+                                                    className="flex-1 h-20 bg-slate-900 text-white rounded-2xl text-xl font-black flex items-center justify-center gap-4 hover:bg-slate-800 transition-all shadow-2xl shadow-slate-900/20 hover:scale-[1.02] active:scale-[0.98]"
+                                                >
+                                                    <Phone size={24} /> 정비 예약 전화
+                                                </a>
+                                                <a
+                                                    href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="h-20 px-10 bg-white text-slate-600 rounded-2xl flex items-center justify-center hover:bg-slate-50 transition-all border-2 border-slate-100 hover:border-slate-200"
+                                                >
+                                                    <MapPin size={32} />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+
+                        {/* Mobile Drawer Content */}
+                        <motion.div
+                            initial={{ y: "100%" }}
+                            animate={{ y: 0 }}
+                            exit={{ y: "100%" }}
+                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                            className="fixed md:hidden inset-x-0 bottom-0 bg-white rounded-t-[32px] shadow-[0_-20px_40px_rgba(0,0,0,0.1)] z-50 max-h-[90vh] overflow-hidden"
+                        >
+                            <div className="w-full flex justify-center pt-4 pb-2">
+                                <div className="w-12 h-1.5 bg-slate-200 rounded-full" />
+                            </div>
+                            <div className="px-6 pb-10 overflow-y-auto max-h-[calc(90vh-40px)]">
+                                <div className="max-w-2xl mx-auto">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div>
+                                            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-tight">{selectedCenter.name}</h3>
+                                            <div className="flex items-start gap-2 mt-2 text-slate-500 font-bold">
+                                                <MapPin size={16} className="shrink-0 mt-1" />
+                                                <p className="text-sm leading-relaxed">{selectedCenter.address} {selectedCenter.detailAddress}</p>
+                                            </div>
+                                        </div>
+                                        <button onClick={() => setSelectedCenter(null)} className="w-10 h-10 bg-slate-100 flex items-center justify-center text-slate-400 rounded-full">
+                                            <X size={20} />
+                                        </button>
+                                    </div>
+                                    <div className="grid grid-cols-1 gap-6 mb-8">
+                                        <div className="aspect-16/9 rounded-2xl overflow-hidden bg-slate-100">
+                                            {selectedCenter.image ? <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center"><Building2 size={48} className="text-slate-200" /></div>}
+                                        </div>
+                                        <div className="flex flex-col gap-4">
+                                            <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                                <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100"><Phone size={20} /></div>
+                                                <div className="flex flex-col"><span className="text-[10px] text-slate-400 font-black uppercase tracking-wider">Phone</span><p className="text-base font-black text-slate-900">{selectedCenter.phone}</p></div>
+                                            </div>
+                                            <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                                <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-slate-100"><Clock size={20} /></div>
+                                                <div className="flex flex-col"><span className="text-[10px] text-slate-400 font-black uppercase tracking-wider">Operating Hours</span><p className="text-base font-black text-slate-900">{selectedCenter.hours || '09:00 - 18:00'}</p></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <a href={`tel:${selectedCenter.phone}`} className="flex-1 h-16 bg-slate-900 text-white rounded-xl text-lg font-black flex items-center justify-center gap-3"><Phone size={18} /> 예약 전화</a>
+                                        <a href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`} target="_blank" rel="noopener noreferrer" className="h-16 px-6 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center border border-slate-200"><MapPin size={24} /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                        ZO
+                    </>
                 )}
             </AnimatePresence>
         </div>
@@ -293,27 +375,11 @@ const Center = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-[15px] md:text-[18px] font-medium text-white/50 max-w-3xl leading-relaxed mb-16"
+                            className="text-[15px] md:text-[18px] font-medium text-white/50 max-w-3xl leading-relaxed"
                         >
                             전국 최대 규모의 서비스 네트워크와 숙련된 전문가들이 <br className="hidden md:block" />
                             라이더님의 주행 환경을 가장 완벽하게 관리해 드립니다.
                         </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="flex flex-col sm:flex-row gap-5 md:gap-6"
-                        >
-                            <Link to="/rental/inquiry" className="h-[64px] md:h-[76px] px-10 md:px-14 bg-white text-slate-900 rounded-xl font-black text-lg md:text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-white/10 group">
-                                정비 예약하기
-                                <ArrowRight className="ml-3 w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[64px] md:h-[76px] px-10 md:px-14 bg-[#FEE500] text-slate-900 rounded-xl font-black text-lg md:text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
-                                <MessageCircle className="mr-2 w-6 h-6 fill-current" />
-                                카톡 상담 연결
-                            </a>
-                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -321,20 +387,16 @@ const Center = () => {
 
             {/* Network Map Section */}
             <section className="py-16 md:py-32 bg-white overflow-hidden">
-                <div className="container px-6">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-                        <div className="lg:col-span-12">
-                            <div className="mb-8 md:mb-12">
-                                <h2 className="text-[28px] md:text-[48px] font-black text-slate-900 leading-[1.2] mb-4 md:mb-6">
-                                    라이디 <span className="text-primary">서비스센터 찾기</span>
-                                </h2>
-                                <p className="text-slate-500 text-[15px] md:text-lg font-bold leading-relaxed">
-                                    전국 주요 거점에 위치한 공식 센터가 항상 라이더님 곁에 있습니다.
-                                </p>
-                            </div>
-                            <SouthKoreaMap centers={centers} />
-                        </div>
+                <div className="w-full">
+                    <div className="container px-6 mb-8 md:mb-12">
+                        <h2 className="text-[28px] md:text-[48px] font-black text-slate-900 leading-[1.2] mb-4 md:mb-6">
+                            라이디 <span className="text-primary">서비스센터 찾기</span>
+                        </h2>
+                        <p className="text-slate-500 text-[15px] md:text-lg font-bold leading-relaxed">
+                            전국 주요 거점에 위치한 공식 센터가 항상 라이더님 곁에 있습니다.
+                        </p>
                     </div>
+                    <SouthKoreaMap centers={centers} />
                 </div>
             </section>
 
