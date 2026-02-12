@@ -2,10 +2,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Zap, ShieldCheck, Globe, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import heroImage from '../components/img/ridy_main_home_hero.jpg';
+
 const Hero = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+    const opacityTransform = useTransform(scrollY, [0, 300], [1, 0]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -31,6 +33,19 @@ const Hero = () => {
         <section className="relative min-h-[80vh] md:min-h-[95vh] flex flex-col items-center justify-center text-center bg-[#0F172A] overflow-hidden py-16 md:py-32">
             {/* Premium Background Layer */}
             <div className="absolute inset-0 z-0 overflow-hidden">
+                {/* Base Image Layer with Parallax */}
+                <motion.div
+                    style={{ y: y1 }}
+                    className="absolute inset-0 z-0"
+                >
+                    <img
+                        src={heroImage}
+                        alt="Ridy Hero"
+                        className="w-full h-full object-cover opacity-40"
+                    />
+                    {/* Dark Overlay for Text Visibility */}
+                    <div className="absolute inset-0 bg-linear-to-b from-[#0F172A]/80 via-[#0F172A]/60 to-[#0F172A]" />
+                </motion.div>
                 {/* Dynamic Gradient Orbs */}
                 <motion.div
                     animate={{
@@ -137,6 +152,11 @@ const Hero = () => {
                 <p className="text-[10px] font-black uppercase tracking-[0.3em]">Scroll Down</p>
                 <div className="w-px h-12 bg-linear-to-b from-white/30 to-transparent" />
             </motion.div>
+
+            {/* AI Disclaimer */}
+            <div className="absolute bottom-4 right-6 z-10">
+                <p className="text-[10px] text-white/20 font-medium">본 이미지는 AI로 생성된 이미지입니다.</p>
+            </div>
         </section>
     );
 };

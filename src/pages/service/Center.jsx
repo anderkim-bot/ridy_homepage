@@ -23,6 +23,7 @@ import {
 import { Link } from 'react-router-dom';
 import { centerService } from '../../services/centerService';
 import CenterLogo from '../../components/svg/Ridy_Service_center_logo.svg';
+import serviceCenterHeroImage from '../../components/img/ridy_servicecenter_hero.jpg';
 
 const SouthKoreaMap = ({ centers }) => {
     const [hoveredCenter, setHoveredCenter] = useState(null);
@@ -203,6 +204,8 @@ const Center = () => {
     const [centers, setCenters] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
 
     useEffect(() => {
         const fetchCenters = async () => {
@@ -223,6 +226,20 @@ const Center = () => {
             {/* Premium Hero Section */}
             <section className="relative pt-24 pb-16 md:pt-48 md:pb-40 bg-[#0F172A] overflow-hidden">
                 <div className="absolute inset-0 z-0">
+                    {/* Base Image Layer with Parallax */}
+                    <motion.div
+                        style={{ y: y1 }}
+                        className="absolute inset-0 z-0"
+                    >
+                        <img
+                            src={serviceCenterHeroImage}
+                            alt="Ridy Service Center Hero"
+                            className="w-full h-full object-cover opacity-40"
+                        />
+                        {/* Dark Overlay for Text Visibility */}
+                        <div className="absolute inset-0 bg-linear-to-b from-[#0F172A]/80 via-[#0F172A]/60 to-[#0F172A]" />
+                    </motion.div>
+
                     <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-500/10 blur-[180px] rounded-full" />
 

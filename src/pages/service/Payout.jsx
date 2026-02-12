@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PayoutLogo from '../../components/svg/Ridy_Payout_logo.svg';
+import payoutHeroImage from '../../components/img/ridy_payout_hero2.png';
 
 const FeatureCard = ({ icon: Icon, title, description, benefits, color, index }) => (
     <motion.div
@@ -62,14 +63,28 @@ const FeatureCard = ({ icon: Icon, title, description, benefits, color, index })
 );
 
 const Payout = () => {
-    const { scrollYProgress } = useScroll();
-    const opacity = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 1, 0.8]);
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
 
     return (
         <div className="bg-slate-50 min-h-screen">
             {/* Premium Hero Section */}
             <section className="relative pt-24 pb-16 md:pt-48 md:pb-40 bg-[#0A0F1D] overflow-hidden">
                 <div className="absolute inset-0 z-0">
+                    {/* Base Image Layer with Parallax */}
+                    <motion.div
+                        style={{ y: y1 }}
+                        className="absolute inset-0 z-0"
+                    >
+                        <img
+                            src={payoutHeroImage}
+                            alt="Ridy Payout Hero"
+                            className="w-full h-full object-cover opacity-40"
+                        />
+                        {/* Dark Overlay for Text Visibility */}
+                        <div className="absolute inset-0 bg-linear-to-b from-[#0A0F1D]/80 via-[#0A0F1D]/60 to-[#0A0F1D]" />
+                    </motion.div>
+
                     <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-primary/20 blur-[180px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-500/10 blur-[150px] rounded-full" />
 
@@ -161,6 +176,11 @@ const Payout = () => {
                             </div>
                         </motion.div>
                     </div>
+                </div>
+
+                {/* AI Disclaimer */}
+                <div className="absolute bottom-4 right-6 z-10">
+                    <p className="text-[10px] text-white/20 font-bold">본 이미지는 AI로 생성된 이미지입니다.</p>
                 </div>
             </section>
 

@@ -21,6 +21,8 @@ import {
 import { Link } from 'react-router-dom';
 import { caseService } from '../../services/caseService';
 import RentalLogo from '../../components/svg/Ridy_Rental_logo.svg';
+import rentalHeroImage from '../../components/img/ridy_rental_hero.png';
+import { useScroll, useTransform } from 'framer-motion';
 
 const BenefitCard = ({ icon: Icon, title, content, subItems, index }) => (
     <motion.div
@@ -109,6 +111,8 @@ const FAQItem = ({ question, answer }) => {
 
 const Rental = () => {
     const [cases, setCases] = useState([]);
+    const { scrollY } = useScroll();
+    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
 
     useEffect(() => {
         const fetchCases = async () => {
@@ -195,6 +199,20 @@ const Rental = () => {
             {/* Hero Section */}
             <section className="bg-slate-900 pt-24 pb-16 md:pt-48 md:pb-36 relative overflow-hidden">
                 <div className="absolute inset-0 z-0">
+                    {/* Base Image Layer with Parallax */}
+                    <motion.div
+                        style={{ y: y1 }}
+                        className="absolute inset-0 z-0"
+                    >
+                        <img
+                            src={rentalHeroImage}
+                            alt="Ridy Rental Hero"
+                            className="w-full h-full object-cover opacity-40"
+                        />
+                        {/* Dark Overlay for Text Visibility */}
+                        <div className="absolute inset-0 bg-linear-to-b from-[#0F172A]/80 via-[#0F172A]/60 to-[#0F172A]" />
+                    </motion.div>
+
                     <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full" />
                     <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-500/10 blur-[180px] rounded-full" />
 
@@ -278,6 +296,11 @@ const Rental = () => {
                             </motion.div>
                         </div>
                     </motion.div>
+                </div>
+
+                {/* AI Disclaimer */}
+                <div className="absolute bottom-4 right-6 z-10">
+                    <p className="text-[10px] text-white/20 font-bold">본 이미지는 AI로 생성된 이미지입니다.</p>
                 </div>
             </section>
 
