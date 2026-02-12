@@ -29,13 +29,17 @@ import AdminModels from './pages/admin/AdminModels';
 import AdminNotices from './pages/admin/AdminNotices';
 import AdminCenters from './pages/admin/AdminCenters';
 import AdminCases from './pages/admin/AdminCases';
+import ScrollToTop from './components/ScrollToTop';
+
 
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-white">
         <Navbar />
+
 
         <main className="pt-[100px]">
           <Routes>

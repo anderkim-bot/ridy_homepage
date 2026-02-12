@@ -168,8 +168,9 @@ const AdminCenters = () => {
     );
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12 font-sans text-slate-900">
+        <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-8 lg:p-12 font-sans text-slate-900 overflow-x-hidden">
             <div className="max-w-[1500px] mx-auto">
+
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8 mb-10 lg:mb-16">
                     <div className="space-y-3">
                         <div className="flex items-center gap-4">
