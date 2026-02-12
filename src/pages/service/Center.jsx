@@ -570,10 +570,6 @@ const Center = () => {
 
 
 
-            import PartnerInquiryForm from '../../components/PartnerInquiryForm';
-
-            // ... (중략)
-
             {/* Franchise Section */}
             <section className="py-16 md:py-32 bg-slate-900 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
@@ -581,22 +577,28 @@ const Center = () => {
                     <div className="absolute bottom-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-primary to-transparent" />
                 </div>
 
-                <div className="container px-6 relative z-10 text-center">
-                    <div className="max-w-4xl mx-auto mb-16 md:mb-24">
-                        <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mb-8">
-                            <span className="text-primary font-black uppercase tracking-widest text-[11px] md:text-[12px]">Partnership</span>
+                <div className="container px-6 relative z-10">
+                    <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-8 md:gap-12">
+                        <div className="space-y-8 md:space-y-12">
+                            <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mx-auto">
+                                <span className="text-primary font-black uppercase tracking-widest text-[11px] md:text-[12px]">Partnership</span>
+                            </div>
+                            <h2 className="text-[32px] md:text-[56px] font-black text-white leading-[1.1]">
+                                라이디와 함께할 <br />
+                                <span className="text-primary">정비 파트너</span>를 모십니다.
+                            </h2>
+                            <p className="text-white/40 text-[17px] md:text-xl font-bold leading-relaxed mx-auto max-w-2xl">
+                                풍부한 정비 물량 확보고 표준화된 관리 시스템 지원까지. <br className="hidden md:block" />
+                                국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-5 justify-center">
+                                <Link to="/rental/inquiry" className="h-[64px] md:h-[72px] px-10 md:px-12 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
+                                    가맹 문의하기
+                                    <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                            </div>
                         </div>
-                        <h2 className="text-[32px] md:text-[56px] font-black text-white leading-[1.1] mb-8">
-                            라이디와 함께할 <br />
-                            <span className="text-primary">정비 파트너</span>를 모십니다.
-                        </h2>
-                        <p className="text-white/40 text-[17px] md:text-xl font-bold leading-relaxed max-w-2xl mx-auto">
-                            풍부한 정비 물량 확보부터 표준화된 관리 시스템 지원까지. <br className="hidden md:block" />
-                            국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
-                        </p>
                     </div>
-
-                    <PartnerInquiryForm />
                 </div>
             </section>
 
