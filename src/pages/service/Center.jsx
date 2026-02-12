@@ -592,10 +592,15 @@ const Center = () => {
                                 국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                                <Link to="/rental/inquiry" className="h-[64px] md:h-[72px] px-10 md:px-12 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
+                                <a
+                                    href="https://tally.so/r/mYLXOd"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="h-[64px] md:h-[72px] px-10 md:px-12 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group"
+                                >
                                     가맹 문의하기
                                     <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </Link>
+                                </a>
                             </div>
                         </div>
                     </div>
