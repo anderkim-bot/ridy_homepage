@@ -570,6 +570,10 @@ const Center = () => {
 
 
 
+            import PartnerInquiryForm from '../../components/PartnerInquiryForm';
+
+            // ... (중략)
+
             {/* Franchise Section */}
             <section className="py-16 md:py-32 bg-slate-900 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-20">
@@ -577,63 +581,25 @@ const Center = () => {
                     <div className="absolute bottom-0 left-0 w-full h-[1px] bg-linear-to-r from-transparent via-primary to-transparent" />
                 </div>
 
-                <div className="container px-6 relative z-10">
-                    <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-8 md:gap-12">
-                        <div className="space-y-8 md:space-y-12">
-                            <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mx-auto">
-                                <span className="text-primary font-black uppercase tracking-widest text-[11px] md:text-[12px]">Partnership</span>
-                            </div>
-                            <h2 className="text-[32px] md:text-[56px] font-black text-white leading-[1.1]">
-                                라이디와 함께할 <br />
-                                <span className="text-primary">정비 파트너</span>를 모십니다.
-                            </h2>
-                            <p className="text-white/40 text-[17px] md:text-xl font-bold leading-relaxed mx-auto max-w-2xl">
-                                풍부한 정비 물량 확보고 표준화된 관리 시스템 지원까지. <br className="hidden md:block" />
-                                국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                                <Link to="/rental/inquiry" className="h-[64px] md:h-[72px] px-10 md:px-12 bg-primary text-white rounded-xl font-black text-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
-                                    가맹 문의하기
-                                    <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                            </div>
+                <div className="container px-6 relative z-10 text-center">
+                    <div className="max-w-4xl mx-auto mb-16 md:mb-24">
+                        <div className="inline-flex items-center px-4 py-2 bg-primary/20 border border-primary/30 rounded-full mb-8">
+                            <span className="text-primary font-black uppercase tracking-widest text-[11px] md:text-[12px]">Partnership</span>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Final CTA Section */}
-            <section className="py-16 md:py-32 bg-white relative overflow-hidden">
-                <div className="container relative z-10 px-6 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto"
-                    >
-                        <Toolbox className="mx-auto text-slate-200 mb-6 md:mb-8" size={64} md:size={80} />
-                        <h2 className="text-slate-900 text-[30px] md:text-[60px] font-black mb-8 md:mb-10 leading-[1.1]">
-                            더 안전한 주행의 시작, <br />
-                            지금 라이디 정비를 예약하세요.
+                        <h2 className="text-[32px] md:text-[56px] font-black text-white leading-[1.1] mb-8">
+                            라이디와 함께할 <br />
+                            <span className="text-primary">정비 파트너</span>를 모십니다.
                         </h2>
-                        <p className="text-slate-500 text-[16px] md:text-[22px] font-bold mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed">
-                            전문가들이 제안하는 정밀한 정비와 <br className="md:hidden" /> 투명한 서비스로 <br className="hidden md:block" />
-                            완벽한 주행 컨디션을 만들어 드립니다.
+                        <p className="text-white/40 text-[17px] md:text-xl font-bold leading-relaxed max-w-2xl mx-auto">
+                            풍부한 정비 물량 확보부터 표준화된 관리 시스템 지원까지. <br className="hidden md:block" />
+                            국내 No.1 라이더 플랫폼의 핵심 정비 거점이 되어보세요.
                         </p>
+                    </div>
 
-                        <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                            <Link to="/rental/inquiry" className="h-[64px] md:h-[76px] px-12 md:px-16 bg-primary text-white rounded-xl font-black text-lg md:text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
-                                예약 페이지 이동
-                                <ArrowRight className="ml-3 w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[64px] md:h-[76px] px-12 md:px-16 bg-[#FEE500] text-slate-900 rounded-xl font-black text-lg md:text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
-                                <MessageCircle className="mr-2 w-6 h-6 fill-current" />
-                                카톡 상담 연결
-                            </a>
-                        </div>
-                    </motion.div>
+                    <PartnerInquiryForm />
                 </div>
             </section>
+
         </div>
     );
 };
