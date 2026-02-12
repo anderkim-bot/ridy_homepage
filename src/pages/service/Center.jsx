@@ -95,7 +95,15 @@ const SouthKoreaMap = ({ centers }) => {
                                                 style={{ isolation: 'isolate' }}
                                             >
                                                 {/* Counter-scaling group */}
-                                                <g style={{ transform: 'scale(calc(1 / var(--map-scale, 1)))', transformBox: 'fill-box', transformOrigin: 'center', transition: 'transform 0.1s linear' }}>
+                                                <g
+                                                    className="md:scale-[0.6]"
+                                                    style={{
+                                                        transformBox: 'fill-box',
+                                                        transformOrigin: 'center',
+                                                        transform: 'scale(calc(1 / var(--map-scale, 1)))',
+                                                        transition: 'transform 0.1s linear'
+                                                    }}
+                                                >
                                                     <circle r="100" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
                                                     <circle r="75" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
                                                     <circle r="30" fill="white" />

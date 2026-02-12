@@ -332,7 +332,7 @@ const HomeContent = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <Link to="/service/rental" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                            <Link to="/product/honda" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-5 transition-opacity">
                                     <img src={RidyRentalLogo} alt="" className="h-20 w-auto" />
                                 </div>
@@ -361,7 +361,7 @@ const HomeContent = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <Link to="/product/lease" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                            <Link to="/product/succession" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
                                 <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-5 transition-opacity">
                                     <img src={RidyRentalLogo} alt="" className="h-20 w-auto" />
                                 </div>
