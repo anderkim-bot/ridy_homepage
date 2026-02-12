@@ -36,9 +36,9 @@ const SouthKoreaMap = ({ centers }) => {
     };
 
     return (
-        <div className="relative w-full overflow-hidden bg-slate-50">
+        <div className="relative w-full overflow-hidden bg-white">
             {/* Map Container - Vertical Focus */}
-            <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-h-[800px] bg-white overflow-hidden group mx-auto z-0">
+            <div className="relative w-full max-w-[1000px] h-[600px] md:h-[800px] bg-white overflow-hidden group mx-auto z-0 border border-slate-200 shadow-sm">
                 <TransformWrapper
                     initialScale={1}
                     minScale={1}
@@ -53,13 +53,14 @@ const SouthKoreaMap = ({ centers }) => {
                 >
                     {() => (
                         <TransformComponent
-                            wrapperClass="w-full h-full"
-                            contentClass="w-full h-full"
+                            wrapperStyle={{ width: "100%", height: "100%" }}
+                            contentStyle={{ width: "100%", height: "100%" }}
                         >
                             <div ref={mapRef} className="w-full h-full">
                                 <svg
                                     viewBox="0 0 3409.59 3635.76"
-                                    className="w-full h-full"
+                                    className="w-full h-full block"
+                                    preserveAspectRatio="xMidYMid slice"
                                     onClick={(e) => {
                                         // Allow clearing selection if clicking on the background (not pins)
                                         if (e.target.tagName === 'svg' || e.target.tagName === 'image') {
@@ -72,6 +73,7 @@ const SouthKoreaMap = ({ centers }) => {
                                         width="100%"
                                         height="100%"
                                         className="opacity-90"
+                                        preserveAspectRatio="xMidYMid slice"
                                     />
 
                                     {[...centers].sort((a, b) => {
@@ -195,22 +197,30 @@ const SouthKoreaMap = ({ centers }) => {
                                             <Clock size={18} className="text-emerald-500" />
                                             <span className="text-xs text-slate-400 font-bold uppercase">Hours</span>
                                         </div>
-                                        <p className="text-lg font-black text-slate-900 tracking-tight">{selectedCenter.hours || '09:00 - 18:00'}</p>
+                                        <p className="text-lg font-black text-slate-900 tracking-tight">{selectedCenter.hours || `${selectedCenter.openTime} - ${selectedCenter.closeTime}` || '09:00 - 18:00'}</p>
                                     </div>
                                 </div>
 
+                                {/* Services Tags */}
+                                {selectedCenter.services && selectedCenter.services.length > 0 && (
+                                    <div className="mb-8">
+                                        <h4 className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-3">Provided Services</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {selectedCenter.services.map((service, idx) => (
+                                                <span key={idx} className="px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-black">
+                                                    #{service}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="flex gap-3">
-                                    <a
-                                        href={`tel:${selectedCenter.phone}`}
-                                        className="flex-1 h-12 bg-slate-900 text-white rounded-xl text-base font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10"
-                                    >
-                                        <Phone size={18} /> 전화하기
-                                    </a>
                                     <a
                                         href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex-1 h-12 bg-white text-slate-900 border border-slate-200 rounded-xl text-base font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all"
+                                        className="flex-1 h-12 bg-slate-900 text-white rounded-xl text-base font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10"
                                     >
                                         <MapPin size={18} /> 지도보기
                                     </a>
@@ -224,7 +234,7 @@ const SouthKoreaMap = ({ centers }) => {
                             animate={{ y: 0 }}
                             exit={{ y: "100%" }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="fixed md:hidden inset-x-0 bottom-0 bg-white rounded-t-[32px] shadow-[0_-20px_40px_rgba(0,0,0,0.1)] z-50 max-h-[90vh] overflow-hidden"
+                            className="fixed md:hidden inset-x-0 bottom-0 bg-white rounded-t-2xl shadow-[0_-20px_40px_rgba(0,0,0,0.1)] z-50 max-h-[90vh] overflow-hidden"
                         >
                             <div className="w-full flex justify-center pt-4 pb-2">
                                 <div className="w-12 h-1.5 bg-slate-200 rounded-full" />
@@ -254,8 +264,20 @@ const SouthKoreaMap = ({ centers }) => {
                                             </div>
                                             <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
                                                 <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-slate-100"><Clock size={20} /></div>
-                                                <div className="flex flex-col"><span className="text-[10px] text-slate-400 font-black uppercase tracking-wider">Operating Hours</span><p className="text-base font-black text-slate-900">{selectedCenter.hours || '09:00 - 18:00'}</p></div>
+                                                <div className="flex flex-col"><span className="text-[10px] text-slate-400 font-black uppercase tracking-wider">Operating Hours</span><p className="text-base font-black text-slate-900">{selectedCenter.hours || `${selectedCenter.openTime} - ${selectedCenter.closeTime}` || '09:00 - 18:00'}</p></div>
                                             </div>
+                                            {selectedCenter.services && selectedCenter.services.length > 0 && (
+                                                <div className="space-y-3">
+                                                    <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider ml-1">Provided Services</span>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {selectedCenter.services.map((service, idx) => (
+                                                            <span key={idx} className="px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-black">
+                                                                #{service}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="flex gap-4">
@@ -333,7 +355,7 @@ const Center = () => {
     );
 
     return (
-        <div className="bg-slate-50 min-h-screen">
+        <div className="bg-white min-h-screen">
             {/* Premium Hero Section */}
             <section className="relative pt-24 pb-16 md:pt-48 md:pb-40 bg-[#0F172A] overflow-hidden">
                 <div className="absolute inset-0 z-0">
@@ -415,7 +437,7 @@ const Center = () => {
 
 
             {/* Network Map Section */}
-            <section className="py-16 md:py-32 bg-white overflow-hidden">
+            <section className="py-24 md:py-48 bg-white overflow-hidden">
                 <div className="w-full">
                     <div className="container px-6 mb-8 md:mb-12">
                         <h2 className="text-[28px] md:text-[48px] font-black text-slate-900 leading-[1.2] mb-4 md:mb-6">

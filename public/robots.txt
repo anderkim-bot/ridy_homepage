@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://ridy.co.kr/sitemap.xml
