@@ -20,6 +20,7 @@ import {
     AlertCircle,
     Toolbox
 } from 'lucide-react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { Link } from 'react-router-dom';
 import { centerService } from '../../services/centerService';
 import CenterLogo from '../../components/svg/Ridy_Service_center_logo.svg';
@@ -28,7 +29,7 @@ import serviceCenterHeroImage from '../../components/img/ridy_servicecenter_hero
 const SouthKoreaMap = ({ centers }) => {
     const [hoveredCenter, setHoveredCenter] = useState(null);
     const [selectedCenter, setSelectedCenter] = useState(null);
-    const svgRef = useRef(null);
+    const mapRef = useRef(null);
 
     const handlePinClick = (center) => {
         setSelectedCenter(selectedCenter?.id === center.id ? null : center);
@@ -37,53 +38,82 @@ const SouthKoreaMap = ({ centers }) => {
     return (
         <div className="relative w-full overflow-hidden bg-slate-50">
             {/* Map Container - Vertical Focus */}
-            <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-h-[800px] bg-white overflow-hidden group mx-auto">
-                <svg
-                    ref={svgRef}
-                    viewBox="0 0 3409.59 3635.76"
-                    className="w-full h-full scale-100 translate-y-0 origin-center transition-transform"
-                    onClick={() => setSelectedCenter(null)}
+            <div className="relative w-full aspect-[3/4] md:aspect-[4/5] max-h-[800px] bg-white overflow-hidden group mx-auto z-0">
+                <TransformWrapper
+                    initialScale={1}
+                    minScale={1}
+                    maxScale={8}
+                    centerOnInit={true}
+                    wheel={{ step: 0.1 }}
+                    onTransformed={(ref, state) => {
+                        if (mapRef.current) {
+                            mapRef.current.style.setProperty('--map-scale', state.scale);
+                        }
+                    }}
                 >
-                    <image
-                        href="/src/components/svg/map.svg"
-                        width="100%"
-                        height="100%"
-                        className="opacity-90"
-                    />
+                    {() => (
+                        <TransformComponent
+                            wrapperClass="w-full h-full"
+                            contentClass="w-full h-full"
+                        >
+                            <div ref={mapRef} className="w-full h-full">
+                                <svg
+                                    viewBox="0 0 3409.59 3635.76"
+                                    className="w-full h-full"
+                                    onClick={(e) => {
+                                        // Allow clearing selection if clicking on the background (not pins)
+                                        if (e.target.tagName === 'svg' || e.target.tagName === 'image') {
+                                            setSelectedCenter(null);
+                                        }
+                                    }}
+                                >
+                                    <image
+                                        href="/src/components/svg/map.svg"
+                                        width="100%"
+                                        height="100%"
+                                        className="opacity-90"
+                                    />
 
-                    {[...centers].sort((a, b) => {
-                        if (hoveredCenter?.id === a.id) return 1;
-                        if (hoveredCenter?.id === b.id) return -1;
-                        return 0;
-                    }).map((center) => (
-                        center.location && (
-                            <g
-                                key={center.id}
-                                transform={`translate(${center.location.x}, ${center.location.y})`}
-                                className="cursor-pointer group/pin"
-                                onMouseEnter={() => setHoveredCenter(center)}
-                                onMouseLeave={() => setHoveredCenter(null)}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handlePinClick(center);
-                                }}
-                                style={{ isolation: 'isolate' }}
-                            >
-                                <circle r="100" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
-                                <circle r="75" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
-                                <circle r="30" fill="white" />
+                                    {[...centers].sort((a, b) => {
+                                        if (hoveredCenter?.id === a.id) return 1;
+                                        if (hoveredCenter?.id === b.id) return -1;
+                                        return 0;
+                                    }).map((center) => (
+                                        center.location && (
+                                            <g
+                                                key={center.id}
+                                                transform={`translate(${center.location.x}, ${center.location.y})`}
+                                                className="cursor-pointer group/pin"
+                                                onMouseEnter={() => setHoveredCenter(center)}
+                                                onMouseLeave={() => setHoveredCenter(null)}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handlePinClick(center);
+                                                }}
+                                                style={{ isolation: 'isolate' }}
+                                            >
+                                                {/* Counter-scaling group */}
+                                                <g style={{ transform: 'scale(calc(1 / var(--map-scale, 1)))', transformBox: 'fill-box', transformOrigin: 'center', transition: 'transform 0.1s linear' }}>
+                                                    <circle r="100" fill="rgba(64, 84, 231, 0.2)" className="animate-ping" />
+                                                    <circle r="75" fill="#4054E7" className="transition-transform group-hover/pin:scale-125 shadow-lg shadow-primary/40" />
+                                                    <circle r="30" fill="white" />
 
-                                <foreignObject x="-500" y="-320" width="1000" height="250" className="pointer-events-none overflow-visible">
-                                    <div className="flex justify-center">
-                                        <span className={`px-16 py-8 bg-white/95 backdrop-blur-md border-[4px] border-slate-100 rounded-full text-[100px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight transition-all ${hoveredCenter?.id === center.id ? 'scale-110 border-primary shadow-primary/20' : ''}`}>
-                                            {center.name}
-                                        </span>
-                                    </div>
-                                </foreignObject>
-                            </g>
-                        )
-                    ))}
-                </svg>
+                                                    <foreignObject x="-500" y="-320" width="1000" height="250" className="pointer-events-none overflow-visible">
+                                                        <div className="flex justify-center">
+                                                            <span className={`px-16 py-8 bg-white/95 backdrop-blur-md border-[4px] border-slate-100 rounded-full text-[100px] font-black text-slate-900 shadow-2xl whitespace-nowrap tracking-tight transition-all ${hoveredCenter?.id === center.id ? 'scale-110 border-primary shadow-primary/20' : ''}`}>
+                                                                {center.name}
+                                                            </span>
+                                                        </div>
+                                                    </foreignObject>
+                                                </g>
+                                            </g>
+                                        )
+                                    ))}
+                                </svg>
+                            </div>
+                        </TransformComponent>
+                    )}
+                </TransformWrapper>
             </div>
 
             {/* Bottom-Up Modal (Drawer) */}
@@ -99,91 +129,91 @@ const SouthKoreaMap = ({ centers }) => {
                             className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40"
                         />
 
-                        {/* Drawer Content */}
+                        {/* Drawer Content (Desktop) */}
                         <motion.div
-                            initial={{ y: "100%", x: "-50%" }}
-                            animate={{ y: "-50%", x: "-50%" }}
-                            exit={{ y: "100%", x: "-50%" }}
+                            initial={{ opacity: 0, scale: 0.95, y: "-50%", x: "-50%" }}
+                            animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
+                            exit={{ opacity: 0, scale: 0.95, y: "-50%", x: "-50%" }}
                             style={{
                                 left: "50%",
                                 top: "50%",
                             }}
-                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed hidden md:block bg-white rounded-[40px] shadow-[0_40px_80px_rgba(0,0,0,0.2)] z-50 w-full max-w-5xl overflow-hidden border border-slate-100"
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            className="fixed hidden md:flex flex-col bg-white rounded-[20px] shadow-2xl z-50 w-full max-w-[500px] overflow-hidden border border-slate-100 max-h-[90vh]"
                         >
-                            <div className="p-12 overflow-y-auto max-h-[90vh]">
-                                <div className="relative">
-                                    <button
-                                        onClick={() => setSelectedCenter(null)}
-                                        className="absolute -top-4 -right-4 w-14 h-14 bg-slate-50 flex items-center justify-center text-slate-400 rounded-full hover:text-slate-900 transition-all hover:scale-110"
-                                    >
-                                        <X size={28} />
-                                    </button>
-
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                                        {/* Left Side: Large Image */}
-                                        <div className="aspect-[4/3] rounded-[32px] overflow-hidden bg-slate-100 border border-slate-100 shadow-inner">
-                                            {selectedCenter.image ? (
-                                                <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover" />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center">
-                                                    <Building2 className="text-slate-200" size={80} />
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* Right Side: Detailed Content */}
-                                        <div className="flex flex-col justify-center">
-                                            <div className="mb-10">
-                                                <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-black rounded-full mb-4 uppercase tracking-widest leading-none">Official Center</span>
-                                                <h3 className="text-5xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
-                                                    {selectedCenter.name}
-                                                </h3>
-                                                <div className="flex items-start gap-3 text-slate-500 font-bold text-xl">
-                                                    <MapPin size={24} className="shrink-0 mt-1 text-primary" />
-                                                    <p className="leading-relaxed">{selectedCenter.address} <br />{selectedCenter.detailAddress}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="space-y-6 mb-10">
-                                                <div className="flex items-center gap-6 bg-slate-50 p-6 rounded-3xl border border-slate-100 hover:border-primary/20 transition-colors">
-                                                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-primary shadow-sm border border-slate-100">
-                                                        <Phone size={28} />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-xs text-slate-400 font-black uppercase tracking-wider mb-1">Reservation & Inquiry</span>
-                                                        <p className="text-2xl font-black text-slate-900">{selectedCenter.phone}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-center gap-6 bg-slate-50 p-6 rounded-3xl border border-slate-100 hover:border-emerald-200 transition-colors">
-                                                    <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center text-emerald-500 shadow-sm border border-slate-100">
-                                                        <Clock size={28} />
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-xs text-slate-400 font-black uppercase tracking-wider mb-1">Operating Hours</span>
-                                                        <p className="text-2xl font-black text-slate-900">{selectedCenter.hours || '09:00 - 18:00'}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex gap-4">
-                                                <a
-                                                    href={`tel:${selectedCenter.phone}`}
-                                                    className="flex-1 h-20 bg-slate-900 text-white rounded-2xl text-xl font-black flex items-center justify-center gap-4 hover:bg-slate-800 transition-all shadow-2xl shadow-slate-900/20 hover:scale-[1.02] active:scale-[0.98]"
-                                                >
-                                                    <Phone size={24} /> 정비 예약 전화
-                                                </a>
-                                                <a
-                                                    href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="h-20 px-10 bg-white text-slate-600 rounded-2xl flex items-center justify-center hover:bg-slate-50 transition-all border-2 border-slate-100 hover:border-slate-200"
-                                                >
-                                                    <MapPin size={32} />
-                                                </a>
-                                            </div>
-                                        </div>
+                            {/* Image Header */}
+                            <div className="relative w-full h-64 bg-slate-100 group shrink-0">
+                                {selectedCenter.image ? (
+                                    <img src={selectedCenter.image} alt={selectedCenter.name} className="w-full h-full object-cover" />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <Building2 className="text-slate-200" size={60} />
                                     </div>
+                                )}
+                                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-80" />
+
+                                <button
+                                    onClick={() => setSelectedCenter(null)}
+                                    className="absolute top-4 right-4 w-8 h-8 bg-black/20 backdrop-blur-md flex items-center justify-center text-white rounded-full hover:bg-black/40 transition-all border border-white/10"
+                                >
+                                    <X size={18} />
+                                </button>
+
+                                <div className="absolute bottom-6 left-8 right-8">
+                                    <span className="inline-block px-2.5 py-1 bg-primary text-white text-[10px] font-black rounded-md mb-2 uppercase tracking-widest leading-none">Official Center</span>
+                                    <h3 className="text-2xl font-black text-white tracking-tight leading-tight">
+                                        {selectedCenter.name}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            {/* Content Body */}
+                            <div className="p-8 overflow-y-auto">
+                                <div className="flex items-start gap-4 mb-8">
+                                    <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-primary shrink-0">
+                                        <MapPin size={20} />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">Address</h4>
+                                        <p className="text-slate-700 font-bold text-base leading-relaxed">
+                                            {selectedCenter.address} <br />
+                                            <span className="text-slate-500 text-sm font-medium">{selectedCenter.detailAddress}</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4 mb-8">
+                                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <Phone size={18} className="text-primary" />
+                                            <span className="text-xs text-slate-400 font-bold uppercase">Inquiry</span>
+                                        </div>
+                                        <p className="text-lg font-black text-slate-900 tracking-tight">{selectedCenter.phone}</p>
+                                    </div>
+                                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <Clock size={18} className="text-emerald-500" />
+                                            <span className="text-xs text-slate-400 font-bold uppercase">Hours</span>
+                                        </div>
+                                        <p className="text-lg font-black text-slate-900 tracking-tight">{selectedCenter.hours || '09:00 - 18:00'}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-3">
+                                    <a
+                                        href={`tel:${selectedCenter.phone}`}
+                                        className="flex-1 h-12 bg-slate-900 text-white rounded-xl text-base font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10"
+                                    >
+                                        <Phone size={18} /> 전화하기
+                                    </a>
+                                    <a
+                                        href={`https://map.naver.com/v5/search/${encodeURIComponent(selectedCenter.name)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 h-12 bg-white text-slate-900 border border-slate-200 rounded-xl text-base font-bold flex items-center justify-center gap-2 hover:bg-slate-50 transition-all"
+                                    >
+                                        <MapPin size={18} /> 지도보기
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>
@@ -235,7 +265,6 @@ const SouthKoreaMap = ({ centers }) => {
                                 </div>
                             </div>
                         </motion.div>
-                        ZO
                     </>
                 )}
             </AnimatePresence>
@@ -396,7 +425,7 @@ const Center = () => {
                             전국 주요 거점에 위치한 공식 센터가 항상 라이더님 곁에 있습니다.
                         </p>
                     </div>
-                    <SouthKoreaMap centers={centers} />
+                    <SouthKoreaMap centers={filteredCenters} />
                 </div>
             </section>
 
@@ -558,7 +587,7 @@ const Center = () => {
                             지금 라이디 정비를 예약하세요.
                         </h2>
                         <p className="text-slate-500 text-[16px] md:text-[22px] font-bold mb-12 md:mb-16 max-w-2xl mx-auto leading-relaxed">
-                            전문가들이 제안하는 정밀한 정비와 투명한 서비스로 <br />
+                            전문가들이 제안하는 정밀한 정비와 <br className="md:hidden" /> 투명한 서비스로 <br className="hidden md:block" />
                             완벽한 주행 컨디션을 만들어 드립니다.
                         </p>
 

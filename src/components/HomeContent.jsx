@@ -474,7 +474,8 @@ const HomeContent = () => {
                         <span className="text-primary font-black tracking-widest uppercase mb-3 block text-[12px]">Trust & Safety</span>
                         <h2 className="text-section-title text-slate-900 mb-4">신뢰할 수 있는 안전망</h2>
                         <p className="text-[15px] md:text-[19px] text-slate-500 font-bold max-w-2xl mx-auto leading-relaxed">
-                            우리의 목표는 라이더가 어떠한 상황에서도 안전하게<br className="hidden md:block" /> 보호받으며 운행에 집중할 수 있도록 만드는 것입니다.
+                            우리의 목표는 라이더가 어떠한 상황에서도 <br className="hidden md:block" />
+                            안전하게 보호받으며 운행에 집중할 수 있도록 만드는 것입니다.
                         </p>
                     </motion.div>
 

@@ -130,7 +130,7 @@ const Rental = () => {
         {
             icon: ShieldCheck,
             title: "맞춤형 다이렉트 보험",
-            content: "고객님이 원하는 형태로 자유롭게 선택하는 스마트한 보험 시스템",
+            content: <>고객님이 원하는 형태로 <br className="md:hidden" /> 자유롭게 선택하는 스마트한 보험 시스템</>,
             subItems: [
                 "종합보험: 대물 3천만원, 대인 무한",
                 "책임보험: 대물 2천만원, 대인 1가입"
@@ -139,22 +139,22 @@ const Rental = () => {
         {
             icon: Truck,
             title: "전국 무료 탁송",
-            content: "거리에 상관없이 전국 어디든 집 앞까지 무료로 안전하게 배송해 드립니다."
+            content: <>거리에 상관없이 전국 어디든 <br className="md:hidden" /> 집 앞까지 무료로 안전하게 배송해 드립니다.</>
         },
         {
             icon: Bike,
             title: "무상 사고대차 서비스",
-            content: "갑작스러운 사고에도 RIDY 서비스센터 입고 시 PCX125 기종으로 무상 대차를 지원합니다."
+            content: <>갑작스러운 사고에도 RIDY 서비스센터 입고 시 <br className="md:hidden" /> PCX125 기종으로 무상 대차를 지원합니다.</>
         },
         {
             icon: Lock,
             title: "숨은 비용 ZERO",
-            content: "초기 면책금과 불필요한 인수대금이 전혀 없어 시작이 가볍습니다."
+            content: <>초기 면책금과 불필요한 인수대금이 <br className="md:hidden" /> 전혀 없어 시작이 가볍습니다.</>
         },
         {
             icon: Settings,
             title: "완벽한 배달 세팅",
-            content: "출고와 동시에 바로 현장 투입이 가능하도록 최적의 장비가 기본 장착됩니다.",
+            content: <>출고와 동시에 바로 현장 투입이 가능하도록 <br className="md:hidden" /> 최적의 장비가 기본 장착됩니다.</>,
             subItems: [
                 "배달통/탑박스 중 택 1 무료 장착",
                 "스피드샵 1구 충전거치대 기본 장착",

@@ -271,7 +271,7 @@ const Payout = () => {
                         <FeatureCard
                             icon={UploadCloud}
                             title="정산 프로세스 자동화"
-                            description="정산 파일을 업로드하는 것만으로 모든 계산이 완료됩니다. 휴먼 에러를 방지하고 관리 시간을 90% 이상 단축하세요."
+                            description={<>정산 파일을 업로드하는 것만으로 모든 계산이 완료됩니다. <br className="hidden md:block" /> 휴먼 에러를 방지하고 관리 시간을 90% 이상 단축하세요.</>}
                             benefits={["원클릭 정산 업로드", "실시간 정산 내역 생성", "오류 자동 검증 기능"]}
                             color="#4F46E5"
                             index={0}
@@ -279,7 +279,7 @@ const Payout = () => {
                         <FeatureCard
                             icon={Coins}
                             title="자유로운 익일 출금"
-                            description="라이더가 원할 때 언제든 익일 출금을 신청할 수 있습니다. 자금 흐름에 여유를 더하고 라이더 만족도를 높이세요."
+                            description={<>라이더가 원할 때 언제든 익일 출금을 신청할 수 있습니다. <br className="hidden md:block" /> 자금 흐름에 여유를 더하고 라이더 만족도를 높이세요.</>}
                             benefits={["영업일 기준 익일 입금", "자동 반복 출금 설정", "투명한 수수료 관리"]}
                             color="#F59E0B"
                             index={1}
@@ -287,7 +287,7 @@ const Payout = () => {
                         <FeatureCard
                             icon={BarChart3}
                             title="실시간 통계 및 분석"
-                            description="지점별, 라이더별 실시간 정산 현황을 대시보드로 확인하세요. 데이터를 기반으로 지점 운영 전략을 수립할 수 있습니다."
+                            description={<>지점별, 라이더별 실시간 정산 현황을 대시보드로 확인하세요. <br className="hidden md:block" /> 데이터를 기반으로 지점 운영 전략을 수립할 수 있습니다.</>}
                             benefits={["커스텀 프로모션 반영", "부가세 리포트 자동 생성", "기간별 정산 데이터 분석"]}
                             color="#10B981"
                             index={2}
