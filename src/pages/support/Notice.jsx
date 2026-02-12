@@ -35,7 +35,10 @@ const CategoryBadge = ({ category }) => {
     );
 };
 
+import { useNavigate } from 'react-router-dom';
+
 const NoticeCard = ({ notice, index }) => {
+    const navigate = useNavigate();
     // Check if notice is within the last 3 days
     const isRecentlyAdded = useMemo(() => {
         try {
@@ -54,31 +57,52 @@ const NoticeCard = ({ notice, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
+            onClick={() => navigate(`/board/notice/${notice.id}`)}
             className="group relative bg-white rounded-xl p-5 md:p-8 border border-slate-100 transition-all hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer"
         >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div className="flex-1 space-y-4">
-                    <div className="flex items-center gap-3">
-                        <CategoryBadge category={notice.category} />
-                        {isRecentlyAdded && (
-                            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                        )}
+            <div className="flex gap-5 md:gap-8">
+                {notice.image && (
+                    <div className="shrink-0 w-24 h-24 md:w-40 md:h-40 rounded-xl overflow-hidden bg-slate-100 border border-slate-100 self-start">
+                        <img
+                            src={notice.image}
+                            alt=""
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
                     </div>
-                    <h3 className="text-lg md:text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                        {notice.title}
-                    </h3>
-                    <p className="text-slate-500 font-bold text-sm md:text-base line-clamp-2 leading-relaxed whitespace-pre-line">
-                        {notice.content}
-                    </p>
+                )}
+
+                <div className="flex-1 flex flex-col gap-3 md:gap-4 min-w-0">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <CategoryBadge category={notice.category} />
+                            {isRecentlyAdded && (
+                                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                            )}
+                        </div>
+                        <span className="flex items-center gap-1.5 text-slate-400 font-bold text-xs md:text-sm">
+                            <Calendar size={14} />
+                            {notice.date}
+                        </span>
+                    </div>
+
+                    <div className="space-y-2">
+                        <h3 className="text-lg md:text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1 truncate">
+                            {notice.title}
+                        </h3>
+                        <p className="text-slate-500 font-medium text-sm md:text-base line-clamp-2 leading-relaxed break-all">
+                            {notice.content}
+                        </p>
+                    </div>
+
+                    <div className="md:hidden mt-2 pt-4 border-t border-slate-50 flex items-center justify-end text-xs font-bold text-primary">
+                        자세히 보기 <ChevronRight size={14} className="ml-1" />
+                    </div>
                 </div>
-                <div className="flex items-center justify-between md:flex-col md:items-end gap-2 shrink-0">
-                    <span className="flex items-center gap-2 text-slate-400 font-bold text-sm">
-                        <Calendar size={14} />
-                        {notice.date}
-                    </span>
-                    <div className="p-2 rounded-full bg-slate-50 text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                        <ChevronRight size={20} />
-                    </div>
+            </div>
+
+            <div className="hidden md:block absolute top-1/2 right-8 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">
+                <div className="p-3 rounded-full bg-indigo-50 text-indigo-600">
+                    <ArrowRight size={20} />
                 </div>
             </div>
         </motion.div>
@@ -168,7 +192,7 @@ const Notice = () => {
                 </section>
 
                 {/* Filters & Search */}
-                <section className="sticky top-20 z-40 bg-[#F8FAFC]/80 backdrop-blur-xl border-y border-slate-200/50 py-3 md:py-4 mb-8 md:mb-12">
+                <section className="sticky top-[60px] md:top-[80px] z-40 bg-[#F8FAFC]/90 backdrop-blur-xl border-y border-slate-200/50 py-3 md:py-4 mb-8 md:mb-12">
                     <div className="max-w-5xl mx-auto px-6">
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             {/* Categories */}

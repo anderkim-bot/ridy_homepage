@@ -36,8 +36,20 @@ const AdminNotices = () => {
         title: '',
         category: '안내',
         content: '',
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
+        image: ''
     });
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFormData(prev => ({ ...prev, image: reader.result }));
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
     const fetchNotices = async () => {
         setIsLoading(true);
@@ -64,7 +76,8 @@ const AdminNotices = () => {
                 title: notice.title,
                 category: notice.category,
                 content: notice.content,
-                date: notice.date
+                date: notice.date,
+                image: notice.image || ''
             });
         } else {
             setEditingNotice(null);
@@ -72,7 +85,8 @@ const AdminNotices = () => {
                 title: '',
                 category: '안내',
                 content: '',
-                date: new Date().toISOString().split('T')[0]
+                date: new Date().toISOString().split('T')[0],
+                image: ''
             });
         }
         setIsModalOpen(true);
@@ -354,6 +368,23 @@ const AdminNotices = () => {
                                                 value={formData.date}
                                                 onChange={handleInputChange}
                                                 className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all text-fluid-sm"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">대표 이미지</label>
+                                        <div className="flex gap-4 items-start">
+                                            {formData.image && (
+                                                <div className="w-24 h-24 rounded-xl overflow-hidden shadow-sm shrink-0 border border-slate-200">
+                                                    <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                                                </div>
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
+                                                className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all text-fluid-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100"
                                             />
                                         </div>
                                     </div>

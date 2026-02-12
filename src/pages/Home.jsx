@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Hero from '../components/Hero';
 import HomeContent from '../components/HomeContent';
+import NoticeBanner from '../components/NoticeBanner';
 
 const Home = () => {
     return (
@@ -23,6 +24,7 @@ const Home = () => {
                 <meta property="twitter:title" content="라이디 (RIDY) - 라이더의 가치를 증명하는 최고의 선택" />
                 <meta property="twitter:description" content="라이더 수익 극대화와 안전 주행을 위한 라이디의 혁신적인 서비스를 만나보세요." />
             </Helmet>
+            <NoticeBanner />
             <Hero />
             <HomeContent />
         </>

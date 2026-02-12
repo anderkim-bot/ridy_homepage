@@ -18,6 +18,7 @@ import ModelDetail from './pages/product/ModelDetail';
 import OnlineInquiry from './pages/inquiry/RentalInquiry';
 import KakaoInquiry from './pages/inquiry/Kakao';
 import Notice from './pages/support/Notice';
+import NoticeDetail from './pages/support/NoticeDetail';
 import Faq from './pages/support/Faq';
 import Archive from './pages/support/Archive';
 import Partnership from './pages/partnership/Center';
@@ -70,6 +71,7 @@ function App() {
 
             {/* Support */}
             <Route path="/board/notice" element={<Notice />} /> {/* Matching Navbar href for now */}
+            <Route path="/board/notice/:id" element={<NoticeDetail />} />
             <Route path="/support/notice" element={<Notice />} />
             <Route path="/support/faq" element={<Faq />} />
             <Route path="/support/archive" element={<Archive />} />
