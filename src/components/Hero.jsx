@@ -132,10 +132,13 @@ const Hero = () => {
 
                     {/* CTA Button */}
                     <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 mb-24">
-                        <Link to="/rental/inquiry" className="h-[56px] px-10 bg-white text-[#0F172A] rounded-xl font-bold text-base transition-all hover:bg-slate-100 hover:scale-[1.05] active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center justify-center group overflow-hidden relative whitespace-nowrap">
+                        <button
+                            onClick={() => document.getElementById('service-dashboard')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="h-[56px] px-10 bg-white text-[#0F172A] rounded-xl font-bold text-base transition-all hover:bg-slate-100 hover:scale-[1.05] active:scale-95 shadow-[0_20px_50px_rgba(255,255,255,0.1)] flex items-center justify-center group overflow-hidden relative whitespace-nowrap cursor-pointer"
+                        >
                             <span className="relative z-10">서비스 시작하기</span>
                             <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform relative z-10" />
-                        </Link>
+                        </button>
                     </motion.div>
 
 

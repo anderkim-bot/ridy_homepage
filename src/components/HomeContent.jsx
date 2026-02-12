@@ -10,6 +10,8 @@ import RidyRentalLogo from './svg/Ridy_Rental_logo.svg';
 import RidyPayoutLogo from './svg/Ridy_Payout_logo.svg';
 import RidyServiceCenterLogo from './svg/Ridy_Service_center_logo.svg';
 import RidyLogo from './svg/Ridy_logo.svg';
+import ProblemBg from './img/ridy_main_home_rs1.jpg';
+import LlnpLogo from './img/llnp_logo.png';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -199,8 +201,10 @@ const HomeContent = () => {
 
             {/* 2. Problem & Solution Section (Merged from Intro) */}
             <section className="py-16 md:py-32 bg-slate-50 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-10 opacity-[0.02] text-primary rotate-12 -z-10">
-                    <Search size={400} />
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <img src={ProblemBg} alt="" className="w-full h-full object-cover opacity-60" />
+                    <div className="absolute inset-0 bg-slate-50/90" />
                 </div>
 
                 <div className="container relative z-10">
@@ -262,9 +266,14 @@ const HomeContent = () => {
                         </motion.div>
                     </motion.div>
                 </div>
+
+                {/* AI Disclaimer */}
+                <div className="absolute bottom-4 right-6 z-10 w-full text-right px-6 md:px-0 md:w-auto">
+                    <p className="text-[10px] text-slate-400 font-bold">본 이미지는 AI로 생성된 이미지입니다.</p>
+                </div>
             </section>
             {/* Quick Service Dashboard Section */}
-            <section className="bg-white py-16 md:py-32 relative overflow-hidden">
+            <section id="service-dashboard" className="bg-white py-16 md:py-32 relative overflow-hidden">
                 {/* Background Decoration */}
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 translate-x-1/2 -z-10" />
 
@@ -294,21 +303,21 @@ const HomeContent = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.1 }}
                         >
-                            <Link to="/service/payout" className="group block bg-slate-900 p-8 rounded-2xl h-full hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <img src={RidyPayoutLogo} alt="" className="h-20 w-auto invert" />
+                            <Link to="/service/payout" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-5 transition-opacity">
+                                    <img src={RidyPayoutLogo} alt="" className="h-20 w-auto" />
                                 </div>
                                 <div className="relative z-10 flex flex-col h-full">
-                                    <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-10 group-hover:bg-primary transition-colors">
-                                        <CreditCard className="text-white" size={24} />
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-primary transition-colors">
+                                        <CreditCard className="text-slate-400 group-hover:text-white transition-colors" size={24} />
                                     </div>
                                     <div className="mt-auto">
                                         <div className="text-primary font-black text-[12px] uppercase tracking-wider mb-2">정산</div>
-                                        <h3 className="text-white text-[22px] font-black mb-3">라이디 페이아웃</h3>
-                                        <p className="text-white/50 text-[15px] font-bold leading-relaxed mb-8">
+                                        <h3 className="text-slate-900 text-[22px] font-black mb-3">라이디 페이아웃</h3>
+                                        <p className="text-slate-500 text-[15px] font-bold leading-relaxed mb-8">
                                             오늘 수익, <br />내일 바로 출금
                                         </p>
-                                        <div className="flex items-center text-white text-[14px] font-black">
+                                        <div className="flex items-center text-primary text-[14px] font-black">
                                             이용하기 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
                                         </div>
                                     </div>
@@ -323,8 +332,11 @@ const HomeContent = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <Link to="/service/rental" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500">
-                                <div className="flex flex-col h-full">
+                            <Link to="/service/rental" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-5 transition-opacity">
+                                    <img src={RidyRentalLogo} alt="" className="h-20 w-auto" />
+                                </div>
+                                <div className="flex flex-col h-full relative z-10">
                                     <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
                                         <Bike className="text-slate-400 group-hover:text-white transition-colors" size={24} />
                                     </div>
@@ -349,8 +361,11 @@ const HomeContent = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <Link to="/product/lease" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500">
-                                <div className="flex flex-col h-full">
+                            <Link to="/product/lease" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-5 transition-opacity">
+                                    <img src={RidyRentalLogo} alt="" className="h-20 w-auto" />
+                                </div>
+                                <div className="flex flex-col h-full relative z-10">
                                     <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
                                         <Zap className="text-slate-400 group-hover:text-white transition-colors" size={24} />
                                     </div>
@@ -375,9 +390,12 @@ const HomeContent = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
-                            <Link to="/service/center" className="group block bg-slate-50 border border-slate-100 p-8 rounded-2xl h-full hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500">
-                                <div className="flex flex-col h-full">
-                                    <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
+                            <Link to="/service/center" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-5 transition-opacity">
+                                    <img src={RidyServiceCenterLogo} alt="" className="h-20 w-auto" />
+                                </div>
+                                <div className="flex flex-col h-full relative z-10">
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
                                         <Wrench className="text-slate-400 group-hover:text-white transition-colors" size={24} />
                                     </div>
                                     <div className="mt-auto">
@@ -403,7 +421,7 @@ const HomeContent = () => {
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
                         <div className="flex flex-col gap-3">
                             <div className="text-primary font-black text-[13px] tracking-[0.2em] uppercase">Our Marketplace</div>
-                            <h2 className="text-[30px] md:text-[52px] font-black tracking-tight text-slate-900">렌탈 기종 보기</h2>
+                            <h2 className="text-section-title text-slate-900">렌탈 기종 보기</h2>
                         </div>
                         <Link to="/product/honda" className="inline-flex items-center text-primary font-black text-[15px] group">
                             전체 기종 페이지로 이동
@@ -543,21 +561,18 @@ const HomeContent = () => {
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(64,84,231,0.1)_0%,transparent_70%)]" />
                 </div>
 
-                <div className="container relative z-10 px-6">
+                <div className="container relative z-10 px-6 text-center">
                     <motion.div
-                        className="p-8 md:p-20 bg-white/5 backdrop-blur-3xl rounded-[30px] md:rounded-[40px] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-10"
+                        className="inline-flex flex-col items-center justify-center p-10 md:p-14 bg-white/5 backdrop-blur-3xl rounded-[30px] border border-white/10 gap-8"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="space-y-4 text-center md:text-left">
-                            <h3 className="text-[24px] md:text-[42px] font-black text-white leading-tight">라이더의 권익을 대변하는<br /> <span className="text-primary">든든한 파트너</span>가 되겠습니다.</h3>
-                            <div className="flex flex-col gap-1">
-                                <p className="text-white/40 font-black text-lg">주식회사 LLNP</p>
-                                <p className="text-primary font-bold tracking-widest uppercase text-sm">Team Ridy</p>
-                            </div>
-                        </div>
-                        <div className="flex flex-col sm:flex-row gap-4">
+                        <h3 className="text-[20px] md:text-[32px] font-black text-white leading-tight">
+                            라이더의 권익을 대변하는<br className="md:hidden" /> <span className="text-primary">든든한 파트너</span>가 되겠습니다.
+                        </h3>
+                        <div className="opacity-50 hover:opacity-100 transition-opacity">
+                            <img src={LlnpLogo} alt="LLNP" className="h-6 md:h-8 w-auto brightness-0 invert" />
                         </div>
                     </motion.div>
                 </div>

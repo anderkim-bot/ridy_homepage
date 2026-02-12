@@ -272,7 +272,7 @@ const Rental = () => {
                             <div className="h-px w-12 bg-white/10" />
                         </div>
 
-                        <div className="bg-white/5 backdrop-blur-xl py-6 border-y border-white/10 overflow-hidden">
+                        <div className="bg-white/5 backdrop-blur-xl py-2 border-y border-white/10 overflow-hidden">
                             <motion.div
                                 className="flex whitespace-nowrap"
                                 animate={{ x: [0, -2000] }}

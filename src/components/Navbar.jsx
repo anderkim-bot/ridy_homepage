@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight, MessageSquare, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './svg/Ridy_logo.svg';
 
@@ -9,7 +9,14 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null); // For Mobile
   const [isHovered, setIsHovered] = useState(null); // For Desktop
+  /* eslint-disable no-unused-vars */
   const location = useLocation();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   const navItems = [
     {
@@ -57,7 +64,11 @@ const Navbar = () => {
           }`}
       >
         {/* Progress Bar */}
-        {scrolled && <div className="absolute top-0 left-0 h-[6px] bg-primary w-full" />}
+        {/* Progress Bar */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary via-[#6366f1] to-primary origin-left z-50"
+          style={{ scaleX }}
+        />
 
         <div className="container flex justify-between items-center h-full">
           {/* Logo */}
@@ -214,20 +225,6 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <div className="p-6 bg-slate-50 rounded-xl flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
-                  <h4 className="text-lg font-black text-foreground">라이더를 위한 토탈 솔루션</h4>
-                  <p className="text-sm text-slate-500 font-medium">지금 라이디 앱을 다운로드하고 <br />스마트한 주행을 시작하세요.</p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <button className="h-14 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-sm font-bold shadow-sm">
-                    App Store
-                  </button>
-                  <button className="h-14 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-sm font-bold shadow-sm">
-                    Google Play
-                  </button>
-                </div>
-              </div>
             </div>
           </motion.div>
         )}

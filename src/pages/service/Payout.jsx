@@ -17,10 +17,12 @@ import {
     Target,
     ZapOff,
     Coins,
-    RefreshCw
+    RefreshCw,
+    ExternalLink
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PayoutLogo from '../../components/svg/Ridy_Payout_logo.svg';
+import ridyPayoutRs from '../../components/img/ridy_payout_rs.png';
 import payoutHeroImage from '../../components/img/ridy_payout_hero2.png';
 
 const FeatureCard = ({ icon: Icon, title, description, benefits, color, index }) => (
@@ -135,9 +137,14 @@ const Payout = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="flex flex-col sm:flex-row gap-6 mb-20"
                         >
-                            <a href="https://payout.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="h-[64px] md:h-[76px] px-10 md:px-14 bg-primary text-white rounded-xl font-black text-lg md:text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
-                                서비스 상세 소개 보러 가기
-                                <ArrowRight className="ml-3 w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+                            <a href="https://payout.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="h-[64px] md:h-[76px] px-10 md:px-14 bg-primary text-white rounded-xl font-black text-lg md:text-xl flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group relative overflow-hidden">
+                                <span className="flex items-center transition-transform duration-300 md:group-hover:-translate-y-3">
+                                    서비스 상세 소개 보러 가기
+                                    <ArrowRight className="ml-3 w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+                                </span>
+                                <span className="absolute top-[60%] opacity-0 md:group-hover:opacity-100 md:group-hover:-translate-y-2 transition-all duration-300 flex items-center text-sm font-normal text-white/90">
+                                    <ExternalLink size={16} className="mr-1.5" /> New Page
+                                </span>
                             </a>
                         </motion.div>
 
@@ -149,27 +156,21 @@ const Payout = () => {
                             className="w-full max-w-6xl mx-auto relative group"
                         >
                             <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
-                            <div className="relative bg-slate-900/50 backdrop-blur-2xl rounded-[16px] border border-white/10 p-4 md:p-8 shadow-3xl overflow-hidden aspect-21/9 flex items-center justify-center">
-                                {/* Abstract Dashboard Element */}
-                                <div className="grid grid-cols-12 gap-6 w-full h-full opacity-60">
-                                    <div className="col-span-3 h-full bg-white/5 rounded-xl" />
-                                    <div className="col-span-9 flex flex-col gap-6">
-                                        <div className="h-1/3 w-full bg-white/5 rounded-xl p-6 flex items-center justify-between">
-                                            <div className="flex gap-4">
-                                                <div className="w-12 h-12 bg-primary/20 rounded-xl" />
-                                                <div className="space-y-2">
-                                                    <div className="w-24 h-2.5 bg-white/10 rounded-full" />
-                                                    <div className="w-16 h-2 bg-white/5 rounded-full" />
-                                                </div>
-                                            </div>
-                                            <div className="w-32 h-8 bg-white/5 rounded-lg" />
-                                        </div>
-                                        <div className="flex-1 w-full bg-white/5 rounded-xl" />
-                                    </div>
+                            <div className="relative bg-slate-900/50 backdrop-blur-2xl rounded-[16px] border border-white/10 shadow-3xl overflow-hidden aspect-video flex items-center justify-center">
+                                {/* Dashboard Graphic Background */}
+                                <div className="absolute inset-0 w-full h-full">
+                                    <img
+                                        src={ridyPayoutRs}
+                                        alt="Dashboard Graphic"
+                                        className="w-full h-full object-cover opacity-60"
+                                    />
+                                    {/* Gradient Overlay for better text contrast/blending */}
+                                    <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/20 to-slate-900/40" />
                                 </div>
+
                                 {/* Center Float Highlight */}
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="px-8 py-4 bg-primary text-white rounded-2xl font-black text-2xl shadow-2xl animate-bounce">
+                                <div className="absolute inset-0 flex items-center justify-center z-10">
+                                    <div className="px-5 py-2.5 md:px-8 md:py-4 bg-primary text-white rounded-xl md:rounded-2xl font-black text-base md:text-2xl shadow-2xl animate-bounce">
                                         자동 정산 완료
                                     </div>
                                 </div>
