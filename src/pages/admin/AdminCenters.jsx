@@ -74,7 +74,8 @@ const AdminCenters = () => {
         address: '',
         detailAddress: '',
         phone: '',
-        hours: '09:00 - 18:00',
+        openTime: '09:00',
+        closeTime: '18:00',
         services: [],
         image: '',
         location: null
@@ -94,8 +95,11 @@ const AdminCenters = () => {
 
     const handleOpenModal = (center = null) => {
         if (center) {
-            setEditingCenter(center);
-            setFormData(center);
+            setFormData({
+                ...center,
+                openTime: center.hours?.split(' - ')[0] || '09:00',
+                closeTime: center.hours?.split(' - ')[1] || '18:00'
+            });
         } else {
             setEditingCenter(null);
             setFormData({
@@ -103,7 +107,8 @@ const AdminCenters = () => {
                 address: '',
                 detailAddress: '',
                 phone: '',
-                hours: '09:00 - 18:00',
+                openTime: '09:00',
+                closeTime: '18:00',
                 services: [],
                 image: '',
                 location: null
@@ -147,7 +152,11 @@ const AdminCenters = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await centerService.saveCenter(formData);
+            const finalData = {
+                ...formData,
+                hours: `${formData.openTime} - ${formData.closeTime}`
+            };
+            await centerService.saveCenter(finalData);
             fetchCenters();
             handleCloseModal();
         } catch (error) {
@@ -361,8 +370,7 @@ const AdminCenters = () => {
                 {/* Modal */}
                 <AnimatePresence>
                     {isModalOpen && (
-                        <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
-
+                        <div className="fixed inset-0 z-100 flex items-end md:items-center justify-center p-0 md:p-6 lg:p-10">
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -371,31 +379,31 @@ const AdminCenters = () => {
                                 className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
                             />
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                initial={{ opacity: 0, scale: 0.95, y: "100%" }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                                className="relative bg-white w-full max-w-5xl h-[90vh] rounded-[32px] overflow-hidden shadow-2xl flex flex-col"
+                                exit={{ opacity: 0, scale: 0.95, y: "100%" }}
+                                className="relative bg-white w-full max-w-5xl h-[95vh] md:h-auto rounded-t-3xl md:rounded-[32px] overflow-hidden shadow-2xl flex flex-col"
                             >
-                                <div className="px-10 py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
+                                <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-[14px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                        <div className="w-11 h-11 md:w-12 md:h-12 rounded-[14px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
                                             <Building2 size={24} />
                                         </div>
                                         <div>
-                                            <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCenter ? '센터 정보 수정' : '신규 센터 등록'}</h2>
-                                            <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Service Center Details</p>
+                                            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCenter ? '센터 정보 수정' : '신규 센터 등록'}</h2>
+                                            <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Service Center Details</p>
                                         </div>
                                     </div>
                                     <button
                                         onClick={handleCloseModal}
-                                        className="w-12 h-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
+                                        className="w-10 h-10 md:w-12 md:h-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
                                     >
                                         <X size={24} />
                                     </button>
                                 </div>
 
-                                <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
-                                    <form onSubmit={handleSubmit} className="space-y-10">
+                                <div className="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
+                                    <form id="center-form" onSubmit={handleSubmit} className="space-y-10">
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                                             {/* Left Column: Basic Info */}
                                             <div className="space-y-8">
@@ -445,7 +453,7 @@ const AdminCenters = () => {
                                                         <Phone size={16} className="text-indigo-600" />
                                                         연락처 및 운영시간
                                                     </h3>
-                                                    <div className="grid grid-cols-2 gap-4">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div className="space-y-1.5">
                                                             <label className="text-[11px] font-black text-slate-400 ml-1">전화번호</label>
                                                             <input
@@ -459,14 +467,23 @@ const AdminCenters = () => {
                                                         </div>
                                                         <div className="space-y-1.5">
                                                             <label className="text-[11px] font-black text-slate-400 ml-1">운영시간</label>
-                                                            <input
-                                                                type="text"
-                                                                required
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
-                                                                value={formData.hours}
-                                                                onChange={(e) => setFormData({ ...formData, hours: e.target.value })}
-                                                                placeholder="09:00 - 18:00"
-                                                            />
+                                                            <div className="flex items-center gap-2">
+                                                                <input
+                                                                    type="time"
+                                                                    required
+                                                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                    value={formData.openTime}
+                                                                    onChange={(e) => setFormData({ ...formData, openTime: e.target.value })}
+                                                                />
+                                                                <span className="text-slate-400 font-bold">~</span>
+                                                                <input
+                                                                    type="time"
+                                                                    required
+                                                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                    value={formData.closeTime}
+                                                                    onChange={(e) => setFormData({ ...formData, closeTime: e.target.value })}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -552,28 +569,20 @@ const AdminCenters = () => {
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div className="pt-10 border-t border-slate-100 flex gap-4">
-                                            <button
-                                                type="button"
-                                                onClick={handleCloseModal}
-                                                className="flex-1 lg:flex-none px-10 py-4.5 bg-slate-50 text-slate-400 rounded-2xl font-black text-base hover:bg-slate-100 transition-all active:scale-95"
-                                            >
-                                                취소
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                className="flex-1 bg-indigo-600 text-white py-4.5 rounded-2xl font-black text-base hover:bg-indigo-700 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-indigo-600/20"
-                                            >
-                                                {editingCenter ? '수정 사항 저장' : '새 서비스센터 등록'}
-                                            </button>
-                                        </div>
                                     </form>
+                                </div>
+
+                                <div className="px-6 md:px-10 py-5 border-t border-slate-100 bg-white flex flex-col md:flex-row justify-end gap-3 shrink-0">
+                                    <button type="button" onClick={handleCloseModal} className="order-2 md:order-1 px-8 py-3.5 rounded-lg text-slate-400 font-black text-sm hover:bg-slate-50 transition-all flex items-center justify-center">취소</button>
+                                    <button form="center-form" type="submit" className="order-1 md:order-2 bg-indigo-600 text-white px-10 py-3.5 rounded-lg font-black text-sm hover:bg-indigo-700 transition-all active:scale-95 shadow-xl shadow-indigo-600/10 uppercase tracking-widest flex items-center justify-center gap-3">
+                                        <span>{editingCenter ? '수정 사항 저장' : '새 서비스센터 등록'}</span>
+                                    </button>
                                 </div>
                             </motion.div>
                         </div>
                     )}
                 </AnimatePresence>
+
             </div>
         </div>
     );

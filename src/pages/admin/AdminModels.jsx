@@ -502,19 +502,29 @@ const AdminModels = () => {
 
                 </header>
 
-                <div className="overflow-x-auto pb-4 mb-8 md:mb-12 no-scrollbar">
-                    <div className="flex p-1 bg-white rounded-md shadow-sm border border-[#E0E0E0] w-max">
+                <div className="overflow-x-auto scrollbar-hide pb-4 mb-8 md:mb-12">
+                    <div className="flex md:inline-flex p-1 bg-white rounded-xl shadow-sm border border-slate-200 w-[calc(100vw-32px)] md:w-auto min-w-full md:min-w-0">
                         {['ALL', 'HONDA', 'YAMAHA', 'ZONTES', 'SUCCESSION'].map(tab => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`min-w-[100px] py-3 px-6 rounded-md text-[14px] font-bold transition-all ${activeTab === tab ? 'bg-primary text-white shadow-md' : 'text-text-muted hover:text-text-primary'}`}
+                                className={`
+                                    flex-1 md:flex-none min-w-0 md:min-w-[100px] py-2.5 md:py-3 px-1 md:px-6 rounded-lg md:rounded-md 
+                                    flex items-center justify-center text-center
+                                    text-[11px] md:text-[14px] font-black md:font-bold transition-all whitespace-nowrap
+                                    ${activeTab === tab
+                                        ? 'bg-indigo-600 text-white shadow-md'
+                                        : 'text-slate-400 hover:text-slate-600'
+                                    }
+                                `}
                             >
                                 {tab === 'ALL' ? '전체 보기' : (tab === 'SUCCESSION' ? '리스 승계' : tab)}
                             </button>
+
                         ))}
                     </div>
                 </div>
+
 
 
                 {isLoading ? (
@@ -702,11 +712,12 @@ const AdminModels = () => {
                                 </div>
                             </form>
                             <div className="px-6 md:px-10 py-5 border-t border-slate-100 bg-white flex flex-col md:flex-row justify-end gap-3 shrink-0">
-                                <button type="button" onClick={closeModal} disabled={isSubmitting} className="order-2 md:order-1 px-8 py-3.5 rounded-lg text-slate-400 font-black text-sm hover:bg-slate-50 transition-all disabled:opacity-50">취소</button>
-                                <button form="model-form" type="submit" disabled={isSubmitting} className="order-1 md:order-2 bg-slate-900 text-white px-10 py-3.5 rounded-lg font-black text-sm transition-all hover:bg-slate-800 active:scale-95 shadow-xl shadow-slate-900/10 uppercase tracking-wider flex items-center gap-3 disabled:bg-slate-700">
+                                <button type="button" onClick={closeModal} disabled={isSubmitting} className="order-2 md:order-1 px-8 py-3.5 rounded-lg text-slate-400 font-black text-sm hover:bg-slate-50 transition-all flex items-center justify-center disabled:opacity-50">취소</button>
+                                <button form="model-form" type="submit" disabled={isSubmitting} className="order-1 md:order-2 bg-slate-900 text-white px-10 py-3.5 rounded-lg font-black text-sm transition-all hover:bg-slate-800 active:scale-95 shadow-xl shadow-slate-900/10 uppercase tracking-wider flex items-center justify-center gap-3 disabled:bg-slate-700">
                                     {isSubmitting ? <><Loader2 size={18} className="animate-spin" /><span>저장 중...</span></> : <span>{editingId ? '업데이트' : '등록 완료 (PUBLISH)'}</span>}
                                 </button>
                             </div>
+
                         </motion.div>
                     </div>
                 )}

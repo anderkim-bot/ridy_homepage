@@ -297,44 +297,42 @@ const AdminNotices = () => {
             {/* Modal */}
             <AnimatePresence>
                 {isModalOpen && (
-                    <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-100 flex items-end md:items-center justify-center p-0 md:p-4 lg:p-8">
                         <motion.div
                             initial={{ opacity: 0 }}
-
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={handleCloseModal}
-                            className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
+                            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            initial={{ opacity: 0, scale: 0.95, y: "100%" }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl"
+                            exit={{ opacity: 0, scale: 0.95, y: "100%" }}
+                            className="relative bg-white w-full max-w-2xl h-[90vh] md:h-auto rounded-t-3xl md:rounded-3xl overflow-hidden shadow-2xl flex flex-col"
                         >
-                            <form onSubmit={handleSubmit}>
-                                <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-11 h-11 md:w-12 md:h-12 rounded-[12px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
-                                            <Bell size={22} />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingNotice ? '공지사항 수정' : '신규 공지사항 추가'}</h2>
-                                            <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingNotice ? 'Edit' : 'New'} Entry</p>
-                                        </div>
+                            <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-11 h-11 md:w-12 md:h-12 rounded-[12px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                        <Bell size={22} />
                                     </div>
-                                    <button
-                                        type="button"
-                                        onClick={handleCloseModal}
-                                        className="w-10 h-10 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all"
-                                    >
-                                        <X size={20} />
-                                    </button>
+                                    <div>
+                                        <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingNotice ? '공지사항 수정' : '신규 공지사항 추가'}</h2>
+                                        <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingNotice ? 'Edit' : 'New'} Entry</p>
+                                    </div>
                                 </div>
+                                <button
+                                    type="button"
+                                    onClick={handleCloseModal}
+                                    className="w-10 h-10 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
 
-
-                                <div className="p-8 space-y-6">
-                                    <div className="grid grid-cols-2 gap-6">
+                            <div className="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
+                                <form id="notice-form" onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">카테고리</label>
                                             <select
@@ -382,33 +380,20 @@ const AdminNotices = () => {
                                             className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all min-h-[200px] resize-none"
                                         />
                                     </div>
-                                </div>
+                                </form>
+                            </div>
 
-                                <div className="px-8 py-6 bg-slate-50 flex justify-end gap-3">
-                                    <button
-                                        type="button"
-                                        onClick={handleCloseModal}
-                                        className="px-6 py-3 text-slate-400 font-bold hover:text-slate-600 transition-colors"
-                                    >
-                                        취소
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="bg-slate-900 text-white px-10 py-3 rounded-xl font-black text-sm hover:bg-slate-800 transition-all shadow-xl shadow-slate-200 disabled:bg-slate-700 flex items-center gap-3"
-                                    >
-                                        {isSubmitting ? (
-                                            <><Loader2 size={18} className="animate-spin" /> <span>저장 중...</span></>
-                                        ) : (
-                                            editingNotice ? '수정 완료' : '등록 완료'
-                                        )}
-                                    </button>
-                                </div>
-                            </form>
+                            <div className="px-6 md:px-10 py-5 border-t border-slate-100 bg-white flex flex-col md:flex-row justify-end gap-3 shrink-0">
+                                <button type="button" onClick={handleCloseModal} disabled={isSubmitting} className="order-2 md:order-1 px-8 py-3.5 rounded-lg text-slate-400 font-black text-sm hover:bg-slate-50 transition-all flex items-center justify-center disabled:opacity-50">취소</button>
+                                <button form="notice-form" type="submit" disabled={isSubmitting} className="order-1 md:order-2 bg-slate-900 text-white px-10 py-3.5 rounded-lg font-black text-sm transition-all hover:bg-slate-800 active:scale-95 shadow-xl shadow-slate-900/10 uppercase tracking-wider flex items-center justify-center gap-3 disabled:bg-slate-700">
+                                    {isSubmitting ? <><Loader2 size={18} className="animate-spin" /> <span>저장 중...</span></> : <span>{editingNotice ? '수정 완료' : '등록 완료'}</span>}
+                                </button>
+                            </div>
                         </motion.div>
                     </div>
                 )}
             </AnimatePresence>
+
             {/* Delete Confirmation Modal */}
             <AnimatePresence>
                 {isDeleteModalOpen && (

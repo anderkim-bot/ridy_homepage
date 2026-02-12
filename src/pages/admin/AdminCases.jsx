@@ -263,7 +263,7 @@ const AdminCases = () => {
             {/* Modal */}
             <AnimatePresence>
                 {isModalOpen && (
-                    <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
+                    <div className="fixed inset-0 z-100 flex items-end md:items-center justify-center p-0 md:p-6 lg:p-10">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -272,31 +272,31 @@ const AdminCases = () => {
                             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
                         />
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            initial={{ opacity: 0, scale: 0.95, y: "100%" }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative bg-white w-full max-w-5xl h-[90vh] rounded-[32px] overflow-hidden shadow-2xl flex flex-col"
+                            exit={{ opacity: 0, scale: 0.95, y: "100%" }}
+                            className="relative bg-white w-full max-w-5xl h-[95vh] md:h-auto rounded-t-3xl md:rounded-[32px] overflow-hidden shadow-2xl flex flex-col"
                         >
-                            <div className="px-10 py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
+                            <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-[14px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
+                                    <div className="w-11 h-11 md:w-12 md:h-12 rounded-[14px] bg-indigo-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/20">
                                         <Briefcase size={24} />
                                     </div>
                                     <div>
-                                        <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCase ? '출고 사례 수정' : '신규 사례 등록'}</h2>
-                                        <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Delivery Case Details</p>
+                                        <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCase ? '출고 사례 수정' : '신규 사례 등록'}</h2>
+                                        <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Delivery Case Details</p>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setIsModalOpen(false)}
-                                    className="w-12 h-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
+                                    className="w-10 h-10 md:w-12 md:h-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90"
                                 >
                                     <X size={24} />
                                 </button>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
-                                <form onSubmit={handleSubmit} className="space-y-10">
+                            <div className="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
+                                <form id="case-form" onSubmit={handleSubmit} className="space-y-10">
                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                                         {/* Left Column: Info */}
                                         <div className="space-y-8">
@@ -398,28 +398,20 @@ const AdminCases = () => {
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div className="pt-10 border-t border-slate-100 flex gap-4">
-                                        <button
-                                            type="button"
-                                            onClick={() => setIsModalOpen(false)}
-                                            className="flex-1 lg:flex-none px-10 py-4.5 bg-slate-50 text-slate-400 rounded-2xl font-black text-base hover:bg-slate-100 transition-all active:scale-95"
-                                        >
-                                            취소
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="flex-1 bg-indigo-600 text-white py-4.5 rounded-2xl font-black text-base hover:bg-indigo-700 hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-indigo-600/20"
-                                        >
-                                            {editingCase ? '수정 사항 저장' : '새 출고 사례 등록'}
-                                        </button>
-                                    </div>
                                 </form>
+                            </div>
+
+                            <div className="px-6 md:px-10 py-5 border-t border-slate-100 bg-white flex flex-col md:flex-row justify-end gap-3 shrink-0">
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="order-2 md:order-1 px-8 py-3.5 rounded-lg text-slate-400 font-black text-sm hover:bg-slate-50 transition-all flex items-center justify-center">취소</button>
+                                <button form="case-form" type="submit" className="order-1 md:order-2 bg-indigo-600 text-white px-10 py-3.5 rounded-lg font-black text-sm hover:bg-indigo-700 transition-all active:scale-95 shadow-xl shadow-indigo-600/20 uppercase tracking-widest flex items-center justify-center gap-3">
+                                    <span>{editingCase ? '수정 사항 저장' : '새 출고 사례 등록'}</span>
+                                </button>
                             </div>
                         </motion.div>
                     </div>
                 )}
             </AnimatePresence>
+
         </div>
     );
 };
