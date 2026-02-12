@@ -132,7 +132,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
-                            className="bg-white rounded-[32px] p-8 md:p-12 shadow-xl shadow-slate-200/50"
+                            className="bg-white rounded-[24px] md:rounded-[32px] p-6 md:p-12 shadow-xl shadow-slate-200/50"
                         >
                             <div className="flex flex-col gap-2 mb-10">
                                 <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">리스 / 렌탈 문의하기</h1>
@@ -313,7 +313,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
-                            className="bg-white rounded-[32px] p-8 md:p-12 shadow-xl shadow-slate-200/50"
+                            className="bg-white rounded-[24px] md:rounded-[32px] p-6 md:p-12 shadow-xl shadow-slate-200/50"
                         >
                             <div className="flex flex-col gap-2 mb-10">
                                 <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">개인정보 수집 및 이용 동의</h1>
@@ -374,7 +374,7 @@ const RentalInquiry = ({ preselectedModel = '' }) => {
                             key="step3"
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="bg-white rounded-[40px] p-20 shadow-xl shadow-slate-200/50 flex flex-col items-center text-center gap-8"
+                            className="bg-white rounded-[24px] md:rounded-[40px] p-10 md:p-20 shadow-xl shadow-slate-200/50 flex flex-col items-center text-center gap-6 md:gap-8"
                         >
                             <div className="w-24 h-24 bg-green-50 text-green-600 rounded-full flex items-center justify-center animate-bounce">
                                 <CheckCircle2 size={48} />

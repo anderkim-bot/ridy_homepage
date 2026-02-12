@@ -26,10 +26,29 @@ const Lease = () => {
 
     return (
         <div className="min-h-screen bg-slate-50">
-            {/* Header section with gradient background */}
-            <div className="bg-white pt-32 pb-16">
-                <div className="container px-6">
-                    <div className="flex flex-col gap-4 max-w-4xl">
+            {/* Header section with refined background */}
+            <div className="relative bg-white pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden">
+                {/* Subtle dynamic graphics for Lease page */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <motion.div
+                        animate={{
+                            scale: [1, 1.1, 1],
+                            opacity: [0.3, 0.5, 0.3],
+                            x: [0, 20, 0]
+                        }}
+                        transition={{ duration: 8, repeat: Infinity }}
+                        className="absolute top-[-10%] right-[10%] w-[300px] h-[300px] bg-primary/5 blur-[80px] rounded-full"
+                    />
+                    <div className="absolute top-[20%] left-[5%] opacity-[0.03]">
+                        <svg width="200" height="200" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div className="container px-6 relative z-10">
+                    <div className="flex flex-col gap-4 max-w-4xl px-4">
                         <motion.span
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -48,9 +67,10 @@ const Lease = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
+                            className="text-[15px] md:text-[18px] font-medium text-slate-500 leading-relaxed max-w-2xl"
                         >
-                            가장 합리적인 가격으로 시작하는 방법. 라이디가 보증하는 투명한 리스 승계 매물을 확인하세요.
+                            가장 합리적인 가격으로 시작하는 방법. <br className="hidden md:block" />
+                            라이디가 보증하는 투명한 리스 승계 매물을 확인하세요.
                         </motion.p>
                     </div>
                 </div>
@@ -58,7 +78,7 @@ const Lease = () => {
 
             <ProductTabs activeBrand="SUCCESSION" />
 
-            <div className="container pb-32">
+            <div className="container pb-16 md:pb-32">
                 {isLoading ? (
                     <div className="py-20 flex flex-col items-center justify-center gap-4">
                         <Loader2 size={40} className="text-primary animate-spin" />

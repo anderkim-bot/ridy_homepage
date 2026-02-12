@@ -5,10 +5,6 @@ import Footer from './components/Footer';
 
 // Pages
 import Home from './pages/Home';
-import Intro from './pages/brand/Intro';
-import Ceo from './pages/brand/Ceo';
-import History from './pages/brand/History';
-import Location from './pages/brand/Location';
 import Rental from './pages/service/Rental';
 import Payout from './pages/service/Payout';
 import Center from './pages/service/Center';
@@ -50,12 +46,6 @@ function App() {
             <Route path="/admin/cases" element={<AdminCases />} />
             <Route path="/product/detail/:slug" element={<ModelDetail />} />
 
-
-            {/* Brand */}
-            <Route path="/brand/intro" element={<Intro />} />
-            <Route path="/brand/ceo" element={<Ceo />} />
-            <Route path="/brand/history" element={<History />} />
-            <Route path="/brand/location" element={<Location />} />
 
             {/* Service */}
             <Route path="/service/info" element={<Rental />} /> {/* Matching Navbar href for now */}

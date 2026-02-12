@@ -97,13 +97,13 @@ const ModelDetail = () => {
                 </div>
             </div>
 
-            <div className="container px-4 py-8 md:py-16">
+            <div className="container px-4 py-6 md:py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
 
                     {/* Left side: Hero Images & Gallery */}
                     <div className="lg:col-span-7 flex flex-col gap-8">
                         {/* Main Stage */}
-                        <div className="relative aspect-4/3 rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden shadow-2xl shadow-slate-200/50">
+                        <div className="relative aspect-4/3 rounded-2xl md:rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden shadow-2xl shadow-slate-200/50">
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={activeIdx}
@@ -187,7 +187,7 @@ const ModelDetail = () => {
                             <motion.h1
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-[40px] md:text-[56px] font-black text-slate-900 leading-[1.1] tracking-tight"
+                                className="text-[32px] md:text-[56px] font-black text-slate-900 leading-[1.1] tracking-tight"
                             >
                                 {bike.name}
                             </motion.h1>
@@ -289,25 +289,25 @@ const ModelDetail = () => {
             </div>
 
             {/* Immersive Inquiry Section */}
-            <div id="inquiry-section" className="bg-slate-50 py-32 mt-16 overflow-hidden relative">
+            <div id="inquiry-section" className="bg-slate-50 py-16 md:py-32 mt-12 md:mt-16 overflow-hidden relative">
                 {/* Background Decoration */}
                 <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
                 <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
 
                 <div className="container px-4 relative z-10">
                     <div className="max-w-4xl mx-auto">
-                        <div className="text-center space-y-6 mb-20">
+                        <div className="text-center space-y-4 md:space-y-6 mb-12 md:mb-20">
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="inline-flex p-3 bg-primary/10 rounded-2xl text-primary"
+                                className="inline-flex p-2 md:p-3 bg-primary/10 rounded-2xl text-primary"
                             >
-                                <Calendar size={32} />
+                                <Calendar size={24} md:size={32} />
                             </motion.div>
-                            <div className="space-y-4">
-                                <h2 className="text-[32px] md:text-[48px] font-black text-slate-900 leading-tight">상담 신청하기</h2>
-                                <p className="text-[16px] md:text-[18px] font-bold text-slate-500 max-w-xl mx-auto">
+                            <div className="space-y-3 md:space-y-4">
+                                <h2 className="text-[28px] md:text-[48px] font-black text-slate-900 leading-tight">상담 신청하기</h2>
+                                <p className="text-[15px] md:text-[18px] font-bold text-slate-500 max-w-xl mx-auto">
                                     {bike.name}에 대한 궁금한 점이 있으신가요? <br className="hidden md:block" />
                                     전문 상담원이 친절하고 상세하게 안내해 드립니다.
                                 </p>
@@ -318,7 +318,7 @@ const ModelDetail = () => {
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-[40px] p-8 md:p-16 shadow-2xl shadow-slate-200/60 border border-slate-100"
+                            className="bg-white rounded-[24px] md:rounded-[40px] p-6 md:p-16 shadow-2xl shadow-slate-200/60 border border-slate-100"
                         >
                             {isSuccession ? (
                                 <SuccessionInquiry prefilledPlateNumber={bike.plateNumber} key={bike.id} />

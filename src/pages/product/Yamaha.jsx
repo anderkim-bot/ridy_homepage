@@ -27,7 +27,7 @@ const Yamaha = () => {
     return (
         <div className="min-h-screen bg-slate-50">
             {/* Header section with gradient background */}
-            <div className="bg-white pt-32 pb-16">
+            <div className="bg-white pt-24 pb-12 md:pt-32 md:pb-16">
                 <div className="container px-6">
                     <div className="flex flex-col gap-4 max-w-4xl">
                         <motion.span
@@ -58,7 +58,7 @@ const Yamaha = () => {
 
             <ProductTabs activeBrand="YAMAHA" />
 
-            <div className="container pb-32">
+            <div className="container pb-16 md:pb-32">
                 {isLoading ? (
                     <div className="py-20 flex flex-col items-center justify-center gap-4">
                         <Loader2 size={40} className="text-primary animate-spin" />

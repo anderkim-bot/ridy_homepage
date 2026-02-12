@@ -28,7 +28,7 @@ const FeatureCard = ({ icon: Icon, title, description, benefits, color, index })
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-white/80 backdrop-blur-xl rounded-[20px] p-8 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
+        className="bg-white/80 backdrop-blur-xl rounded-[20px] p-6 md:p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group relative overflow-hidden h-full"
     >
         <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/5 transition-colors" />
 
@@ -68,7 +68,7 @@ const Payout = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
             {/* Premium Hero Section */}
-            <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 bg-[#0A0F1D] overflow-hidden">
+            <section className="relative pt-24 pb-16 md:pt-48 md:pb-40 bg-[#0A0F1D] overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-primary/20 blur-[180px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-500/10 blur-[150px] rounded-full" />
@@ -108,7 +108,7 @@ const Payout = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-[16px] md:text-[19px] font-medium text-white/50 max-w-3xl leading-relaxed mb-16"
+                            className="text-[15px] md:text-[18px] font-medium text-white/50 max-w-3xl leading-relaxed mb-16 px-4"
                         >
                             관리자도 라이더도 편리한 정산 계산 서비스. <br className="hidden md:block" />
                             이제 정산의 스트레스에서 벗어나 비즈니스 성장에만 집중하세요.
@@ -120,10 +120,10 @@ const Payout = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="flex flex-col sm:flex-row gap-6 mb-20"
                         >
-                            <Link to="/service/info" className="h-[76px] px-14 bg-primary text-white rounded-xl font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
+                            <a href="https://payout.ridy.co.kr" target="_blank" rel="noopener noreferrer" className="h-[64px] md:h-[76px] px-10 md:px-14 bg-primary text-white rounded-xl font-black text-lg md:text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/30 group">
                                 서비스 상세 소개 보러 가기
-                                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                            </Link>
+                                <ArrowRight className="ml-3 w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+                            </a>
                         </motion.div>
 
                         {/* Hero Visual Mockup */}
@@ -165,23 +165,23 @@ const Payout = () => {
             </section>
 
             {/* Narrative Storytelling Section */}
-            <section className="py-40 bg-white relative overflow-hidden">
+            <section className="py-16 md:py-32 bg-white relative overflow-hidden">
                 <div className="container px-6 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-                        <div className="space-y-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                        <div className="space-y-8 md:space-y-12">
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                             >
-                                <h2 className="text-[32px] md:text-[52px] font-black text-slate-900 leading-[1.2] mb-8">
+                                <h2 className="text-[28px] md:text-[52px] font-black text-slate-900 leading-[1.2] mb-6 md:mb-8">
                                     배달은 빨라졌는데, <br />
                                     <span className="text-slate-300">정산은 왜 아직 그대로일까요?</span>
                                 </h2>
-                                <div className="w-20 h-2 bg-primary rounded-full mb-12" />
+                                <div className="w-16 md:w-20 h-1.5 md:h-2 bg-primary rounded-full mb-8 md:mb-12" />
                             </motion.div>
 
-                            <div className="space-y-8 text-[18px] md:text-[22px] font-bold text-slate-500 leading-relaxed">
+                            <div className="space-y-6 md:space-y-8 text-[16px] md:text-[22px] font-bold text-slate-500 leading-relaxed">
                                 <motion.p
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
@@ -236,11 +236,11 @@ const Payout = () => {
             </section>
 
             {/* Core Solutions Section */}
-            <section className="py-40 bg-slate-50">
+            <section className="py-16 md:py-32 bg-slate-50">
                 <div className="container px-6">
-                    <div className="text-center max-w-4xl mx-auto mb-24">
-                        <span className="text-primary font-black uppercase tracking-widest text-sm mb-4 block">Our Solutions</span>
-                        <h2 className="text-[36px] md:text-[56px] font-black text-slate-900 leading-tight">
+                    <div className="text-center max-w-4xl mx-auto mb-12 md:mb-24">
+                        <span className="text-primary font-black uppercase tracking-widest text-[12px] md:text-sm mb-3 md:mb-4 block">Our Solutions</span>
+                        <h2 className="text-[30px] md:text-[56px] font-black text-slate-900 leading-tight">
                             가장 투명하고 간편한 <br />
                             정산 관리 솔루션
                         </h2>
@@ -276,54 +276,23 @@ const Payout = () => {
             </section>
 
             {/* Trust Standard Section */}
-            <section className="py-32 bg-slate-900 relative overflow-hidden">
+            <section className="py-16 md:py-32 bg-slate-900 relative overflow-hidden">
                 <div className="absolute top-1/2 left-0 w-full h-px bg-linear-to-r from-transparent via-primary/50 to-transparent opacity-30" />
                 <div className="container px-6 relative z-10 text-center">
                     <div className="max-w-4xl mx-auto">
-                        <ShieldCheck className="mx-auto text-primary mb-10" size={64} />
-                        <h2 className="text-white text-[32px] md:text-[42px] font-black mb-8 leading-tight">
+                        <ShieldCheck className="mx-auto text-primary mb-8 md:mb-10" size={56} md:size={64} />
+                        <h2 className="text-white text-[28px] md:text-[42px] font-black mb-6 md:mb-8 leading-tight">
                             서로에게 신뢰를 주는 <br />
                             <span className="text-primary">새로운 정산의 기준</span>을 제안합니다.
                         </h2>
-                        <p className="text-white/40 text-[18px] md:text-[20px] font-bold max-w-2xl mx-auto">
-                            땀 흘린 만큼 정당하게 보상받고, 관리자는 복잡한 수기 작업에서 벗어나 성장에만 집중할 수 있는 환경을 만듭니다.
+                        <p className="text-white/40 text-[16px] md:text-[20px] font-bold max-w-2xl mx-auto">
+                            땀 흘린 만큼 정당하게 보상받고, 관리자는 복잡한 수기 작업에서 벗어나 성장에 집중할 수 있는 환경을 만듭니다.
                         </p>
                     </div>
                 </div>
             </section>
 
-            {/* Final CTA Section */}
-            <section className="py-40 bg-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-primary/5 -skew-y-3" />
-                <div className="container relative z-10 px-6 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto"
-                    >
-                        <Coins className="mx-auto text-slate-200 mb-8" size={80} />
-                        <h2 className="text-slate-900 text-[36px] md:text-[60px] font-black mb-10 leading-[1.1]">
-                            똑똑한 정산의 시작, <br />
-                            지금 라이디 페이아웃을 만나보세요.
-                        </h2>
-                        <p className="text-slate-500 text-[18px] md:text-[22px] font-bold mb-16 max-w-2xl mx-auto leading-relaxed">
-                            복잡한 계산은 시스템에 맡기고, 당신은 더 중요한 일에 집중하세요.
-                        </p>
 
-                        <div className="flex flex-col sm:flex-row gap-5 justify-center">
-                            <Link to="/rental/inquiry" className="h-[76px] px-16 bg-primary text-white rounded-[16px] font-black text-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-primary/20 group">
-                                도입 상담 신청하기
-                                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <a href="http://pf.kakao.com/_xgxoxexen/chat" target="_blank" rel="noopener noreferrer" className="h-[76px] px-16 bg-[#FEE500] text-slate-900 rounded-[16px] font-black text-xl flex items-center justify-center hover:bg-[#FDD000] hover:scale-105 active:scale-95 transition-all shadow-xl shadow-yellow-500/10">
-                                <MessageCircle className="mr-2 w-6 h-6 fill-current" />
-                                카톡 상담 연결
-                            </a>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
         </div>
     );
 };

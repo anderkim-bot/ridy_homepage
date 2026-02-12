@@ -12,7 +12,6 @@ const Navbar = () => {
   const location = useLocation();
 
   const navItems = [
-    { name: '회사 소개', href: '/brand/intro' },
     {
       name: '서비스 안내',
       href: '/service/info',

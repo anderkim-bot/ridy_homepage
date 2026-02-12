@@ -49,9 +49,9 @@ const Features = () => {
     ];
 
     return (
-        <section id="features" className="py-24 bg-black">
+        <section id="features" className="py-16 md:py-24 bg-black">
             <div className="container">
-                <div className="text-center max-w-3xl mx-auto mb-16">
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold mb-6">라이더를 위한, <br />라이더에 의한 시스템</h2>
                     <p className="text-lg text-text-muted">
                         기존 배달 대행업의 불투명한 관행을 깨고, <br />

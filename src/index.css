@@ -57,6 +57,8 @@
   body {
     @apply bg-bg-white text-text-primary font-sans leading-relaxed;
     color: var(--color-text-primary);
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   h1,
@@ -67,6 +69,7 @@
   h6 {
     @apply text-text-secondary font-bold;
     letter-spacing: -0.04em;
+    word-break: keep-all;
   }
 
   a {
@@ -78,33 +81,33 @@
 /* Components */
 @layer components {
   .container {
-    @apply w-full max-w-[1200px] mx-auto px-[20px] md:px-[60px];
+    @apply w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-[60px];
   }
 
   /* Typography Presets */
   .text-hero {
-    @apply text-[40px] md:text-[64px] lg:text-[76px] font-extrabold leading-[1.1] tracking-tight;
+    @apply text-[32px] md:text-[56px] lg:text-[68px] font-extrabold leading-[1.15] tracking-tight;
   }
 
   .text-section-title {
-    @apply text-[36px] md:text-[56px] font-bold leading-[1.6] tracking-[-0.04em] text-text-secondary;
+    @apply text-[28px] md:text-[48px] font-bold leading-[1.25] tracking-[-0.04em] text-text-secondary;
   }
 
   .text-sub-title {
-    @apply text-[20px] md:text-[24px] font-extrabold leading-[1.35] tracking-[-0.04em] text-text-secondary;
+    @apply text-[16px] md:text-[22px] font-extrabold leading-[1.4] tracking-[-0.04em] text-text-secondary;
   }
 
   .text-body {
-    @apply text-[15px] md:text-[16px] font-normal leading-[1.6] tracking-[-0.02em] text-text-muted;
+    @apply text-[13px] md:text-[15px] font-normal leading-[1.5] tracking-[-0.02em] text-text-muted;
   }
 
   .text-nav {
-    @apply text-[14px] font-bold leading-[1.6] tracking-[-0.02em] text-text-tertiary;
+    @apply text-[13px] md:text-[14px] font-bold leading-[1.6] tracking-[-0.02em] text-text-tertiary;
   }
 
   /* Buttons */
   .btn-ridy {
-    @apply inline-flex items-center justify-center transition-all duration-300 cursor-pointer border-none font-bold text-[14px] h-[42px] px-[24px];
+    @apply inline-flex items-center justify-center transition-all duration-300 cursor-pointer border-none font-bold text-[14px] h-[40px] px-[20px] whitespace-nowrap;
   }
 
   .btn-ridy-primary {

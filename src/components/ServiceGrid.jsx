@@ -10,7 +10,7 @@ const Card = ({ icon: Icon, title, description, color, href, delay }) => (
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: delay * 0.1 }}
         whileHover={{ y: -8 }}
-        className="glass-card p-8 flex flex-col items-start min-h-[260px] group"
+        className="glass-card p-6 md:p-8 flex flex-col items-start min-h-[260px] group"
     >
         <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-6 transition-all shadow-sm group-hover:scale-110 group-hover:shadow-lg" style={{ backgroundColor: `${color}15`, color: color }}>
             <Icon size={28} />
@@ -73,7 +73,7 @@ const ServiceGrid = () => {
     ];
 
     return (
-        <section className="py-24 bg-[#F1F5F9]/50">
+        <section className="py-16 md:py-24 bg-[#F1F5F9]/50">
             <div className="container">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                     <div className="max-w-xl">

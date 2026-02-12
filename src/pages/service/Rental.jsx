@@ -28,10 +28,10 @@ const BenefitCard = ({ icon: Icon, title, content, subItems, index }) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-white p-8 rounded-[20px] border border-slate-100 shadow-sm hover:shadow-xl transition-all group"
+        className="bg-white p-6 md:p-8 rounded-[20px] border border-slate-100 shadow-sm hover:shadow-xl transition-all group"
     >
-        <div className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
-            <Icon size={28} />
+        <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary/5 flex items-center justify-center text-primary mb-5 md:mb-6 group-hover:scale-110 transition-transform">
+            <Icon size={24} md:size={28} />
         </div>
         <h3 className="text-[22px] font-black text-slate-900 mb-4">{title}</h3>
         <p className="text-slate-500 font-bold text-[16px] leading-[1.6] mb-6 whitespace-pre-line">
@@ -58,9 +58,9 @@ const StepItem = ({ number, title, desc, icon: Icon, index }) => (
         transition={{ delay: index * 0.1 }}
         className="flex flex-col items-center text-center relative"
     >
-        <div className="w-20 h-20 rounded-full bg-white shadow-lg flex items-center justify-center mb-6 relative z-10">
-            <Icon size={32} className="text-primary" />
-            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary text-white text-xs font-black flex items-center justify-center border-4 border-slate-50">
+        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white shadow-lg flex items-center justify-center mb-4 md:mb-6 relative z-10">
+            <Icon size={24} md:size={32} className="text-primary" />
+            <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary text-white text-[10px] md:text-xs font-black flex items-center justify-center border-2 md:border-4 border-slate-50">
                 {number}
             </div>
         </div>
@@ -193,17 +193,36 @@ const Rental = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
             {/* Hero Section */}
-            <section className="bg-slate-900 pt-32 pb-24 md:pt-48 md:pb-36 relative overflow-hidden">
+            <section className="bg-slate-900 pt-24 pb-16 md:pt-48 md:pb-36 relative overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[150px] rounded-full" />
                     <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-500/10 blur-[180px] rounded-full" />
+
+                    {/* Animated Speed Lines for Dynamics */}
+                    <div className="absolute inset-0 opacity-[0.15]">
+                        <motion.div
+                            animate={{ x: [-500, 1500] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: 0 }}
+                            className="absolute top-[20%] left-0 w-[400px] h-[1px] bg-linear-to-r from-transparent via-primary to-transparent"
+                        />
+                        <motion.div
+                            animate={{ x: [-800, 1200] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: 1 }}
+                            className="absolute top-[50%] left-0 w-[600px] h-[1px] bg-linear-to-r from-transparent via-indigo-400 to-transparent"
+                        />
+                        <motion.div
+                            animate={{ x: [-600, 1400] }}
+                            transition={{ duration: 3.5, repeat: Infinity, ease: "linear", delay: 2 }}
+                            className="absolute top-[80%] left-0 w-[500px] h-[1px] bg-linear-to-r from-transparent via-primary to-transparent"
+                        />
+                    </div>
                 </div>
 
                 <div className="container relative z-10 px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="max-w-4xl mx-auto mb-20"
+                        className="max-w-4xl mx-auto mb-20 px-4"
                     >
                         <div className="mb-10 flex justify-center">
                             <img
@@ -216,7 +235,7 @@ const Rental = () => {
                             무심사·비대면 <br className="md:hidden" />
                             <span className="text-white/40">라이디 렌탈</span>
                         </h1>
-                        <p className="text-white/50 text-[16px] md:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-white/50 text-[15px] md:text-[18px] font-medium leading-relaxed max-w-2xl mx-auto">
                             까다로운 심사 없이, <br className="hidden md:block" />
                             계약 다음 날 당신의 집 앞으로 배달됩니다.
                         </p>
@@ -263,11 +282,11 @@ const Rental = () => {
             </section>
 
             {/* Benefits Section */}
-            <section className="py-32">
+            <section className="py-16 md:py-32">
                 <div className="container px-6">
-                    <div className="text-center mb-20">
-                        <h2 className="text-[42px] md:text-[56px] font-black text-slate-900 mb-6">라이디 렌탈만의 혜택</h2>
-                        <div className="w-20 h-1.5 bg-primary mx-auto rounded-full" />
+                    <div className="text-center mb-12 md:mb-20">
+                        <h2 className="text-[32px] md:text-[56px] font-black text-slate-900 mb-4 md:mb-6">라이디 렌탈만의 혜택</h2>
+                        <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -279,12 +298,12 @@ const Rental = () => {
             </section>
 
             {/* Contract Procedure */}
-            <section className="py-32 bg-slate-900 text-white overflow-hidden">
+            <section className="py-16 md:py-32 bg-slate-900 text-white overflow-hidden">
                 <div className="container px-6">
-                    <div className="text-center mb-20">
-                        <span className="text-primary font-black tracking-widest text-sm uppercase block mb-4">Process</span>
-                        <h2 className="text-[36px] md:text-[52px] font-black leading-tight mb-8">무심사 비대면 계약 절차</h2>
-                        <p className="text-white/50 text-lg font-bold">100% 무심사로 진행되며, 계약 후 익일 즉시 출고됩니다.</p>
+                    <div className="text-center mb-12 md:mb-20">
+                        <span className="text-primary font-black tracking-widest text-[12px] md:text-sm uppercase block mb-3 md:mb-4">Process</span>
+                        <h2 className="text-[32px] md:text-[52px] font-black leading-tight mb-6 md:mb-8">무심사 비대면 계약 절차</h2>
+                        <p className="text-white/50 text-[15px] md:text-lg font-bold">100% 무심사로 진행되며, 계약 후 익일 즉시 출고됩니다.</p>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 lg:gap-8">
@@ -302,15 +321,15 @@ const Rental = () => {
             </section>
 
             {/* FAQ Section */}
-            <section className="py-32 bg-white">
+            <section className="py-16 md:py-32 bg-white">
                 <div className="container max-w-4xl px-6">
-                    <div className="flex items-center gap-6 mb-16">
-                        <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white shrink-0">
-                            <HelpCircle size={32} />
+                    <div className="flex items-center gap-5 md:gap-6 mb-12 md:mb-16">
+                        <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-primary flex items-center justify-center text-white shrink-0">
+                            <HelpCircle size={28} md:size={32} />
                         </div>
                         <div>
-                            <h2 className="text-[32px] md:text-[42px] font-black text-slate-900">자주 묻는 질문</h2>
-                            <p className="text-slate-400 font-bold">렌탈 시작 전 궁금한 점을 확인하세요.</p>
+                            <h2 className="text-[28px] md:text-[42px] font-black text-slate-900">자주 묻는 질문</h2>
+                            <p className="text-slate-400 text-sm md:text-base font-bold">렌탈 시작 전 궁금한 점을 확인하세요.</p>
                         </div>
                     </div>
 
@@ -323,7 +342,7 @@ const Rental = () => {
             </section>
 
             {/* Final CTA Section */}
-            <section className="py-32 relative overflow-hidden bg-slate-900">
+            <section className="py-16 md:py-32 relative overflow-hidden bg-slate-900">
                 {/* Visual Interest Background */}
                 <div className="absolute inset-0">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/20 blur-[120px] rounded-full" />

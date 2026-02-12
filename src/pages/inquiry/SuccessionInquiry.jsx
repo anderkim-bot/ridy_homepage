@@ -60,7 +60,7 @@ const SuccessionInquiry = ({ prefilledPlateNumber }) => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-[32px] p-12 md:p-20 shadow-xl border border-slate-100 flex flex-col items-center justify-center text-center gap-6"
+                className="bg-white rounded-[24px] md:rounded-[32px] p-10 md:p-20 shadow-xl border border-slate-100 flex flex-col items-center justify-center text-center gap-4 md:gap-6"
             >
                 <div className="w-24 h-24 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
                     <CheckCircle2 size={48} />
@@ -86,7 +86,7 @@ const SuccessionInquiry = ({ prefilledPlateNumber }) => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        className="bg-white rounded-[32px] p-8 md:p-12 shadow-xl border border-slate-100 space-y-10"
+                        className="bg-white rounded-[24px] md:rounded-[32px] p-6 md:p-12 shadow-xl border border-slate-100 space-y-8 md:space-y-10"
                     >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {/* 차량번호 */}
@@ -196,7 +196,7 @@ const SuccessionInquiry = ({ prefilledPlateNumber }) => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        className="bg-white rounded-[32px] p-8 md:p-12 shadow-xl border border-slate-100 space-y-8"
+                        className="bg-white rounded-[24px] md:rounded-[32px] p-6 md:p-12 shadow-xl border border-slate-100 space-y-6 md:space-y-8"
                     >
                         <div className="flex flex-col gap-4">
                             <h3 className="text-2xl font-black text-slate-900">개인정보 수집 및 이용 동의(필수)</h3>

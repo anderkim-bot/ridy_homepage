@@ -54,7 +54,7 @@ const NoticeCard = ({ notice, index }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="group relative bg-white rounded-xl p-6 md:p-8 border border-slate-100 transition-all hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer"
+            className="group relative bg-white rounded-xl p-5 md:p-8 border border-slate-100 transition-all hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 cursor-pointer"
         >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex-1 space-y-4">
@@ -124,9 +124,28 @@ const Notice = () => {
                 <meta name="description" content="라이디의 새로운 소식과 긴급 안내 사항을 전해드립니다." />
             </Helmet>
 
-            <div className="min-h-screen bg-[#F8FAFC] pb-32">
+            <div className="min-h-screen bg-[#F8FAFC] pb-16 md:pb-32">
                 {/* Hero Section */}
-                <section className="relative pt-32 pb-20 overflow-hidden">
+                <section className="relative pt-24 pb-12 md:pt-32 md:pb-20 overflow-hidden">
+                    {/* Dynamic Graphics for Notice page */}
+                    <div className="absolute inset-0 pointer-events-none">
+                        <motion.div
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute top-[15%] left-[10%] opacity-[0.05]"
+                        >
+                            <Bell size={100} className="text-primary" />
+                        </motion.div>
+                        <motion.div
+                            animate={{
+                                scale: [1, 1.2, 1],
+                                opacity: [0.3, 0.4, 0.3]
+                            }}
+                            transition={{ duration: 10, repeat: Infinity }}
+                            className="absolute bottom-[20%] right-[15%] w-[200px] h-[200px] bg-indigo-500/10 blur-[60px] rounded-full"
+                        />
+                    </div>
+
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-indigo-50/50 to-transparent -z-10" />
                     <div className="max-w-7xl mx-auto px-6">
                         <motion.div
@@ -140,7 +159,7 @@ const Notice = () => {
                             <h1 className="text-hero text-slate-900">
                                 공지사항
                             </h1>
-                            <p className="text-[16px] md:text-[19px] text-slate-500 font-medium max-w-2xl mx-auto">
+                            <p className="text-[15px] md:text-[18px] text-slate-500 font-medium max-w-2xl mx-auto">
                                 라이디의 최신 소식과 서비스 이용에 필요한 <br className="hidden md:block" />
                                 중요한 안내 사항을 가장 빠르게 전달해 드립니다.
                             </p>
@@ -149,7 +168,7 @@ const Notice = () => {
                 </section>
 
                 {/* Filters & Search */}
-                <section className="sticky top-20 z-40 bg-[#F8FAFC]/80 backdrop-blur-xl border-y border-slate-200/50 py-4 mb-12">
+                <section className="sticky top-20 z-40 bg-[#F8FAFC]/80 backdrop-blur-xl border-y border-slate-200/50 py-3 md:py-4 mb-8 md:mb-12">
                     <div className="max-w-5xl mx-auto px-6">
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             {/* Categories */}

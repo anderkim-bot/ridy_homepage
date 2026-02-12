@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Bike, CheckCircle2, ChevronRight, ExternalLink, Loader2 } from 'lucide-react';
+import { Bike, CheckCircle2, ChevronRight, ExternalLink, Loader2, CreditCard, Zap, Wrench, Search, ShieldCheck, FileCheck, ArrowRight, Heart, Users, Cpu } from 'lucide-react';
 import { bikeService } from '../services/bikeService';
 import { caseService } from '../services/caseService';
 
@@ -9,6 +9,22 @@ import { caseService } from '../services/caseService';
 import RidyRentalLogo from './svg/Ridy_Rental_logo.svg';
 import RidyPayoutLogo from './svg/Ridy_Payout_logo.svg';
 import RidyServiceCenterLogo from './svg/Ridy_Service_center_logo.svg';
+import RidyLogo from './svg/Ridy_logo.svg';
+
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15
+        }
+    }
+};
 
 const ServiceCard = ({ iconSrc, title, description, href, index }) => (
     <motion.div
@@ -134,9 +150,9 @@ const HomeContent = () => {
                 // Use all rental bikes for marquee
                 setDisplayModels(allRentalBikes);
 
-                // Sort cases by date and take top 3
+                // Sort cases by date and take top 10 for marquee
                 const sortedCases = casesData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                setRecentCases(sortedCases.slice(0, 3));
+                setRecentCases(sortedCases.slice(0, 10));
             } catch (error) {
                 console.error('Error loading home data:', error);
             } finally {
@@ -149,95 +165,401 @@ const HomeContent = () => {
 
     return (
         <div className="flex flex-col">
-            {/* Core Services Section */}
-            <section className="bg-white py-32 md:py-48">
-                <div className="container">
-                    <div className="max-w-3xl mx-auto text-center mb-24 flex flex-col gap-6">
-                        <div className="text-primary font-black text-[14px] tracking-[0.2em] uppercase">Core Business</div>
-                        <h2 className="text-[36px] md:text-[52px] font-black tracking-tight text-slate-900 leading-tight">라이디 핵심 서비스</h2>
-                        <p className="text-[18px] text-slate-500 font-bold leading-relaxed">
-                            배달 라이더와 운영자를 위한 라이디만의 <br className="hidden md:block" /> 차별화된 올인원 플랫폼 서비스를 만나보세요.
+            {/* 1. Brand Vision Section (Merged from Intro) */}
+            <section className="bg-white py-16 md:py-32 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+                    <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px]" />
+                    <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[100px]" />
+                </div>
+
+                <div className="container relative z-10 text-center px-4">
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                        className="max-w-4xl mx-auto space-y-8"
+                    >
+                        <div className="flex justify-center mb-6 opacity-20">
+                            <img src={RidyLogo} alt="Ridy Logo icon" className="h-10 w-auto grayscale" />
+                        </div>
+                        <h2 className="text-section-title text-slate-900 mb-6 leading-[1.2]">
+                            라이더의 가치를 높이고,<br />
+                            배달 생태계의 <span className="text-primary">기준을 바꿉니다.</span>
+                        </h2>
+                        <div className="w-12 h-1 bg-primary mx-auto rounded-full mb-8" />
+                        <p className="text-[15px] md:text-[20px] text-slate-500 leading-relaxed font-medium max-w-3xl mx-auto">
+                            라이디는 단순히 서비스를 제공하는 것을 넘어,<br className="hidden md:block" />
+                            라이더가 사회적으로 존중받고 경제적으로 안정된 환경에서<br className="hidden md:block" />
+                            오직 '운행'에만 전념할 수 있는 건강한 생태계를 구축합니다.
                         </p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* 2. Problem & Solution Section (Merged from Intro) */}
+            <section className="py-16 md:py-32 bg-slate-50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-10 opacity-[0.02] text-primary rotate-12 -z-10">
+                    <Search size={400} />
+                </div>
+
+                <div className="container relative z-10">
+                    <motion.div
+                        className="mb-12 text-center"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                    >
+                        <span className="text-primary font-black tracking-widest uppercase mb-3 block text-[12px]">Problem & Solution</span>
+                        <h2 className="text-section-title text-slate-900 mb-4 font-black">우리가 해결하려는 문제</h2>
+                        <p className="text-[15px] md:text-[19px] text-slate-500 font-bold max-w-2xl mx-auto leading-relaxed">
+                            라이더분들이 현장에서 겪는 불편함을 <br className="hidden md:block" /> Ridy만의 혁신적인 기술과 인프라로 해결합니다.
+                        </p>
+                    </motion.div>
+
+                    <motion.div
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        variants={staggerContainer}
+                    >
+                        {/* Issue 1 */}
+                        <motion.div variants={fadeInUp} className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 group">
+                            <h3 className="text-[20px] md:text-[22px] font-black text-slate-900 mb-6 group-hover:text-primary transition-colors">"정산이 너무 복잡하고 느려요"</h3>
+                            <div className="w-8 h-[2px] bg-slate-100 mb-8 group-hover:w-16 group-hover:bg-primary transition-all duration-500" />
+                            <h4 className="text-primary font-black mb-3 flex items-center gap-2 text-sm uppercase">
+                                <Zap size={16} /> Ridy Solution
+                            </h4>
+                            <p className="text-[15px] text-slate-500 font-bold leading-relaxed">
+                                <span className="text-slate-900 font-black">자동화된 투명한 시스템</span>으로 누락 없는 빠른 정산을 보장합니다.
+                            </p>
+                        </motion.div>
+
+                        {/* Issue 2 */}
+                        <motion.div variants={fadeInUp} className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 group">
+                            <h3 className="text-[20px] md:text-[22px] font-black text-slate-900 mb-6 group-hover:text-primary transition-colors">"바이크 구매 비용이 큰 부담이에요"</h3>
+                            <div className="w-8 h-[2px] bg-slate-100 mb-8 group-hover:w-16 group-hover:bg-primary transition-all duration-500" />
+                            <h4 className="text-primary font-black mb-3 flex items-center gap-2 text-sm uppercase">
+                                <Zap size={16} /> Ridy Solution
+                            </h4>
+                            <p className="text-[15px] text-slate-500 font-bold leading-relaxed">
+                                <span className="text-slate-900 font-black">인수형/반납형 렌탈 프로그램</span>으로 초기 비용 부담을 최소화합니다.
+                            </p>
+                        </motion.div>
+
+                        {/* Issue 3 */}
+                        <motion.div variants={fadeInUp} className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 group">
+                            <h3 className="text-[20px] md:text-[22px] font-black text-slate-900 mb-6 group-hover:text-primary transition-colors">"믿고 맡길 정비소가 부족해요"</h3>
+                            <div className="w-8 h-[2px] bg-slate-100 mb-8 group-hover:w-16 group-hover:bg-primary transition-all duration-500" />
+                            <h4 className="text-primary font-black mb-3 flex items-center gap-2 text-sm uppercase">
+                                <Zap size={16} /> Ridy Solution
+                            </h4>
+                            <p className="text-[15px] text-slate-500 font-bold leading-relaxed">
+                                전국 핵심 거점의 <span className="text-slate-900 font-black">공식 서비스 센터 네트워크</span>를 통해 확실한 사후 관리를 지원합니다.
+                            </p>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+            {/* Quick Service Dashboard Section */}
+            <section className="bg-white py-16 md:py-32 relative overflow-hidden">
+                {/* Background Decoration */}
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 translate-x-1/2 -z-10" />
+
+                <div className="container relative z-10">
+                    <div className="flex flex-col lg:flex-row items-end justify-between mb-12 gap-8 px-4">
+                        <div className="max-w-2xl flex flex-col gap-4 text-left">
+                            <div className="text-primary font-black text-[13px] tracking-[0.2em] uppercase">Service Hub</div>
+                            <h2 className="text-section-title text-slate-900">
+                                퀵 서비스 대시보드
+                            </h2>
+                            <p className="text-[14px] md:text-[18px] text-slate-500 font-bold leading-relaxed max-w-xl">
+                                라이더의 일상을 바꾸는 라이디의 핵심 기능을 <br className="hidden md:block" /> 한눈에 확인하고 바로 이용해 보세요.
+                            </p>
+                        </div>
+                        <div className="hidden lg:flex items-center gap-4 text-slate-300 font-black text-[14px]">
+                            <span className="text-slate-900">Platform Overview</span>
+                            <div className="w-12 h-px bg-slate-200" />
+                            <span>Efficiency Driven</span>
+                        </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {services.map((service, index) => (
-                            <ServiceCard key={index} {...service} index={index} />
-                        ))}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {/* Payout */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                        >
+                            <Link to="/service/payout" className="group block bg-slate-900 p-8 rounded-2xl h-full hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <img src={RidyPayoutLogo} alt="" className="h-20 w-auto invert" />
+                                </div>
+                                <div className="relative z-10 flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-10 group-hover:bg-primary transition-colors">
+                                        <CreditCard className="text-white" size={24} />
+                                    </div>
+                                    <div className="mt-auto">
+                                        <div className="text-primary font-black text-[12px] uppercase tracking-wider mb-2">정산</div>
+                                        <h3 className="text-white text-[22px] font-black mb-3">라이디 페이아웃</h3>
+                                        <p className="text-white/50 text-[15px] font-bold leading-relaxed mb-8">
+                                            오늘 수익, <br />내일 바로 출금
+                                        </p>
+                                        <div className="flex items-center text-white text-[14px] font-black">
+                                            이용하기 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+
+                        {/* Rental */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                        >
+                            <Link to="/service/rental" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500">
+                                <div className="flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
+                                        <Bike className="text-slate-400 group-hover:text-white transition-colors" size={24} />
+                                    </div>
+                                    <div className="mt-auto">
+                                        <div className="text-primary font-black text-[12px] uppercase tracking-wider mb-2">렌탈</div>
+                                        <h3 className="text-slate-900 text-[22px] font-black mb-3">라이디 렌탈</h3>
+                                        <p className="text-slate-500 text-[15px] font-bold leading-relaxed mb-8">
+                                            다양한 차종 <br />즉시 출고 가능
+                                        </p>
+                                        <div className="flex items-center text-primary text-[14px] font-black">
+                                            기종 보기 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+
+                        {/* Lease Succession */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <Link to="/product/lease" className="group block bg-white border border-slate-100 p-8 rounded-2xl h-full shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500">
+                                <div className="flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
+                                        <Zap className="text-slate-400 group-hover:text-white transition-colors" size={24} />
+                                    </div>
+                                    <div className="mt-auto">
+                                        <div className="text-primary font-black text-[12px] uppercase tracking-wider mb-2">승계</div>
+                                        <h3 className="text-slate-900 text-[22px] font-black mb-3">리스 승계</h3>
+                                        <p className="text-slate-500 text-[15px] font-bold leading-relaxed mb-8">
+                                            저렴한 가격의 <br />리스 승계 매물 보기
+                                        </p>
+                                        <div className="flex items-center text-primary text-[14px] font-black">
+                                            매물 확인 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+
+                        {/* Service Center */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                        >
+                            <Link to="/service/center" className="group block bg-slate-50 border border-slate-100 p-8 rounded-2xl h-full hover:bg-white hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:border-primary/20 hover:-translate-y-2 transition-all duration-500">
+                                <div className="flex flex-col h-full">
+                                    <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-10 group-hover:bg-primary transition-all">
+                                        <Wrench className="text-slate-400 group-hover:text-white transition-colors" size={24} />
+                                    </div>
+                                    <div className="mt-auto">
+                                        <div className="text-primary font-black text-[12px] uppercase tracking-wider mb-2">정비</div>
+                                        <h3 className="text-slate-900 text-[22px] font-black mb-3">라이디 서비스센터</h3>
+                                        <p className="text-slate-500 text-[15px] font-bold leading-relaxed mb-8">
+                                            가장 가까운 <br />라이디 서비스센터 찾기
+                                        </p>
+                                        <div className="flex items-center text-primary text-[14px] font-black">
+                                            지점 찾기 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
             {/* Popular Models Section */}
-            <section className="bg-[#F8F9FD] py-32 md:py-48 border-y border-slate-100">
+            <section className="bg-[#F8F9FD] py-16 md:py-32 border-y border-slate-100">
                 <div className="container">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-                        <div className="flex flex-col gap-4">
-                            <div className="text-primary font-black text-[14px] tracking-[0.2em] uppercase">Our Marketplace</div>
-                            <h2 className="text-[36px] md:text-[52px] font-black tracking-tight text-slate-900">렌탈 기종 보기</h2>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                        <div className="flex flex-col gap-3">
+                            <div className="text-primary font-black text-[13px] tracking-[0.2em] uppercase">Our Marketplace</div>
+                            <h2 className="text-[30px] md:text-[52px] font-black tracking-tight text-slate-900">렌탈 기종 보기</h2>
                         </div>
-                        <Link to="/product/honda" className="inline-flex items-center text-primary font-black text-[16px] group">
+                        <Link to="/product/honda" className="inline-flex items-center text-primary font-black text-[15px] group">
                             전체 기종 페이지로 이동
-                            <ChevronRight size={20} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                            <ChevronRight size={18} className="ml-1 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
+                </div>
 
-                    {isLoading ? (
-                        <div className="py-20 flex flex-col items-center justify-center gap-4">
-                            <Loader2 size={40} className="text-primary animate-spin" />
-                            <p className="text-slate-400 font-bold">기종 정보를 불러오는 중...</p>
+                {isLoading ? (
+                    <div className="py-20 flex flex-col items-center justify-center gap-4">
+                        <Loader2 size={40} className="text-primary animate-spin" />
+                        <p className="text-slate-400 font-bold">기종 정보를 불러오는 중...</p>
+                    </div>
+                ) : (
+                    <div className="relative w-full overflow-hidden">
+                        {/* Gradient Masks for Fade Effect */}
+                        <div className="hidden md:block absolute top-0 left-0 w-16 md:w-32 h-full bg-linear-to-r from-[#F8F9FD] to-transparent z-10 pointer-events-none" />
+                        <div className="hidden md:block absolute top-0 right-0 w-16 md:w-32 h-full bg-linear-to-l from-[#F8F9FD] to-transparent z-10 pointer-events-none" />
+
+                        <div className="w-full inline-flex flex-nowrap overflow-hidden py-10">
+                            <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-marquee hover:[animation-play-state:paused]">
+                                {/* Render the list twice for seamless infinite scroll */}
+                                {[...displayModels, ...displayModels].map((bike, index) => (
+                                    <li key={`${bike.id}-${index}`} className="w-[300px] shrink-0">
+                                        <ModelCard
+                                            name={bike.name}
+                                            brand={bike.brand}
+                                            slug={bike.slug}
+                                            image={bike.items?.[0]?.image}
+                                            index={index}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    ) : (
-                        <div className="relative w-full overflow-hidden">
-                            {/* Gradient Masks for Fade Effect */}
-                            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#F8F9FD] to-transparent z-10 pointer-events-none" />
-                            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#F8F9FD] to-transparent z-10 pointer-events-none" />
+                    </div>
+                )}
+            </section>
 
-                            <div className="w-full inline-flex flex-nowrap overflow-hidden py-10">
-                                <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-marquee hover:[animation-play-state:paused]">
-                                    {/* Render the list twice for seamless infinite scroll */}
-                                    {[...displayModels, ...displayModels].map((bike, index) => (
-                                        <li key={`${bike.id}-${index}`} className="w-[300px] flex-shrink-0">
-                                            <ModelCard
-                                                name={bike.name}
-                                                brand={bike.brand}
-                                                slug={bike.slug}
-                                                image={bike.items?.[0]?.image}
-                                                index={index}
-                                            />
-                                        </li>
-                                    ))}
-                                </ul>
+            {/* 3. Trust & Safety Section (Merged from Intro) */}
+            <section className="py-16 md:py-32 bg-white overflow-hidden">
+                <div className="container px-6">
+                    <motion.div
+                        className="text-center mb-12"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={fadeInUp}
+                    >
+                        <span className="text-primary font-black tracking-widest uppercase mb-3 block text-[12px]">Trust & Safety</span>
+                        <h2 className="text-section-title text-slate-900 mb-4">신뢰할 수 있는 안전망</h2>
+                        <p className="text-[15px] md:text-[19px] text-slate-500 font-bold max-w-2xl mx-auto leading-relaxed">
+                            우리의 목표는 라이더가 어떠한 상황에서도 안전하게<br className="hidden md:block" /> 보호받으며 운행에 집중할 수 있도록 만드는 것입니다.
+                        </p>
+                    </motion.div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                        {/* Protection */}
+                        <motion.div
+                            className="flex flex-col sm:flex-row gap-8 p-10 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-500"
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary shrink-0">
+                                <ShieldCheck size={32} />
                             </div>
-                        </div>
-                    )}
+                            <div className="space-y-4">
+                                <h3 className="text-[22px] font-black text-slate-900">철저한 보험 및 사고 대응</h3>
+                                <p className="text-[15px] font-bold leading-relaxed text-slate-500">
+                                    종합/책임보험에 대한 전문적인 가이드와 사고 발생 시<br />
+                                    <span className="text-slate-900 font-black italic">대차 서비스 연계</span>를 통해 수리 기간에도<br /> 라이더의 수입 공백이 없도록 철저히 보호합니다.
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Technology */}
+                        <motion.div
+                            className="flex flex-col sm:flex-row gap-8 p-10 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-xl transition-all duration-500"
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-primary shrink-0">
+                                <FileCheck size={32} />
+                            </div>
+                            <div className="space-y-4">
+                                <h3 className="text-[22px] font-black text-slate-900">혁신적인 편리함</h3>
+                                <p className="text-[15px] font-bold leading-relaxed text-slate-500">
+                                    <span className="text-slate-900 font-black italic">비대면 전자계약 시스템</span> 도입 등으로<br />
+                                    불필요한 대기 시간을 획기적으로 줄여 라이더의 시간을<br /> 가장 소중하게 생각하는 라이딩 환경을 제공합니다.
+                                </p>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* Latest Cases Section */}
-            <section className="bg-white py-32 md:py-48">
+            <section className="bg-slate-50 py-16 md:py-32">
                 <div className="container">
-                    <div className="max-w-3xl mx-auto text-center mb-20 flex flex-col gap-6">
-                        <div className="text-primary font-black text-[14px] tracking-[0.2em] uppercase">Release Cases</div>
-                        <h2 className="text-[36px] md:text-[52px] font-black tracking-tight text-slate-900 leading-tight">최신 출고 사례</h2>
-                        <p className="text-[18px] text-slate-500 font-bold leading-relaxed">전국 각지에서 라이디와 함께 새로운 시작을 알린 <br className="hidden md:block" /> 라이더님들의 생생한 출고 현장입니다.</p>
+                    <div className="max-w-3xl mx-auto text-center mb-12 flex flex-col gap-4">
+                        <div className="text-primary font-black text-[13px] tracking-[0.2em] uppercase">Release Cases</div>
+                        <h2 className="text-section-title text-slate-900 leading-tight">최신 출고 사례</h2>
+                        <p className="text-[16px] text-slate-500 font-bold leading-relaxed">전국 각지에서 라이디와 함께 새로운 시작을 알린 <br className="hidden md:block" /> 라이더님들의 생생한 출고 현장입니다.</p>
                     </div>
-                    {isLoading ? (
-                        <div className="py-20 flex flex-col items-center justify-center gap-4">
-                            <Loader2 size={40} className="text-primary animate-spin" />
-                            <p className="text-slate-400 font-bold">출고 사례를 불러오는 중...</p>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {recentCases.map((item, index) => (
-                                <CaseCard key={item.id} {...item} index={index} />
-                            ))}
-                        </div>
-                    )}
-                    <div className="mt-16 text-center">
-                        <a href="https://cafe.naver.com/ridyservice" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 bg-slate-50 text-slate-600 rounded-xl font-black text-sm hover:bg-slate-100 transition-all">
-                            더 많은 출고 사례 보기 <ChevronRight size={16} className="ml-2" />
-                        </a>
+                </div>
+
+                {isLoading ? (
+                    <div className="py-20 flex flex-col items-center justify-center gap-4">
+                        <Loader2 size={40} className="text-primary animate-spin" />
+                        <p className="text-slate-400 font-bold">출고 사례를 불러오는 중...</p>
                     </div>
+                ) : (
+                    <div className="relative w-full overflow-hidden">
+                        {/* Gradient Masks for Fade Effect */}
+                        <div className="hidden md:block absolute top-0 left-0 w-16 md:w-32 h-full bg-linear-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+                        <div className="hidden md:block absolute top-0 right-0 w-16 md:w-32 h-full bg-linear-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+
+                        <div className="w-full inline-flex flex-nowrap overflow-hidden py-10">
+                            <ul className="flex items-center justify-center md:justify-start [&_li]:mx-4 [&_img]:max-w-none animate-marquee hover:[animation-play-state:paused]">
+                                {/* Render the list twice for seamless infinite scroll */}
+                                {[...recentCases, ...recentCases].map((item, index) => (
+                                    <li key={`${item.id}-${index}`} className="w-[350px] shrink-0">
+                                        <CaseCard {...item} index={index} />
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                )}
+            </section>
+
+            {/* 4. Brand Identity Footer (Merged from Intro) */}
+            <section className="py-16 md:py-32 bg-slate-900 relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(64,84,231,0.1)_0%,transparent_70%)]" />
+                </div>
+
+                <div className="container relative z-10 px-6">
+                    <motion.div
+                        className="p-8 md:p-20 bg-white/5 backdrop-blur-3xl rounded-[30px] md:rounded-[40px] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-10"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="space-y-4 text-center md:text-left">
+                            <h3 className="text-[24px] md:text-[42px] font-black text-white leading-tight">라이더의 권익을 대변하는<br /> <span className="text-primary">든든한 파트너</span>가 되겠습니다.</h3>
+                            <div className="flex flex-col gap-1">
+                                <p className="text-white/40 font-black text-lg">주식회사 LLNP</p>
+                                <p className="text-primary font-bold tracking-widest uppercase text-sm">Team Ridy</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                        </div>
+                    </motion.div>
                 </div>
             </section>
         </div>
