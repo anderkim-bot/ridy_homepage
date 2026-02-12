@@ -69,7 +69,7 @@ const Intro = () => {
                             라이더의 가치를 높이고,<br />
                             배달 생태계의 <span className="text-primary">기준을 바꿉니다.</span>
                         </h1>
-                        <p className="text-body text-[18px] md:text-[24px] text-text-muted leading-relaxed max-w-3xl mx-auto font-medium">
+                        <p className="text-[16px] md:text-[19px] text-text-muted leading-relaxed max-w-3xl mx-auto font-medium">
                             라이디는 단순히 서비스를 제공하는 것을 넘어,<br className="hidden md:block" />
                             라이더가 사회적으로 존중받고 경제적으로 안정된 환경에서<br className="hidden md:block" />
                             오직 '운행'에만 전념할 수 있는 건강한 생태계를 구축합니다.

@@ -96,7 +96,7 @@ const Payout = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-[42px] md:text-[84px] font-black text-white leading-[1.05] tracking-tight mb-10"
+                            className="text-hero text-white mb-10"
                         >
                             복잡한 정산 관리, <br />
                             <span className="bg-linear-to-r from-primary to-indigo-400 bg-clip-text text-transparent">
@@ -108,7 +108,7 @@ const Payout = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-[18px] md:text-[24px] font-bold text-white/50 max-w-3xl leading-relaxed mb-16"
+                            className="text-[16px] md:text-[19px] font-medium text-white/50 max-w-3xl leading-relaxed mb-16"
                         >
                             관리자도 라이더도 편리한 정산 계산 서비스. <br className="hidden md:block" />
                             이제 정산의 스트레스에서 벗어나 비즈니스 성장에만 집중하세요.

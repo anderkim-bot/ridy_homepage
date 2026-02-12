@@ -83,7 +83,7 @@
 
   /* Typography Presets */
   .text-hero {
-    @apply text-[32px] md:text-[48px] font-extrabold leading-[1.6] tracking-[-0.04em] text-text-secondary;
+    @apply text-[40px] md:text-[64px] lg:text-[76px] font-extrabold leading-[1.1] tracking-tight;
   }
 
   .text-section-title {
@@ -131,11 +131,41 @@
 
   /* Input */
   .form-input-ridy {
-    @apply w-full h-[48px] border border-[#E0E0E0] rounded-[8px] px-[16px] text-[16px] font-normal text-text-primary bg-white outline-none focus:border-primary transition-all;
+    @apply w-full h-[48px] border border-[#E0E0E0] rounded-[8px] px-[16px] font-bold text-text-primary bg-white outline-none focus:border-primary transition-all;
+    font-size: clamp(0.875rem, 1vw + 0.6rem, 1rem);
+    /* 14px to 16px */
   }
 
   .form-label-ridy {
-    @apply block text-[14px] font-normal text-text-primary mb-[6px];
+    @apply block font-black text-text-primary mb-[6px];
+    font-size: clamp(0.75rem, 0.5vw + 0.6rem, 0.875rem);
+    /* 12px to 14px */
+  }
+
+  /* Fluid Typography Utilities */
+  .text-fluid-xs {
+    font-size: clamp(0.625rem, 0.5vw + 0.5rem, 0.75rem) !important;
+    /* 10px to 12px */
+  }
+
+  .text-fluid-sm {
+    font-size: clamp(0.75rem, 1vw + 0.6rem, 0.9375rem) !important;
+    /* 12px to 15px */
+  }
+
+  .text-fluid-base {
+    font-size: clamp(0.875rem, 1.5vw + 0.7rem, 1.125rem) !important;
+    /* 14px to 18px */
+  }
+
+  .text-fluid-lg {
+    font-size: clamp(1.125rem, 2vw + 0.8rem, 1.5rem) !important;
+    /* 18px to 24px */
+  }
+
+  .text-fluid-xl {
+    font-size: clamp(1.5rem, 3vw + 1rem, 2.25rem) !important;
+    /* 24px to 36px */
   }
 }
 

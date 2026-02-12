@@ -390,8 +390,8 @@ const AdminCenters = () => {
                                             <Building2 size={24} />
                                         </div>
                                         <div>
-                                            <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCenter ? '센터 정보 수정' : '신규 센터 등록'}</h2>
-                                            <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Service Center Details</p>
+                                            <h2 className="text-fluid-xl font-black text-slate-900 tracking-tight leading-none">{editingCenter ? '센터 정보 수정' : '신규 센터 등록'}</h2>
+                                            <p className="text-fluid-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Service Center Details</p>
                                         </div>
                                     </div>
                                     <button
@@ -408,38 +408,38 @@ const AdminCenters = () => {
                                             {/* Left Column: Basic Info */}
                                             <div className="space-y-8">
                                                 <div className="space-y-4">
-                                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                                         <Info size={16} className="text-indigo-600" />
                                                         기본 정보
                                                     </h3>
                                                     <div className="grid grid-cols-1 gap-4">
                                                         <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-black text-slate-400 ml-1">센터명</label>
+                                                            <label className="text-fluid-xs font-black text-slate-400 ml-1">센터명</label>
                                                             <input
                                                                 type="text"
                                                                 required
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                 value={formData.name}
                                                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                                 placeholder="강동점"
                                                             />
                                                         </div>
                                                         <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-black text-slate-400 ml-1">주소</label>
+                                                            <label className="text-fluid-xs font-black text-slate-400 ml-1">주소</label>
                                                             <input
                                                                 type="text"
                                                                 required
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                 value={formData.address}
                                                                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                                                                 placeholder="서울 강동구 풍성로 147-5"
                                                             />
                                                         </div>
                                                         <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-black text-slate-400 ml-1">상세주소 (선택)</label>
+                                                            <label className="text-fluid-xs font-black text-slate-400 ml-1">상세주소 (선택)</label>
                                                             <input
                                                                 type="text"
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                 value={formData.detailAddress}
                                                                 onChange={(e) => setFormData({ ...formData, detailAddress: e.target.value })}
                                                                 placeholder="1층"
@@ -449,29 +449,29 @@ const AdminCenters = () => {
                                                 </div>
 
                                                 <div className="space-y-4">
-                                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                                         <Phone size={16} className="text-indigo-600" />
                                                         연락처 및 운영시간
                                                     </h3>
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                         <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-black text-slate-400 ml-1">전화번호</label>
+                                                            <label className="text-fluid-xs font-black text-slate-400 ml-1">전화번호</label>
                                                             <input
                                                                 type="text"
                                                                 required
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                 value={formData.phone}
                                                                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                                 placeholder="02-1234-5678"
                                                             />
                                                         </div>
                                                         <div className="space-y-1.5">
-                                                            <label className="text-[11px] font-black text-slate-400 ml-1">운영시간</label>
+                                                            <label className="text-fluid-xs font-black text-slate-400 ml-1">운영시간</label>
                                                             <div className="flex items-center gap-2">
                                                                 <input
                                                                     type="time"
                                                                     required
-                                                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                     value={formData.openTime}
                                                                     onChange={(e) => setFormData({ ...formData, openTime: e.target.value })}
                                                                 />
@@ -479,7 +479,7 @@ const AdminCenters = () => {
                                                                 <input
                                                                     type="time"
                                                                     required
-                                                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                     value={formData.closeTime}
                                                                     onChange={(e) => setFormData({ ...formData, closeTime: e.target.value })}
                                                                 />
@@ -506,7 +506,7 @@ const AdminCenters = () => {
                                                             <button
                                                                 type="button"
                                                                 onClick={handleAddService}
-                                                                className="px-6 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-slate-800 transition-all"
+                                                                className="px-6 bg-slate-900 text-white rounded-xl font-bold text-fluid-sm hover:bg-slate-800 transition-all"
                                                             >
                                                                 추가
                                                             </button>
@@ -526,7 +526,7 @@ const AdminCenters = () => {
                                             {/* Right Column: Visual Info */}
                                             <div className="space-y-8">
                                                 <div className="space-y-4">
-                                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                                         <MapIcon size={16} className="text-indigo-600" />
                                                         위치 지정 (South Korea Map)
                                                     </h3>
@@ -537,7 +537,7 @@ const AdminCenters = () => {
                                                 </div>
 
                                                 <div className="space-y-4">
-                                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                    <h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                                         <Upload size={16} className="text-indigo-600" />
                                                         센터 이미지
                                                     </h3>
@@ -546,11 +546,11 @@ const AdminCenters = () => {
                                                             <>
                                                                 <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
                                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                                                                    <label className="cursor-pointer bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-sm hover:scale-105 transition-all flex items-center gap-2 shadow-lg">
+                                                                    <label className="cursor-pointer bg-white text-slate-900 px-4 py-2 rounded-lg font-bold text-fluid-sm hover:scale-105 transition-all flex items-center gap-2 shadow-lg">
                                                                         <Edit3 size={16} /> 변경
                                                                         <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                                                                     </label>
-                                                                    <button type="button" onClick={() => setFormData({ ...formData, image: '' })} className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-sm hover:scale-105 transition-all flex items-center gap-2 shadow-lg">
+                                                                    <button type="button" onClick={() => setFormData({ ...formData, image: '' })} className="bg-red-500 text-white px-4 py-2 rounded-lg font-bold text-fluid-sm hover:scale-105 transition-all flex items-center gap-2 shadow-lg">
                                                                         <Trash2 size={16} /> 삭제
                                                                     </button>
                                                                 </div>
@@ -560,7 +560,7 @@ const AdminCenters = () => {
                                                                 <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center text-slate-400 mb-4 group-hover:scale-110 transition-transform duration-500">
                                                                     <Plus size={24} />
                                                                 </div>
-                                                                <p className="text-sm font-black text-slate-900">클릭하여 이미지 업로드</p>
+                                                                <p className="text-fluid-sm font-black text-slate-900">클릭하여 이미지 업로드</p>
                                                                 <p className="text-[11px] font-bold text-slate-400 mt-1">추천 사이즈: 16:9 비율</p>
                                                                 <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
                                                             </label>
@@ -574,7 +574,7 @@ const AdminCenters = () => {
 
                                 <div className="px-6 md:px-10 py-5 border-t border-slate-100 bg-white flex flex-col md:flex-row justify-end gap-3 shrink-0">
                                     <button type="button" onClick={handleCloseModal} className="order-2 md:order-1 px-8 py-3.5 rounded-lg text-slate-400 font-black text-sm hover:bg-slate-50 transition-all flex items-center justify-center">취소</button>
-                                    <button form="center-form" type="submit" className="order-1 md:order-2 bg-indigo-600 text-white px-10 py-3.5 rounded-lg font-black text-sm hover:bg-indigo-700 transition-all active:scale-95 shadow-xl shadow-indigo-600/10 uppercase tracking-widest flex items-center justify-center gap-3">
+                                    <button form="center-form" type="submit" className="order-1 md:order-2 bg-indigo-600 text-white px-10 py-3.5 rounded-lg font-black text-fluid-sm hover:bg-indigo-700 transition-all active:scale-95 shadow-xl shadow-indigo-600/10 uppercase tracking-widest flex items-center justify-center gap-3">
                                         <span>{editingCenter ? '수정 사항 저장' : '새 서비스센터 등록'}</span>
                                     </button>
                                 </div>

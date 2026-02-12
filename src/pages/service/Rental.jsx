@@ -212,11 +212,11 @@ const Rental = () => {
                                 className="h-10 md:h-12 w-auto brightness-0 invert opacity-80"
                             />
                         </div>
-                        <h1 className="text-white text-[42px] md:text-[80px] font-black leading-[1.1] tracking-tight mb-8">
+                        <h1 className="text-hero text-white mb-8">
                             무심사·비대면 <br className="md:hidden" />
                             <span className="text-white/40">라이디 렌탈</span>
                         </h1>
-                        <p className="text-white/60 text-[18px] md:text-[22px] font-bold leading-relaxed max-w-2xl mx-auto">
+                        <p className="text-white/50 text-[16px] md:text-[19px] font-medium leading-relaxed max-w-2xl mx-auto">
                             까다로운 심사 없이, <br className="hidden md:block" />
                             계약 다음 날 당신의 집 앞으로 배달됩니다.
                         </p>

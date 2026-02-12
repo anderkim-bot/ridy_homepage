@@ -63,7 +63,7 @@ const Navbar = () => {
         <div className="container flex justify-between items-center h-full">
           {/* Logo */}
           <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img src={Logo} alt="RIDY Logo" className="h-6 md:h-7 w-auto" />
+            <img src={Logo} alt="라이디 (RIDY) 로고" className="h-6 md:h-7 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

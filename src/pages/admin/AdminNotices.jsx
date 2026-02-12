@@ -317,8 +317,8 @@ const AdminNotices = () => {
                                         <Bell size={22} />
                                     </div>
                                     <div>
-                                        <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingNotice ? '공지사항 수정' : '신규 공지사항 추가'}</h2>
-                                        <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingNotice ? 'Edit' : 'New'} Entry</p>
+                                        <h2 className="text-fluid-xl font-black text-slate-900 tracking-tight leading-none">{editingNotice ? '공지사항 수정' : '신규 공지사항 추가'}</h2>
+                                        <p className="text-fluid-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingNotice ? 'Edit' : 'New'} Entry</p>
                                     </div>
                                 </div>
                                 <button
@@ -334,12 +334,12 @@ const AdminNotices = () => {
                                 <form id="notice-form" onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="space-y-2">
-                                            <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">카테고리</label>
+                                            <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">카테고리</label>
                                             <select
                                                 name="category"
                                                 value={formData.category}
                                                 onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                                                className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all text-fluid-sm"
                                             >
                                                 {CATEGORIES.map(cat => (
                                                     <option key={cat} value={cat}>{cat}</option>
@@ -347,37 +347,37 @@ const AdminNotices = () => {
                                             </select>
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">게시일</label>
+                                            <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">게시일</label>
                                             <input
                                                 type="date"
                                                 name="date"
                                                 value={formData.date}
                                                 onChange={handleInputChange}
-                                                className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                                                className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all text-fluid-sm"
                                             />
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">공지 제목</label>
+                                        <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">공지 제목</label>
                                         <input
                                             type="text"
                                             name="title"
                                             placeholder="공지사항 제목을 입력하세요"
                                             value={formData.title}
                                             onChange={handleInputChange}
-                                            className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all"
+                                            className="w-full bg-slate-50 border-none rounded-xl px-5 py-3.5 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all text-fluid-sm"
                                         />
                                     </div>
 
                                     <div className="space-y-2">
-                                        <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">상세 내용</label>
+                                        <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">상세 내용</label>
                                         <textarea
                                             name="content"
                                             placeholder="상세 내용을 입력하세요"
                                             value={formData.content}
                                             onChange={handleInputChange}
-                                            className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all min-h-[200px] resize-none"
+                                            className="w-full bg-slate-50 border-none rounded-xl px-5 py-4 font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 transition-all min-h-[200px] resize-none text-fluid-sm"
                                         />
                                     </div>
                                 </form>

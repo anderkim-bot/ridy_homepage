@@ -64,7 +64,7 @@ const CustomSelect = ({ label, value, options, onChange, darkMode = false }) => 
 
     return (
         <div ref={containerRef} className="relative flex flex-col gap-2 mb-6">
-            <label className="text-[12px] font-bold text-text-tertiary ml-1 uppercase tracking-wider">
+            <label className="text-fluid-xs font-bold text-text-tertiary ml-1 uppercase tracking-wider">
                 {label}
             </label>
             <div
@@ -74,7 +74,7 @@ const CustomSelect = ({ label, value, options, onChange, darkMode = false }) => 
                         ? 'bg-bg-dark-card border-white/10 text-white'
                         : 'bg-white border-[#E0E0E0] text-text-primary hover:border-primary'}`}
             >
-                <span className="text-[14px] font-bold">{selectedOption ? selectedOption.label : '선택해주세요'}</span>
+                <span className="text-fluid-sm font-bold">{selectedOption ? selectedOption.label : '선택해주세요'}</span>
                 <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} text-text-muted`} />
             </div>
 
@@ -95,7 +95,7 @@ const CustomSelect = ({ label, value, options, onChange, darkMode = false }) => 
                                     onChange(opt.value);
                                     setIsOpen(false);
                                 }}
-                                className={`px-4 py-3 text-[14px] font-bold cursor-pointer transition-colors
+                                className={`px-4 py-3 text-fluid-sm font-bold cursor-pointer transition-colors
                                     ${darkMode
                                         ? 'text-white/70 hover:bg-white/5 hover:text-white'
                                         : 'text-text-secondary hover:bg-bg-light hover:text-primary'}`}
@@ -608,7 +608,15 @@ const AdminModels = () => {
                         <motion.div initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: "100%" }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="relative bg-white w-full max-w-7xl h-[95vh] md:h-[90vh] rounded-t-xl md:rounded-xl shadow-2xl flex flex-col overflow-hidden" >
 
                             <div className="px-6 md:px-10 py-5 md:py-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0">
-                                <div className="flex items-center gap-4"><div className={`w-11 h-11 md:w-12 md:h-12 rounded-[12px] flex items-center justify-center ${currentBrand === 'SUCCESSION' ? 'bg-amber-500 text-white' : 'bg-primary text-white'}`}><PackagePlus size={22} /></div><div><h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{currentBrand === 'SUCCESSION' ? '리스 승계 관리' : '기종 관리'}</h2><p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingId ? 'Edit' : 'New'} Entry</p></div></div>
+                                <div className="flex items-center gap-4">
+                                    <div className={`w-11 h-11 md:w-12 md:h-12 rounded-[12px] flex items-center justify-center ${currentBrand === 'SUCCESSION' ? 'bg-amber-500 text-white' : 'bg-primary text-white'}`}>
+                                        <PackagePlus size={22} />
+                                    </div>
+                                    <div>
+                                        <h2 className="text-fluid-xl font-black text-slate-900 tracking-tight leading-none">{currentBrand === 'SUCCESSION' ? '리스 승계 관리' : '기종 관리'}</h2>
+                                        <p className="text-fluid-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">{editingId ? 'Edit' : 'New'} Entry</p>
+                                    </div>
+                                </div>
                                 <button onClick={!isSubmitting ? closeModal : undefined} className="w-10 h-10 bg-slate-50 hover:bg-slate-100 rounded-full flex items-center justify-center text-slate-400 transition-all"><X size={20} /></button>
                             </div>
 
@@ -616,7 +624,7 @@ const AdminModels = () => {
                                 <div className="grid grid-cols-1 lg:grid-cols-12">
                                     <div className="lg:col-span-12 xl:col-span-7 p-6 md:p-10 lg:pb-32 space-y-10 border-r border-slate-50">
                                         <section className="space-y-8">
-                                            <div className="flex items-center gap-3"><div className="w-1 h-5 bg-primary rounded-full" /><h3 className="text-[11px] md:text-[12px] font-black text-slate-900 uppercase tracking-widest">Classification</h3></div>
+                                            <div className="flex items-center gap-3"><div className="w-1 h-5 bg-primary rounded-full" /><h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest">Classification</h3></div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                                                 <div className="col-span-1"><CustomSelect label="Category Agency" value={currentBrand} options={[{ label: 'HONDA (혼다)', value: 'HONDA' }, { label: 'YAMAHA (야마하)', value: 'YAMAHA' }, { label: 'ZONTES (존테스)', value: 'ZONTES' }, { label: '리스 승계 (SUCCESSION)', value: 'SUCCESSION' }]} onChange={(val) => setValue('brand', val)} /></div>
                                                 {currentBrand === 'SUCCESSION' ? (
@@ -627,38 +635,38 @@ const AdminModels = () => {
                                             </div>
                                         </section>
                                         <section className="space-y-8">
-                                            <div className="flex items-center gap-3"><div className="w-1 h-5 bg-slate-300 rounded-full" /><h3 className="text-[11px] md:text-[12px] font-black text-slate-900 uppercase tracking-widest">General Information</h3></div>
+                                            <div className="flex items-center gap-3"><div className="w-1 h-5 bg-slate-300 rounded-full" /><h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest">General Information</h3></div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                                                 <div className="col-span-1 md:col-span-2 flex flex-col gap-2">
-                                                    <label className="cms-label">Model Name / Title</label>
-                                                    <input {...register('name')} className={`cms-input ${errors.name ? 'border-red-500 bg-red-50/30' : ''}`} placeholder="ex) HONDA PCX 125" />
+                                                    <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">Model Name / Title</label>
+                                                    <input {...register('name')} className={`w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all ${errors.name ? 'border-red-500 bg-red-50/30' : ''}`} placeholder="ex) HONDA PCX 125" />
                                                     {errors.name && <span className="text-[10px] font-bold text-red-500 ml-1 flex items-center gap-1"><AlertCircle size={10} /> {errors.name.message}</span>}
                                                 </div>
                                                 <div className="col-span-1 md:col-span-2 flex flex-col gap-2">
-                                                    <label className="cms-label">URL Identifier (Slug)</label>
-                                                    <input {...register('slug')} className={`cms-input font-mono text-sm ${errors.slug ? 'border-red-500 bg-red-50/30' : ''}`} placeholder="pcx-125-2024" />
+                                                    <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">URL Identifier (Slug)</label>
+                                                    <input {...register('slug')} className={`w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all font-mono ${errors.slug ? 'border-red-500 bg-red-50/30' : ''}`} placeholder="pcx-125-2024" />
                                                     {errors.slug && <span className="text-[10px] font-bold text-red-500 ml-1 flex items-center gap-1"><AlertCircle size={10} /> {errors.slug.message}</span>}
                                                 </div>
                                             </div>
                                         </section>
                                         {/* Specification Section */}
                                         <section className="space-y-8 p-6 md:p-10 bg-slate-900 rounded-xl md:rounded-xl text-white shadow-2xl shadow-slate-900/20">
-                                            <div className="flex items-center gap-3"><Cpu size={16} className="text-primary" /><h3 className="text-[11px] md:text-[12px] font-black text-slate-300 uppercase tracking-widest">Specifications</h3></div>
+                                            <div className="flex items-center gap-3"><Cpu size={16} className="text-primary" /><h3 className="text-fluid-xs font-black text-slate-300 uppercase tracking-widest">Specifications</h3></div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                                                 {currentBrand === 'SUCCESSION' ? (
                                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 w-full">
                                                         <div className="col-span-1 md:col-span-2"><CustomSelect label="승계 진행 상태" value={watch('isCompleted') ? 'yes' : 'no'} options={[{ label: '승계 완료 (Completed)', value: 'yes' }, { label: '진행 중 (Available)', value: 'no' }]} onChange={(val) => setValue('isCompleted', val === 'yes')} darkMode={true} /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">차량번호</label><input {...register('plateNumber')} className="su-input" placeholder="예) 서울 강동 타 1234" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">연식</label><input {...register('year')} className="su-input" placeholder="예) 25년" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">주행거리</label><input {...register('mileage')} className="su-input" placeholder="예) 1234km" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">잔여 계약 기간</label><input {...register('remainingPeriod')} className="su-input" placeholder="예) 123일" /></div>
-                                                        <div className="col-span-1 md:col-span-2 flex flex-col gap-3 mb-2"><label className="su-label">사고이력</label><textarea {...register('accidentHistory')} className="su-input min-h-[80px] py-4" placeholder="사고 이력을 상세히 입력해주세요." /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">차량번호</label><input {...register('plateNumber')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 서울 강동 타 1234" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">연식</label><input {...register('year')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 25년" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">주행거리</label><input {...register('mileage')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 1234km" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">잔여 계약 기간</label><input {...register('remainingPeriod')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 123일" /></div>
+                                                        <div className="col-span-1 md:col-span-2 flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">사고이력</label><textarea {...register('accidentHistory')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all min-h-[80px] py-4" placeholder="사고 이력을 상세히 입력해주세요." /></div>
                                                         <div className="col-span-1 md:col-span-2"><CustomSelect label="정비/소모품 상태" value={currentMaintenance} darkMode={true} options={[{ label: '새상품급', value: '새상품급' }, { label: '매우 양호', value: '매우 양호' }, { label: '양호', value: '양호' }, { label: '사용감 있음', value: '사용감 있음' }, { label: '교환 필요', value: '교환 필요' }]} onChange={(val) => setValue('maintenanceStatus', val)} /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">색상 이름</label><input {...register('successionColor')} className="su-input" placeholder="예) 블랙" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">색상 이름</label><input {...register('successionColor')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 블랙" /></div>
                                                         <div className="flex flex-col gap-3 mb-2">
-                                                            <label className="su-label">색상 피커</label>
-                                                            <div className="flex items-center gap-4 su-input cursor-pointer" onClick={() => setIsSuccessionPickerOpen(true)}>
+                                                            <label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">색상 피커</label>
+                                                            <div className="flex items-center gap-4 w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all cursor-pointer" onClick={() => setIsSuccessionPickerOpen(true)}>
                                                                 <div className="w-6 h-6 rounded-full border border-white/20" style={{ backgroundColor: watch('successionColorHex') }} />
                                                                 <span className="font-mono text-sm uppercase">{watch('successionColorHex')}</span>
                                                             </div>
@@ -666,11 +674,11 @@ const AdminModels = () => {
                                                     </div>
                                                 ) : (
                                                     <>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">차량중량 (KG)</label><input {...register('weight')} className="su-input" placeholder="예) 186" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">배기량 (CC)</label><input {...register('displacement')} className="su-input" placeholder="예) 125cc" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">엔진</label><input {...register('engine')} className="su-input" placeholder="엔진 형식을 입력하세요" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">냉각방식</label><input {...register('cooling')} className="su-input" /></div>
-                                                        <div className="flex flex-col gap-3 mb-2"><label className="su-label">최고출력 (PS/RPM)</label><input {...register('maxPower')} className="su-input" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">차량중량 (KG)</label><input {...register('weight')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 186" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">배기량 (CC)</label><input {...register('displacement')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="예) 125cc" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">엔진</label><input {...register('engine')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" placeholder="엔진 형식을 입력하세요" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">냉각방식</label><input {...register('cooling')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" /></div>
+                                                        <div className="flex flex-col gap-3 mb-2"><label className="text-fluid-xs font-black text-slate-500 uppercase tracking-widest ml-1">최고출력 (PS/RPM)</label><input {...register('maxPower')} className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-white outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent transition-all" /></div>
                                                         <div className="col-span-1 md:col-span-2"><CustomSelect label="인기상품 노출" value={watch('isPopular') ? 'yes' : 'no'} options={[{ label: '인기상품으로 노출 (YES)', value: 'yes' }, { label: '일반 기종 (NO)', value: 'no' }]} onChange={(val) => setValue('isPopular', val === 'yes')} darkMode={true} /></div>
                                                     </>
                                                 )}
@@ -678,7 +686,7 @@ const AdminModels = () => {
                                         </section>
                                     </div>
                                     <div className="lg:col-span-12 xl:col-span-5 p-6 md:p-10 bg-slate-50/50 space-y-10">
-                                        <div className="flex items-center gap-3"><Palette size={16} className="text-primary" /><h3 className="text-[11px] md:text-[12px] font-black text-slate-900 uppercase tracking-widest">Visual Assets (Images & Colors)</h3></div>
+                                        <div className="flex items-center gap-3"><Palette size={16} className="text-primary" /><h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest">Visual Assets (Images & Colors)</h3></div>
                                         {currentBrand === 'SUCCESSION' ? <GalleryManager /> : (
                                             <div className="space-y-4">
                                                 <div className="p-4 bg-blue-50/50 rounded-xl border border-blue-100 flex gap-3 text-blue-600">
@@ -690,8 +698,8 @@ const AdminModels = () => {
                                                         <div className="w-16 h-16 shrink-0"><ImageDropzone index={idx} /></div>
                                                         <div className="flex-1 space-y-3">
                                                             <div className="flex flex-col gap-1.5">
-                                                                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Color Name {idx + 1}</label>
-                                                                <input {...register(`items.${idx}.colorName`)} placeholder="ex) Pearl White" className="cms-input py-2.5! text-[12px]! bg-slate-50! border-none" />
+                                                                <label className="text-fluid-xs font-black text-slate-400 uppercase tracking-widest ml-1">Color Name {idx + 1}</label>
+                                                                <input {...register(`items.${idx}.colorName`)} placeholder="ex) Pearl White" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-fluid-sm font-bold text-slate-900 outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all py-2.5! text-[12px]! bg-slate-50! border-none" />
                                                             </div>
 
                                                             <div className="flex items-center gap-3">

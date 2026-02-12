@@ -283,8 +283,8 @@ const AdminCases = () => {
                                         <Briefcase size={24} />
                                     </div>
                                     <div>
-                                        <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-none">{editingCase ? '출고 사례 수정' : '신규 사례 등록'}</h2>
-                                        <p className="text-[10px] md:text-[11px] font-bold text-slate-400 mt-1 uppercase tracking-widest">Delivery Case Details</p>
+                                        <h2 className="text-fluid-xl font-black text-slate-900 tracking-tight leading-none">{editingCase ? '출고 사례 수정' : '신규 사례 등록'}</h2>
+                                        <p className="text-fluid-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Delivery Case Details</p>
                                     </div>
                                 </div>
                                 <button
@@ -301,18 +301,18 @@ const AdminCases = () => {
                                         {/* Left Column: Info */}
                                         <div className="space-y-8">
                                             <div className="space-y-4">
-                                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                <h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                                     <Info size={16} className="text-indigo-600" />
                                                     기본 정보
                                                 </h3>
                                                 <div className="space-y-4">
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-black text-slate-400 ml-1">출고 지역</label>
+                                                        <label className="text-fluid-xs font-black text-slate-400 ml-1">출고 지역</label>
                                                         <div className="relative">
                                                             <input
                                                                 type="text"
                                                                 required
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                 value={formData.region}
                                                                 onChange={(e) => setFormData({ ...formData, region: e.target.value })}
                                                                 placeholder="예: 서울 강남구"
@@ -321,12 +321,12 @@ const AdminCases = () => {
                                                         </div>
                                                     </div>
                                                     <div className="space-y-1.5">
-                                                        <label className="text-[11px] font-black text-slate-400 ml-1">카페 리포트 링크</label>
+                                                        <label className="text-fluid-xs font-black text-slate-400 ml-1">카페 리포트 링크</label>
                                                         <div className="relative">
                                                             <input
                                                                 type="url"
                                                                 required
-                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                                 value={formData.link}
                                                                 onChange={(e) => setFormData({ ...formData, link: e.target.value })}
                                                                 placeholder="https://cafe.naver.com/..."
@@ -338,14 +338,14 @@ const AdminCases = () => {
                                             </div>
 
                                             <div className="space-y-4">
-                                                <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
+                                                <h3 className="text-fluid-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
                                                     <AlignLeft size={16} className="text-indigo-600" />
                                                     상세 설명
                                                 </h3>
                                                 <textarea
                                                     required
                                                     rows={6}
-                                                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-6 text-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
+                                                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-6 text-fluid-sm font-bold focus:bg-white focus:border-indigo-600 outline-none transition-all"
                                                     value={formData.description}
                                                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                                     placeholder="출고 기종, 특징 등 상세 내용을 입력해주세요."

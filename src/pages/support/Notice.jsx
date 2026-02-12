@@ -137,10 +137,10 @@ const Notice = () => {
                             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-600 text-sm font-black uppercase tracking-widest">
                                 <Bell size={16} /> Notification
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
+                            <h1 className="text-hero text-slate-900">
                                 공지사항
                             </h1>
-                            <p className="text-lg md:text-xl text-slate-500 font-bold max-w-2xl mx-auto">
+                            <p className="text-[16px] md:text-[19px] text-slate-500 font-medium max-w-2xl mx-auto">
                                 라이디의 최신 소식과 서비스 이용에 필요한 <br className="hidden md:block" />
                                 중요한 안내 사항을 가장 빠르게 전달해 드립니다.
                             </p>

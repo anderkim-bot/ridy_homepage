@@ -40,7 +40,7 @@ const Yamaha = () => {
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-[40px] md:text-[64px] font-black text-slate-900 leading-tight"
+                            className="text-hero text-slate-900"
                         >
                             YAMAHA
                         </motion.h1>
@@ -48,7 +48,7 @@ const Yamaha = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-[16px] md:text-[20px] font-bold text-slate-500 leading-relaxed"
+                            className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
                         >
                             감동의 야마하, 감각적인 디자인과 탁월한 엔진 성능을 자랑하는 렌탈 라인업을 확인하세요.
                         </motion.p>

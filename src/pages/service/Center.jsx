@@ -248,7 +248,7 @@ const Center = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-[42px] md:text-[84px] font-black text-white leading-[1.05] tracking-tight mb-10"
+                            className="text-hero text-white mb-10"
                         >
                             라이더의 안전을 지키는 <br />
                             <span className="bg-linear-to-r from-primary to-indigo-400 bg-clip-text text-transparent">최상의 정비 솔루션</span>
@@ -258,7 +258,7 @@ const Center = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            className="text-[18px] md:text-[24px] font-bold text-white/50 max-w-3xl leading-relaxed mb-16"
+                            className="text-[16px] md:text-[19px] font-medium text-white/50 max-w-3xl leading-relaxed mb-16"
                         >
                             전국 최대 규모의 서비스 네트워크와 숙련된 전문가들이 <br className="hidden md:block" />
                             라이더님의 주행 환경을 가장 완벽하게 관리해 드립니다.

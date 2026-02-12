@@ -40,7 +40,7 @@ const Zontes = () => {
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-[40px] md:text-[64px] font-black text-slate-900 leading-tight"
+                            className="text-hero text-slate-900"
                         >
                             ZONTES
                         </motion.h1>
@@ -48,7 +48,7 @@ const Zontes = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-[16px] md:text-[20px] font-bold text-slate-500 leading-relaxed"
+                            className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
                         >
                             차세대 강자 존테스, 스마트한 기술력과 독보적인 가성비의 최신 기종들을 경험해보세요.
                         </motion.p>

@@ -40,7 +40,7 @@ const Honda = () => {
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-[40px] md:text-[64px] font-black text-slate-900 leading-tight"
+                            className="text-hero text-slate-900"
                         >
                             HONDA
                         </motion.h1>
@@ -48,7 +48,7 @@ const Honda = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-[16px] md:text-[20px] font-bold text-slate-500 leading-relaxed"
+                            className="text-[16px] md:text-[19px] font-medium text-slate-500 leading-relaxed"
                         >
                             기술의 혼다, 전국 라이디 지점에서 가장 신뢰받는 인기 모델들을 지금 렌탈로 만나보세요.
                         </motion.p>
